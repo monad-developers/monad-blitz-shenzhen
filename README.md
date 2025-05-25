@@ -1,2 +1,2 @@
-# monad-blitz-shenzhen
-Monad Blitz Shenzhen Submissions
+# My Project
+My Project
