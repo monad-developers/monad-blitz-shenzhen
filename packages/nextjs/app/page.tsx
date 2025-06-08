@@ -67,16 +67,22 @@ const Home: NextPage = () => {
       case "nursing":
         return (
           <div className="space-y-6">
-            <div className="flex space-x-4 mb-4">
+            <div className="flex space-x-2 mb-6 bg-gray-100 p-1 rounded-lg">
               <button
                 onClick={() => setActiveSubTab("create")}
-                className={`px-4 py-2 rounded-lg ${activeSubTab === "create" ? "bg-gray-600 text-white" : "bg-gray-200 text-gray-700"}`}
+                className={`flex-1 px-6 py-3 rounded-md font-medium transition-all duration-200 ${activeSubTab === "create"
+                  ? "bg-white text-gray-800 shadow-md"
+                  : "text-gray-600 hover:text-gray-800"
+                  }`}
               >
                 创建档案
               </button>
               <button
                 onClick={() => setActiveSubTab("transfer")}
-                className={`px-4 py-2 rounded-lg ${activeSubTab === "transfer" ? "bg-gray-600 text-white" : "bg-gray-200 text-gray-700"}`}
+                className={`flex-1 px-6 py-3 rounded-md font-medium transition-all duration-200 ${activeSubTab === "transfer"
+                  ? "bg-white text-gray-800 shadow-md"
+                  : "text-gray-600 hover:text-gray-800"
+                  }`}
               >
                 转院服务
               </button>
@@ -136,7 +142,7 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="h-screen bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-gray-100 flex flex-col">
       {/* Wallet Connection Bar */}
       <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
         <RainbowKitCustomConnectButton />
@@ -144,16 +150,16 @@ const Home: NextPage = () => {
       </div>
 
       {/* Hero Section */}
-      <div className="relative pt-6 pb-4">
-        <div className="absolute inset-0 bg-gray-200 opacity-30"></div>
+      <div className="relative pt-12 pb-8 bg-gradient-to-b from-gray-400 to-gray-500">
+        <div className="absolute inset-0 bg-black opacity-10"></div>
         <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2 leading-tight">
+          <h1 className="text-3xl md:text-4xl font-light italic text-white mb-3 leading-tight tracking-wide">
             ZangAi
           </h1>
-          <p className="text-lg md:text-xl text-gray-600 mb-1 leading-relaxed">
+          <p className="text-xl md:text-2xl font-light italic text-white mb-2 leading-relaxed tracking-wide">
             We help families tell their story.
           </p>
-          <p className="text-base text-gray-500 leading-relaxed">
+          <p className="text-lg md:text-xl font-light italic text-gray-100 leading-relaxed tracking-wide">
             Welcome to ZangAi.
           </p>
         </div>
@@ -161,10 +167,11 @@ const Home: NextPage = () => {
 
       {/* Navigation Tabs */}
       <div className="max-w-6xl mx-auto px-6 w-full">
-        <div className="border-b border-gray-300">
-          <nav className="-mb-px flex space-x-6" aria-label="Tabs">
-            {tabs.map((tab) => {
+        <div className="bg-white shadow-sm border-b border-gray-200 rounded-t-xl">
+          <nav className="flex space-x-0" aria-label="Tabs">
+            {tabs.map((tab, index) => {
               const TabIcon = tab.icon;
+              const isActive = activeTab === tab.id;
               return (
                 <button
                   key={tab.id}
@@ -172,16 +179,21 @@ const Home: NextPage = () => {
                     setActiveTab(tab.id);
                     setActiveSubTab("create"); // 重置子标签
                   }}
-                  className={`group inline-flex items-center py-3 px-1 border-b-2 font-medium text-sm transition-colors duration-200 ${activeTab === tab.id
-                    ? "border-gray-600 text-gray-800"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-400"
+                  className={`group relative flex-1 inline-flex items-center justify-center py-4 px-6 font-medium text-sm transition-all duration-300 ${isActive
+                    ? "bg-gradient-to-r from-gray-600 to-gray-700 text-white shadow-lg"
+                    : "text-gray-600 hover:text-gray-800 hover:bg-gray-50"
+                    } ${index === 0 ? "rounded-tl-xl" : ""
+                    } ${index === tabs.length - 1 ? "rounded-tr-xl" : ""
                     }`}
                 >
                   <TabIcon
-                    className={`-ml-0.5 mr-1.5 h-4 w-4 transition-colors duration-200 ${activeTab === tab.id ? "text-gray-700" : "text-gray-400 group-hover:text-gray-600"
+                    className={`mr-2 h-5 w-5 transition-all duration-300 ${isActive ? "text-white" : "text-gray-500 group-hover:text-gray-700"
                       }`}
                   />
-                  {tab.name}
+                  <span className="font-semibold">{tab.name}</span>
+                  {isActive && (
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-gray-400 to-gray-600"></div>
+                  )}
                 </button>
               );
             })}
@@ -190,20 +202,22 @@ const Home: NextPage = () => {
       </div>
 
       {/* Tab Content */}
-      <div className="flex-1 max-w-6xl mx-auto px-6 py-6 w-full overflow-auto">
-        <div className="bg-white bg-opacity-80 rounded-xl p-5 shadow-xl border border-gray-200 h-full">
-          <div className="flex items-center mb-3">
-            <IconComponent className="h-7 w-7 text-gray-600 mr-3" />
-            <div>
-              <h2 className="text-xl font-bold text-gray-800 mb-1">{activeTabData.name}</h2>
-              <p className="text-gray-600 text-sm">{activeTabData.description}</p>
+      <div className="flex-1 max-w-6xl mx-auto px-6 pb-6 w-full overflow-auto">
+        <div className="bg-white rounded-b-xl shadow-xl border-l border-r border-b border-gray-200 min-h-full">
+          <div className="p-6 border-b border-gray-100">
+            <div className="flex items-center">
+              <div className="p-3 bg-gradient-to-r from-gray-600 to-gray-700 rounded-lg mr-4">
+                <IconComponent className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-1">{activeTabData.name}管理系统</h2>
+                <p className="text-gray-600">{activeTabData.description}</p>
+              </div>
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-5">
-            <div className="md:col-span-2">
-              {renderTabContent()}
-            </div>
+          <div className="p-6">
+            {renderTabContent()}
           </div>
         </div>
       </div>
