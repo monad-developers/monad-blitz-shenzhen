@@ -6,6 +6,12 @@ import { BuildingOffice2Icon, HeartIcon, UserGroupIcon, ArchiveBoxIcon } from "@
 import { RainbowKitCustomConnectButton, FaucetButton } from "~~/components/scaffold-eth";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth";
 import { hardhat } from "viem/chains";
+import { NursingHomeForm } from "~~/components/nursing/NursingHomeForm";
+import { HospitalTransferForm } from "~~/components/hospital/HospitalTransferForm";
+import { HospitalPaymentForm } from "~~/components/hospital/HospitalPaymentForm";
+import { PatientDeceasedForm } from "~~/components/hospital/PatientDeceasedForm";
+import { FuneralServiceForm } from "~~/components/funeral/FuneralServiceForm";
+import { FuneralServiceManagement } from "~~/components/funeral/FuneralServiceManagement";
 
 interface TabData {
   id: string;
@@ -48,11 +54,86 @@ const tabs: TabData[] = [
 
 const Home: NextPage = () => {
   const [activeTab, setActiveTab] = useState("nursing");
+  const [activeSubTab, setActiveSubTab] = useState("create"); // 添加子标签状态
   const { targetNetwork } = useTargetNetwork();
   const isLocalNetwork = targetNetwork.id === hardhat.id;
 
   const activeTabData = tabs.find(tab => tab.id === activeTab) || tabs[0];
   const IconComponent = activeTabData.icon;
+
+  // 根据当前标签渲染相应的功能组件
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case "nursing":
+        return (
+          <div className="space-y-6">
+            <div className="flex space-x-4 mb-4">
+              <button
+                onClick={() => setActiveSubTab("create")}
+                className={`px-4 py-2 rounded-lg ${activeSubTab === "create" ? "bg-gray-600 text-white" : "bg-gray-200 text-gray-700"}`}
+              >
+                创建档案
+              </button>
+              <button
+                onClick={() => setActiveSubTab("transfer")}
+                className={`px-4 py-2 rounded-lg ${activeSubTab === "transfer" ? "bg-gray-600 text-white" : "bg-gray-200 text-gray-700"}`}
+              >
+                转院服务
+              </button>
+            </div>
+            {activeSubTab === "create" ? <NursingHomeForm /> : <HospitalTransferForm />}
+          </div>
+        );
+      case "hospital":
+        return (
+          <div className="space-y-6">
+            <div className="flex space-x-4 mb-4">
+              <button
+                onClick={() => setActiveSubTab("payment")}
+                className={`px-4 py-2 rounded-lg ${activeSubTab === "payment" ? "bg-gray-600 text-white" : "bg-gray-200 text-gray-700"}`}
+              >
+                治疗付费
+              </button>
+              <button
+                onClick={() => setActiveSubTab("deceased")}
+                className={`px-4 py-2 rounded-lg ${activeSubTab === "deceased" ? "bg-gray-600 text-white" : "bg-gray-200 text-gray-700"}`}
+              >
+                死亡处理
+              </button>
+            </div>
+            {activeSubTab === "payment" ? <HospitalPaymentForm /> : <PatientDeceasedForm />}
+          </div>
+        );
+      case "funeral":
+        return (
+          <div className="space-y-6">
+            <div className="flex space-x-4 mb-4">
+              <button
+                onClick={() => setActiveSubTab("confirm")}
+                className={`px-4 py-2 rounded-lg ${activeSubTab === "confirm" ? "bg-gray-600 text-white" : "bg-gray-200 text-gray-700"}`}
+              >
+                确认服务
+              </button>
+              <button
+                onClick={() => setActiveSubTab("manage")}
+                className={`px-4 py-2 rounded-lg ${activeSubTab === "manage" ? "bg-gray-600 text-white" : "bg-gray-200 text-gray-700"}`}
+              >
+                服务管理
+              </button>
+            </div>
+            {activeSubTab === "confirm" ? <FuneralServiceForm /> : <FuneralServiceManagement />}
+          </div>
+        );
+      case "cemetery":
+        return (
+          <div className="p-4 bg-gray-100 rounded-lg">
+            <p className="text-center text-gray-600">墓地服务功能正在开发中...</p>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className="h-screen bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 flex flex-col">
@@ -87,7 +168,10 @@ const Home: NextPage = () => {
               return (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
+                  onClick={() => {
+                    setActiveTab(tab.id);
+                    setActiveSubTab("create"); // 重置子标签
+                  }}
                   className={`group inline-flex items-center py-3 px-1 border-b-2 font-medium text-sm transition-colors duration-200 ${activeTab === tab.id
                     ? "border-gray-600 text-gray-800"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-400"
@@ -106,7 +190,7 @@ const Home: NextPage = () => {
       </div>
 
       {/* Tab Content */}
-      <div className="flex-1 max-w-6xl mx-auto px-6 py-6 w-full">
+      <div className="flex-1 max-w-6xl mx-auto px-6 py-6 w-full overflow-auto">
         <div className="bg-white bg-opacity-80 rounded-xl p-5 shadow-xl border border-gray-200 h-full">
           <div className="flex items-center mb-3">
             <IconComponent className="h-7 w-7 text-gray-600 mr-3" />
@@ -117,38 +201,8 @@ const Home: NextPage = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-5">
-            <div>
-              <h3 className="text-base font-semibold text-gray-700 mb-2">服务项目</h3>
-              <ul className="space-y-1.5">
-                {activeTabData.services.map((service, index) => (
-                  <li key={index} className="flex items-center text-gray-600 text-sm">
-                    <div className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></div>
-                    {service}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="bg-gray-200 bg-opacity-60 rounded-lg p-4 border border-gray-300">
-              <h3 className="text-base font-semibold text-gray-700 mb-2">联系咨询</h3>
-              <div className="space-y-1.5 text-gray-600 text-sm">
-                <p className="flex items-center">
-                  <span className="font-medium mr-2">电话:</span>
-                  400-888-0000
-                </p>
-                <p className="flex items-center">
-                  <span className="font-medium mr-2">邮箱:</span>
-                  service@zangai.com
-                </p>
-                <p className="flex items-center">
-                  <span className="font-medium mr-2">地址:</span>
-                  北京市朝阳区XXX大街123号
-                </p>
-              </div>
-
-              <button className="mt-3 w-full bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 text-sm">
-                立即咨询
-              </button>
+            <div className="md:col-span-2">
+              {renderTabContent()}
             </div>
           </div>
         </div>
