@@ -30,7 +30,7 @@ GitHub仓库: [https://github.com/new4u/GOL.git](https://github.com/new4u/GOL.gi
 *   **"Moword"输入框**：提供一个文本输入区域，为未来功能扩展预留接口。
 
 ### 可用的在线演示链接
-链接: <请在此处填写可公开访问的前端页面链接，例如通过GitHub Pages, Netlify, Vercel等部署的index.html>
+链接: https://game-of-life-nft-demo.windsurf.build/
 
 ### 所有部署在Monad Testnet的合约地址
 - **GameOfLifeDemo**: `0x680c88f57717010661710C5849a47A13694F83A0` (用途: 核心游戏逻辑，NFT铸造、游戏状态存储与检索)
