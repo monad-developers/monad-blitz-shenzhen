@@ -9,6 +9,10 @@ Get real-time intel when the wallets you follow buy, sell, or degen into somethi
 
 No alpha groups. No fake gurus. Just onchain signals from the people you trust.
 
+### 项目代码
+
+- https://github.com/SpokieKid/signalcast-monad
+
 🔗 Built with Next.js, Warpcast Frames, and deeply integrated with Monad's ultra-high-performance chain to deliver low-latency trading insights.
 ### 可用的在线演示链接
 - https://signal-cast.vercel.app
