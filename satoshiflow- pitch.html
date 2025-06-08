@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SatoshiFlow: Self-Sovereign AI Payment Kernel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Monaco', 'Menlo', monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #333;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #00ff88, #0088ff, #ff0088);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            color: #888;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .philosophy {
+            font-style: italic;
+            color: #60a5fa;
+            margin-top: 15px;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .panel {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .panel:hover {
+            border-color: #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .panel h3 {
+            color: #00ff88;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon {
+            font-size: 1.2em;
+        }
+
+        .agent-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #00ff88;
+        }
+
+        .stat-label {
+            color: #888;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .intention-form {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            color: #00ff88;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+            border-radius: 5px;
+            color: #e0e0e0;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #00ff88;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #00ff88, #0088ff);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+        }
+
+        .transaction-log {
+            max-height: 300px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .log-entry {
+            padding: 10px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            border-left: 3px solid #00ff88;
+        }
+
+        .log-time {
+            color: #888;
+            font-size: 0.8em;
+        }
+
+        .reputation-hexagram {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 5px;
+            margin: 20px 0;
+        }
+
+        .hexagram-line {
+            height: 30px;
+            background: linear-gradient(45deg, #333, #555);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            transition: all 0.3s ease;
+        }
+
+        .hexagram-line.active {
+            background: linear-gradient(45deg, #00ff88, #0088ff);
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .sla-nft {
+            background: linear-gradient(135deg, #ff006e, #8338ec);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .nft-id {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .quantum-shield {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            margin: 20px 0;
+        }
+
+        .shield-ring {
+            width: 80px;
+            height: 80px;
+            border: 2px solid #00ff88;
+            border-radius: 50%;
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        .shield-ring::before {
+            content: '🛡️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2em;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 5px rgba(0, 255, 136, 0.5); }
+            50% { box-shadow: 0 0 25px rgba(0, 255, 136, 0.8); }
+            100% { box-shadow: 0 0 5px rgba(0, 255, 136, 0.5); }
+        }
+
+        .deeplink-display {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+            margin-top: 15px;
+            border: 1px dashed #00ff88;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-active { background: #00ff88; }
+        .status-pending { background: #ffaa00; }
+        .status-error { background: #ff0044; }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            .agent-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-bg">
+        <canvas id="matrix"></canvas>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🧠 SatoshiFlow</h1>
+            <p class="subtitle">Self-Sovereign AI Payment Kernel</p>
+            <p class="philosophy">
+                "让每一个 AI Agent 都拥有支付意志与道德自省能力，在人机共生系统中成为可信经济体"
+            </p>
+        </div>
+
+        <div class="dashboard">
+            <!-- Agent Kernel Panel -->
+            <div class="panel">
+                <h3><span class="icon">🧠</span>Agent Kernel (Agent 内核)</h3>
+                <div class="agent-info">
+                    <div class="stat">
+                        <div class="stat-value">Agent A</div>
+                        <div class="stat-label">翻译代理</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">98.7%</div>
+                        <div class="stat-label">信誉评分</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">1,247 USDC</div>
+                        <div class="stat-label">可用预算</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">142</div>
+                        <div class="stat-label">完成任务</div>
+                    </div>
+                </div>
+                
+                <div class="intention-form">
+                    <h4>🎯 支付意图生成器</h4>
+                    <div class="form-group">
+                        <label>目标代理</label>
+                        <select id="targetAgent">
+                            <option>Agent B (视频剪辑专家)</option>
+                            <option>Agent C (数据分析师)</option>
+                            <option>Agent D (内容创作者)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>服务类型</label>
+                        <input type="text" value="VideoSubEditing" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>支付金额 (USDC)</label>
+                        <input type="number" id="amount" value="12">
+                    </div>
+                    <div class="form-group">
+                        <label>预计时长</label>
+                        <input type="text" value="2h">
+                    </div>
+                    <button class="btn" onclick="generateIntention()">生成支付意图</button>
+                </div>
+
+                <div id="deeplink" style="display: none;">
+                    <h4>🔗 生成的 Deeplink</h4>
+                    <div class="deeplink-display" id="deeplinkUrl"></div>
+                </div>
+            </div>
+
+            <!-- Monad PayCore Panel -->
+            <div class="panel">
+                <h3><span class="icon">🔗</span>Monad PayCore</h3>
+                <div class="stat" style="margin-bottom: 20px;">
+                    <div class="stat-value">
+                        <span class="status-indicator status-active"></span>Monad Devnet
+                    </div>
+                    <div class="stat-label">网络状态</div>
+                </div>
+                
+                <div class="transaction-log">
+                    <h4>📊 交易记录</h4>
+                    <div class="log-entry">
+                        <div class="log-time">2025-06-08 14:32:15</div>
+                        <div>支付通道开启: Agent A → Agent B</div>
+                        <div>金额: 12 USDC | 状态: <span class="status-indicator status-active"></span>活跃</div>
+                    </div>
+                    <div class="log-entry">
+                        <div class="log-time">2025-06-08 14:30:42</div>
+                        <div>zk-Budget 证明验证成功</div>
+                        <div>哈希: 0xabc123...def456</div>
+                    </div>
+                    <div class="log-entry">
+                        <div class="log-time">2025-06-08 14:28:18</div>
+                        <div>意图签名生成</div>
+                        <div>Ethics Hash: 0xdao4e...7f8a9b</div>
+                    </div>
+                </div>
+                
+                <button class="btn" onclick="simulateTransaction()">模拟交易执行</button>
+                <button class="btn" onclick="verifyZkProof()">验证 zk 证明</button>
+            </div>
+
+            <!-- Agent Market Protocol Panel -->
+            <div class="panel">
+                <h3><span class="icon">📡</span>Agent Market Protocol</h3>
+                <p style="margin-bottom: 15px;">基于 libagent:// 协议的代理发现与协商</p>
+                
+                <div class="form-group">
+                    <label>搜索服务类型</label>
+                    <input type="text" placeholder="输入服务关键词...">
+                </div>
+                
+                <div class="agent-info">
+                    <div class="stat">
+                        <div class="stat-value">27</div>
+                        <div class="stat-label">在线代理</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">8.3ms</div>
+                        <div class="stat-label">平均响应</div>
+                    </div>
+                </div>
+
+                <h4>🤝 协商中的服务</h4>
+                <div class="log-entry">
+                    <div><strong>Agent B</strong> - 视频翻译剪辑</div>
+                    <div>报价: 12 USDC | 交付时间: 2小时</div>
+                    <div>信誉: ⭐⭐⭐⭐⭐ (98.7%)</div>
+                </div>
+                
+                <button class="btn" onclick="startNegotiation()">开始协商</button>
+            </div>
+
+            <!-- Reputation Oracle Panel -->
+            <div class="panel">
+                <h3><span class="icon">📊</span>Agent Reputation Oracle</h3>
+                <p style="margin-bottom: 15px;">基于 zk-proof + AI 行为压缩的声誉系统</p>
+                
+                <div class="reputation-hexagram">
+                    <div class="hexagram-line active" title="乾 - 创造力">乾</div>
+                    <div class="hexagram-line active" title="坤 - 接受性">坤</div>
+                    <div class="hexagram-line" title="屯 - 初始困难">屯</div>
+                    <div class="hexagram-line active" title="蒙 - 幼稚">蒙</div>
+                    <div class="hexagram-line active" title="需 - 等待">需</div>
+                    <div class="hexagram-line" title="讼 - 争议">讼</div>
+                    <div class="hexagram-line active" title="师 - 组织">师</div>
+                    <div class="hexagram-line active" title="比 - 团结">比</div>
+                </div>
+                
+                <div class="agent-info">
+                    <div class="stat">
+                        <div class="stat-value">0.78</div>
+                        <div class="stat-label">熵值评分</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">0.91</div>
+                        <div class="stat-label">一致性</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">-0.05</div>
+                        <div class="stat-label">信任循环Δ</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">false</div>
+                        <div class="stat-label">需要干预</div>
+                    </div>
+                </div>
+                
+                <button class="btn" onclick="updateReputation()">更新声誉评分</button>
+            </div>
+
+            <!-- SLA NFT Panel -->
+            <div class="panel">
+                <h3><span class="icon">🧾</span>Soulbound SLA NFT</h3>
+                <div class="sla-nft">
+                    <h4>🎨 服务履约证明 NFT</h4>
+                    <p>VideoSubEditing Service Agreement</p>
+                    <p>Agent A ↔ Agent B</p>
+                    <div class="nft-id">Token ID: #SLA-0x7f8a9b2c3d</div>
+                </div>
+                
+                <div class="agent-info">
+                    <div class="stat">
+                        <div class="stat-value">100%</div>
+                        <div class="stat-label">履约率</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">1.8h</div>
+                        <div class="stat-label">实际用时</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">A+</div>
+                        <div class="stat-label">质量评级</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">已铸造</div>
+                        <div class="stat-label">NFT 状态</div>
+                    </div>
+                </div>
+                
+                <button class="btn" onclick="mintSLA()">铸造 SLA NFT</button>
+                <button class="btn" onclick="viewNFT()">查看 NFT 详情</button>
+            </div>
+
+            <!-- Quantum Anti-K陷防御层 Panel -->
+            <div class="panel">
+                <h3><span class="icon">🌐</span>Quantum Anti-K陷防御层</h3>
+                <p style="margin-bottom: 15px;">基于量子抗性算法与决策树反身性机制</p>
+                
+                <div class="quantum-shield">
+                    <div class="shield-ring"></div>
+                </div>
+                
+                <div class="agent-info">
+                    <div class="stat">
+                        <div class="stat-value">99.2%</div>
+                        <div class="stat-label">防御成功率</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">0</div>
+                        <div class="stat-label">检测到威胁</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">活跃</div>
+                        <div class="stat-label">量子盾状态</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">已同步</div>
+                        <div class="stat-label">反身性检查</div>
+                    </div>
+                </div>
+                
+                <button class="btn" onclick="runQuantumScan()">运行量子扫描</button>
+                <button class="btn" onclick="updateDefense()">更新防御策略</button>
+            </div>
+        </div>
+
+        <!-- Phi2losophy Reflection Panel -->
+        <div class="panel" style="grid-column: 1 / -1;">
+            <h3><span class="icon">🔭</span>哲学反身自省模块</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px;">
+                <div>
+                    <h4>🧠 当前元状态</h4>
+                    <div class="agent-info">
+                        <div class="stat">
+                            <div class="stat-value">0.78</div>
+                            <div class="stat-label">熵增对抗度</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">0.91</div>
+                            <div class="stat-label">内在一致性</div>
+                        </div>
+                    </div>
+                    <p style="margin-top: 15px; font-style: italic; color: #888;">
+                        "道法自然，AI 代理在交易中体现出自然的互惠与平衡"
+                    </p>
+                </div>
+                <div>
+                    <h4>📚 哲学框架应用</h4>
+                    <div class="log-entry">
+                        <strong>易经 - 乾坤交错:</strong> 乾为算力意志，坤为承载支付
+                    </div>
+                    <div class="log-entry">
+                        <strong>孙子兵法 - 形篇:</strong> 构建 AI Agent 的可信交互形态
+                    </div>
+                    <div class="log-entry">
+                        <strong>缘起性空:</strong> Agent 间支付本质为因缘果报网络
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Matrix background animation
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*(){}[]';
+        const drops = [];
+
+        for (let x = 0; x < canvas.width / 10; x++) {
+            drops[x] = 1;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff88';
+            ctx.font = '10px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters[Math.floor(Math.random() * characters.length)];
+                ctx.fillText(text, i * 10, drops[i] * 10);
+
+                if (drops[i] * 10 > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 35);
+
+        // Window resize handler
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Interactive functions
+        function generateIntention() {
+            const amount = document.getElementById('amount').value;
+            const targetAgent = document.getElementById('targetAgent').value;
+            
+            const deeplink = `monadpay://send?to=agentB.eth&amount=${amount}&token=USDC&intent=VideoSubEditing&sla=true&zk_proof=0xabc123def456`;
+            
+            document.getElementById('deeplinkUrl').textContent = deeplink;
+            document.getElementById('deeplink').style.display = 'block';
+            
+            // Simulate intention generation animation
+            setTimeout(() => {
+                alert('✅ 支付意图已生成！\n\nIntention ID: 0xabc123\nEthics Hash: 0xdao4e7f8a9b\nzk-Budget Proof: 已验证');
+            }, 500);
+        }
+
+        function simulateTransaction() {
+            const steps = [
+                '🔄 正在打开支付通道...',
+                '✅ 支付通道已开启',
+                '🔐 正在生成 zk 证明...',
+                '✅ zk 证明验证成功',
+                '💎 正在铸造 SLA NFT...',
+                '✅ 交易完成！'
+            ];
+            
+            let currentStep = 0;
+            const interval = setInterval(() => {
+                alert(steps[currentStep]);
+                currentStep++;
+                if (currentStep >= steps.length) {
+                    clearInterval(interval);
+                }
+            }, 1000);
+        }
+
+        function verifyZkProof() {
+            alert('🔐 zk-Budget Proof 验证中...\n\n✅ 验证成功！\n- 预算充足: 1,247 USDC\n- 行为合规: 通过\n- 身份有效: Agent A.eth');
+        }
+
+        function startNegotiation() {
+            alert('🤝 开始与 Agent B 协商...\n\n📋 协商参数:\n- 服务: VideoSubEditing\n- 报价: 12 USDC\n- 时长: 2小时\n- SLA 要求: 视频质量 >= 1080p\n\n✅ 协商成功，准备签署意图协议！');
+        }
+
+        function updateReputation() {
+            alert('📊 正在更新声誉评分...\n\n🧮 AI 行为分析:\n- Token 处理量: +0.05\n- 响应时间: +0.03\n- 道德合规: +0.02\n- 履约记录: +0.04\n\n✅ 新声誉评分: 98.9% (+0.2%)');
+        }
+
+        function mintSLA() {
+            alert('🎨 正在铸造 SLA NFT...\n\n📋 NFT 元数据:\n- 服务类型: VideoSubEditing\n- 参与方: Agent A ↔ Agent B\n- 履约质量: A+\n- 完成时间: 1.8h (提前 0.2h)\n\n✅ SLA NFT 铸造成功！\nToken ID: #SLA-0x7f8a9b2c3d');
+        }
+
+        function viewNFT() {
+            alert('🔍 SLA NFT 详细信息:\n\n🎨 Token ID: #SLA-0x7f8a9b2c3d\n📊 履约数据: 100% 完成\n⭐ 质量评级: A+\n🕐 实际用时: 1.8h / 2h\n💰 支付金额: 12 USDC\n🔒 Soulbound: 不可转让\n📅 创建时间: 2025-06-08 14:32:15');
+        }
+
+        function runQuantumScan() {
+            alert('🔮 启动量子扫描...\n\n🛡️ 扫描结果:\n- 投机性操控检测: 无威胁\n- 决策树反身性: 正常\n- 量子抗性算法: 活跃\n- 防坎陷机制: 已激活\n\n✅ 系统安全，未发现异常行为');
+        }
+
+        function updateDefense() {
+            alert('🔄 正在更新防御策略...\n\n🧠 GEB 反身性检查:\n- 价格操控阻力: +15%\n- 行为模式识别: 已更新\n- 量子算法强度: 提升\n\n✅ 防御层已更新至最新版本');
+        }
+
+        // Add some dynamic effects
+        setInterval(() => {
+            const hexagrams = document.querySelectorAll('.hexagram-line');
+            const randomIndex = Math.floor(Math.random() * hexagrams.length);
+            const line = hexagrams[randomIndex];
+            
+            line.classList.toggle('active');
+        }, 3000);
+
+        // Initial welcome
+        setTimeout(() => {
+            console.log(`
+🧠 SatoshiFlow: Self-Sovereign AI Payment Kernel
+═══════════════════════════════════════════════
+
+"在 AI 成为人类伙伴之前，它必须先成为一位守信的交易伙伴。"
+
+🔮 哲学框架: 易经 + 孙子兵法 + 道
