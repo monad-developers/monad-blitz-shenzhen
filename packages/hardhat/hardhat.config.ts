@@ -150,6 +150,15 @@ const config: HardhatUserConfig = {
     celoAlfajores: {
       url: "https://alfajores-forno.celo-testnet.org",
       accounts: [deployerPrivateKey],
+
+
+
+
+    },
+    monad_testnet: {
+      url: "https://testnet-rpc.monad.xyz",
+      accounts: [deployerPrivateKey],
+      chainId: 10143,
     },
   },
   // Configuration for harhdat-verify plugin
@@ -163,7 +172,9 @@ const config: HardhatUserConfig = {
     },
   },
   sourcify: {
-    enabled: false,
+    enabled: true,
+    apiUrl: "https://sourcify-api-monad.blockvision.org",
+    browserUrl: "https://testnet.monadexplorer.com",
   },
 };
 

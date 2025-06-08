@@ -1,0 +1,710 @@
+{
+  "address": "0x19A5b5d35aDffA6EE4A706EFE12F6F3ed95d97c2",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "orderId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "patientId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "deceasedName",
+          "type": "string"
+        }
+      ],
+      "name": "FuneralInitiated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "orderId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "PaymentReceived",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "orderId",
+          "type": "uint256"
+        }
+      ],
+      "name": "ServiceCompleted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "orderId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum FuneralService.ServiceType",
+          "name": "serviceType",
+          "type": "uint8"
+        }
+      ],
+      "name": "ServiceConfirmed",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "cemeteryContract",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_orderId",
+          "type": "uint256"
+        }
+      ],
+      "name": "completeService",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_orderId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "enum FuneralService.ServiceType",
+          "name": "_serviceType",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_serviceDate",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_specialRequests",
+          "type": "string"
+        }
+      ],
+      "name": "confirmService",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "funeralOrders",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "patientId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "deceasedName",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "familyContact",
+          "type": "address"
+        },
+        {
+          "internalType": "enum FuneralService.ServiceType",
+          "name": "serviceType",
+          "type": "uint8"
+        },
+        {
+          "internalType": "enum FuneralService.ServiceStatus",
+          "name": "status",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint256",
+          "name": "totalCost",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "initiatedTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "serviceDate",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "specialRequests",
+          "type": "string"
+        },
+        {
+          "internalType": "bool",
+          "name": "isPaid",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_orderId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getFuneralOrder",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "patientId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "deceasedName",
+              "type": "string"
+            },
+            {
+              "internalType": "address",
+              "name": "familyContact",
+              "type": "address"
+            },
+            {
+              "internalType": "enum FuneralService.ServiceType",
+              "name": "serviceType",
+              "type": "uint8"
+            },
+            {
+              "internalType": "enum FuneralService.ServiceStatus",
+              "name": "status",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "totalCost",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "initiatedTime",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "serviceDate",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "specialRequests",
+              "type": "string"
+            },
+            {
+              "internalType": "bool",
+              "name": "isPaid",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct FuneralService.FuneralOrder",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "hospitalContract",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_patientId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_deceasedName",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "_familyContact",
+          "type": "address"
+        }
+      ],
+      "name": "initiateFuneralProcess",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "enum FuneralService.ServiceType",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "name": "servicePrices",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_hospital",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_cemetery",
+          "type": "address"
+        }
+      ],
+      "name": "setExternalContracts",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_orderId",
+          "type": "uint256"
+        }
+      ],
+      "name": "startService",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "enum FuneralService.ServiceType",
+          "name": "_type",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_price",
+          "type": "uint256"
+        }
+      ],
+      "name": "updateServicePrice",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "withdraw",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xe9dee2e52fd25da040de5699bf6ecc119bfc5015a2939bda8fac15b612f3aa4a",
+  "receipt": {
+    "to": null,
+    "from": "0xEbAd73D4daf681F7e08F5feb48D972393CcC9f19",
+    "contractAddress": "0x19A5b5d35aDffA6EE4A706EFE12F6F3ed95d97c2",
+    "transactionIndex": 9,
+    "gasUsed": "1496423",
+    "logsBloom": "0x00000000000000000000000000000000200000000200000000800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000020000000000000000000800000000000000080000000000000000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000040000000000000000000000040000000020000000000000000000000000000000000000000010000000000000000000000000",
+    "blockHash": "0x0932b05a6a0211006df25cdfe18a02500a1a3c75752516aa6c96efce5e2c4d25",
+    "transactionHash": "0xe9dee2e52fd25da040de5699bf6ecc119bfc5015a2939bda8fac15b612f3aa4a",
+    "logs": [
+      {
+        "transactionIndex": 9,
+        "blockNumber": 20638319,
+        "transactionHash": "0xe9dee2e52fd25da040de5699bf6ecc119bfc5015a2939bda8fac15b612f3aa4a",
+        "address": "0x19A5b5d35aDffA6EE4A706EFE12F6F3ed95d97c2",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x000000000000000000000000ebad73d4daf681f7e08f5feb48d972393ccc9f19"
+        ],
+        "data": "0x",
+        "logIndex": 18,
+        "blockHash": "0x0932b05a6a0211006df25cdfe18a02500a1a3c75752516aa6c96efce5e2c4d25"
+      }
+    ],
+    "blockNumber": 20638319,
+    "cumulativeGasUsed": "2481914",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "da1ddd2d5521bb4532d1a290be9dd42b",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"orderId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"patientId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"deceasedName\",\"type\":\"string\"}],\"name\":\"FuneralInitiated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"orderId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"PaymentReceived\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"orderId\",\"type\":\"uint256\"}],\"name\":\"ServiceCompleted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"orderId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"enum FuneralService.ServiceType\",\"name\":\"serviceType\",\"type\":\"uint8\"}],\"name\":\"ServiceConfirmed\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"cemeteryContract\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_orderId\",\"type\":\"uint256\"}],\"name\":\"completeService\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_orderId\",\"type\":\"uint256\"},{\"internalType\":\"enum FuneralService.ServiceType\",\"name\":\"_serviceType\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"_serviceDate\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"_specialRequests\",\"type\":\"string\"}],\"name\":\"confirmService\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"funeralOrders\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"patientId\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"deceasedName\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"familyContact\",\"type\":\"address\"},{\"internalType\":\"enum FuneralService.ServiceType\",\"name\":\"serviceType\",\"type\":\"uint8\"},{\"internalType\":\"enum FuneralService.ServiceStatus\",\"name\":\"status\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"totalCost\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"initiatedTime\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"serviceDate\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"specialRequests\",\"type\":\"string\"},{\"internalType\":\"bool\",\"name\":\"isPaid\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_orderId\",\"type\":\"uint256\"}],\"name\":\"getFuneralOrder\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"patientId\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"deceasedName\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"familyContact\",\"type\":\"address\"},{\"internalType\":\"enum FuneralService.ServiceType\",\"name\":\"serviceType\",\"type\":\"uint8\"},{\"internalType\":\"enum FuneralService.ServiceStatus\",\"name\":\"status\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"totalCost\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"initiatedTime\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"serviceDate\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"specialRequests\",\"type\":\"string\"},{\"internalType\":\"bool\",\"name\":\"isPaid\",\"type\":\"bool\"}],\"internalType\":\"struct FuneralService.FuneralOrder\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"hospitalContract\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_patientId\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"_deceasedName\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"_familyContact\",\"type\":\"address\"}],\"name\":\"initiateFuneralProcess\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"enum FuneralService.ServiceType\",\"name\":\"\",\"type\":\"uint8\"}],\"name\":\"servicePrices\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_hospital\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_cemetery\",\"type\":\"address\"}],\"name\":\"setExternalContracts\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_orderId\",\"type\":\"uint256\"}],\"name\":\"startService\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"enum FuneralService.ServiceType\",\"name\":\"_type\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"_price\",\"type\":\"uint256\"}],\"name\":\"updateServicePrice\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/FuneralService.sol\":\"FuneralService\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/FuneralService.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.19;\\n\\n// \\u57fa\\u7840\\u5e93\\nabstract contract Ownable {\\n    address private _owner;\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    constructor() {\\n        _transferOwnership(msg.sender);\\n    }\\n\\n    modifier onlyOwner() {\\n        require(owner() == msg.sender, \\\"Ownable: caller is not the owner\\\");\\n        _;\\n    }\\n\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        require(newOwner != address(0), \\\"Ownable: new owner is the zero address\\\");\\n        _transferOwnership(newOwner);\\n    }\\n\\n    function _transferOwnership(address newOwner) internal virtual {\\n        address oldOwner = _owner;\\n        _owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\\n// \\u9632\\u91cd\\u5165\\u4fdd\\u62a4\\nabstract contract ReentrancyGuard {\\n    uint256 private constant _NOT_ENTERED = 1;\\n    uint256 private constant _ENTERED = 2;\\n    uint256 private _status;\\n\\n    constructor() {\\n        _status = _NOT_ENTERED;\\n    }\\n\\n    modifier nonReentrant() {\\n        require(_status != _ENTERED, \\\"ReentrancyGuard: reentrant call\\\");\\n        _status = _ENTERED;\\n        _;\\n        _status = _NOT_ENTERED;\\n    }\\n}\\n\\n// \\u8ba1\\u6570\\u5668\\u5e93\\nlibrary Counters {\\n    struct Counter {\\n        uint256 _value;\\n    }\\n\\n    function current(Counter storage counter) internal view returns (uint256) {\\n        return counter._value;\\n    }\\n\\n    function increment(Counter storage counter) internal {\\n        unchecked {\\n            counter._value += 1;\\n        }\\n    }\\n\\n    function decrement(Counter storage counter) internal {\\n        uint256 value = counter._value;\\n        require(value > 0, \\\"Counter: decrement overflow\\\");\\n        unchecked {\\n            counter._value = value - 1;\\n        }\\n    }\\n}\\n\\n// \\u5893\\u5730\\u63a5\\u53e3\\ninterface ICemetery {\\n    function prepareBurial(\\n        string memory _deceasedName,\\n        address _familyContact,\\n        uint256 _burialDate\\n    ) external;\\n}\\n\\n// \\u6ba1\\u846c\\u670d\\u52a1\\u5408\\u7ea6\\ncontract FuneralService is Ownable, ReentrancyGuard {\\n    using Counters for Counters.Counter;\\n    \\n    Counters.Counter private _serviceIds;\\n    \\n    enum ServiceStatus {\\n        INITIATED,    // \\u5df2\\u542f\\u52a8\\n        CONFIRMED,    // \\u5df2\\u786e\\u8ba4\\n        IN_PROGRESS, // \\u8fdb\\u884c\\u4e2d\\n        COMPLETED    // \\u5df2\\u5b8c\\u6210\\n    }\\n    \\n    enum ServiceType {\\n        BASIC,       // \\u57fa\\u7840\\u670d\\u52a1\\n        STANDARD,    // \\u6807\\u51c6\\u670d\\u52a1\\n        PREMIUM      // \\u9ad8\\u7aef\\u670d\\u52a1\\n    }\\n    \\n    struct FuneralOrder {\\n        uint256 id;\\n        uint256 patientId;\\n        string deceasedName;\\n        address familyContact;\\n        ServiceType serviceType;\\n        ServiceStatus status;\\n        uint256 totalCost;\\n        uint256 initiatedTime;\\n        uint256 serviceDate;\\n        string specialRequests;\\n        bool isPaid;\\n    }\\n    \\n    mapping(uint256 => FuneralOrder) public funeralOrders;\\n    mapping(ServiceType => uint256) public servicePrices;\\n    \\n    address public hospitalContract;\\n    address public cemeteryContract;\\n    \\n    event FuneralInitiated(uint256 indexed orderId, uint256 patientId, string deceasedName);\\n    event ServiceConfirmed(uint256 indexed orderId, ServiceType serviceType);\\n    event ServiceCompleted(uint256 indexed orderId);\\n    event PaymentReceived(uint256 indexed orderId, uint256 amount);\\n    \\n    constructor() {\\n        // \\u8bbe\\u7f6e\\u9ed8\\u8ba4\\u4ef7\\u683c\\uff08\\u4ee5wei\\u4e3a\\u5355\\u4f4d\\uff09\\n        servicePrices[ServiceType.BASIC] = 5 ether;\\n        servicePrices[ServiceType.STANDARD] = 10 ether;\\n        servicePrices[ServiceType.PREMIUM] = 20 ether;\\n    }\\n    \\n    function setExternalContracts(address _hospital, address _cemetery) external onlyOwner {\\n        hospitalContract = _hospital;\\n        cemeteryContract = _cemetery;\\n    }\\n    \\n    function updateServicePrice(ServiceType _type, uint256 _price) external onlyOwner {\\n        servicePrices[_type] = _price;\\n    }\\n    \\n    // \\u7531\\u533b\\u9662\\u5408\\u7ea6\\u8c03\\u7528\\uff0c\\u542f\\u52a8\\u6ba1\\u846c\\u6d41\\u7a0b\\n    function initiateFuneralProcess(\\n        uint256 _patientId,\\n        string memory _deceasedName,\\n        address _familyContact\\n    ) external returns (uint256) {\\n        require(msg.sender == hospitalContract, \\\"Only hospital can initiate\\\");\\n        \\n        _serviceIds.increment();\\n        uint256 newOrderId = _serviceIds.current();\\n        \\n        funeralOrders[newOrderId] = FuneralOrder({\\n            id: newOrderId,\\n            patientId: _patientId,\\n            deceasedName: _deceasedName,\\n            familyContact: _familyContact,\\n            serviceType: ServiceType.BASIC, // \\u9ed8\\u8ba4\\u57fa\\u7840\\u670d\\u52a1\\n            status: ServiceStatus.INITIATED,\\n            totalCost: servicePrices[ServiceType.BASIC],\\n            initiatedTime: block.timestamp,\\n            serviceDate: 0,\\n            specialRequests: \\\"\\\",\\n            isPaid: false\\n        });\\n        \\n        emit FuneralInitiated(newOrderId, _patientId, _deceasedName);\\n        return newOrderId;\\n    }\\n    \\n    // \\u5bb6\\u5c5e\\u786e\\u8ba4\\u670d\\u52a1\\u7c7b\\u578b\\n    function confirmService(\\n        uint256 _orderId,\\n        ServiceType _serviceType,\\n        uint256 _serviceDate,\\n        string memory _specialRequests\\n    ) external payable {\\n        FuneralOrder storage order = funeralOrders[_orderId];\\n        require(msg.sender == order.familyContact, \\\"Only family can confirm\\\");\\n        require(order.status == ServiceStatus.INITIATED, \\\"Invalid status\\\");\\n        \\n        order.serviceType = _serviceType;\\n        order.totalCost = servicePrices[_serviceType];\\n        order.serviceDate = _serviceDate;\\n        order.specialRequests = _specialRequests;\\n        order.status = ServiceStatus.CONFIRMED;\\n        \\n        // \\u68c0\\u67e5\\u652f\\u4ed8\\n        if (msg.value >= order.totalCost) {\\n            order.isPaid = true;\\n            emit PaymentReceived(_orderId, msg.value);\\n            \\n            // \\u9000\\u8fd8\\u591a\\u4f59\\u91d1\\u989d\\n            if (msg.value > order.totalCost) {\\n                payable(msg.sender).transfer(msg.value - order.totalCost);\\n            }\\n        }\\n        \\n        emit ServiceConfirmed(_orderId, _serviceType);\\n    }\\n    \\n    // \\u5f00\\u59cb\\u670d\\u52a1\\n    function startService(uint256 _orderId) external onlyOwner {\\n        FuneralOrder storage order = funeralOrders[_orderId];\\n        require(order.status == ServiceStatus.CONFIRMED, \\\"Service not confirmed\\\");\\n        require(order.isPaid, \\\"Payment not received\\\");\\n        \\n        order.status = ServiceStatus.IN_PROGRESS;\\n    }\\n    \\n    // \\u5b8c\\u6210\\u670d\\u52a1\\n    function completeService(uint256 _orderId) external onlyOwner {\\n        FuneralOrder storage order = funeralOrders[_orderId];\\n        require(order.status == ServiceStatus.IN_PROGRESS, \\\"Service not in progress\\\");\\n        \\n        order.status = ServiceStatus.COMPLETED;\\n        \\n        // \\u901a\\u77e5\\u5893\\u5730\\u5408\\u7ea6\\u51c6\\u5907\\u5b89\\u846c\\n        if (cemeteryContract != address(0)) {\\n            ICemetery(cemeteryContract).prepareBurial(\\n                order.deceasedName,\\n                order.familyContact,\\n                order.serviceDate\\n            );\\n        }\\n        \\n        emit ServiceCompleted(_orderId);\\n    }\\n    \\n    function getFuneralOrder(uint256 _orderId) external view returns (FuneralOrder memory) {\\n        return funeralOrders[_orderId];\\n    }\\n    \\n    // \\u63d0\\u53d6\\u6536\\u5165\\n    function withdraw() external onlyOwner nonReentrant {\\n        uint256 balance = address(this).balance;\\n        require(balance > 0, \\\"No funds to withdraw\\\");\\n        payable(owner()).transfer(balance);\\n    }\\n}\",\"keccak256\":\"0xd49d5236d7e638d1c133725f9efa22da75f258ce51778ac7e6e2179eb948c956\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5061001a336100af565b600180556004602052674563918244f400007f17ef568e3e12ab5b9c7254a8d58478811de00f9e6eb34345acd53bf8fd09d3ec55678ac7230489e800007fabd6e7cb50984ff9c2f3e18a2660c3353dadf4e3291deeb275dae2cd1e44fe055560026000526801158e460913d000007f91da3fd0782e51c6b3986e9e672fd566868e71f3dbc2d6c2cd6fbb3e361af2a7556100ff565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b6117cb8061010e6000396000f3fe6080604052600436106100dd5760003560e01c80638da5cb5b1161007f578063c9e0d22011610059578063c9e0d22014610266578063cbb8653514610286578063f2fde38b14610299578063facda154146102b957600080fd5b80638da5cb5b146101f1578063923258671461020f578063b426cbeb1461024657600080fd5b806347dbb71a116100bb57806347dbb71a146101395780634ea57b1d146101765780635363ae9b146101a45780635bba7f5a146101d157600080fd5b80632f3ccebd146100e25780633ccfd60b146101045780633e4a1e6c14610119575b600080fd5b3480156100ee57600080fd5b506101026100fd36600461110b565b6102e6565b005b34801561011057600080fd5b5061010261046f565b34801561012557600080fd5b5061010261013436600461110b565b610585565b34801561014557600080fd5b50600554610159906001600160a01b031681565b6040516001600160a01b0390911681526020015b60405180910390f35b34801561018257600080fd5b506101966101913660046111e3565b610695565b60405190815260200161016d565b3480156101b057600080fd5b506101966101bf366004611249565b60046020526000908152604090205481565b3480156101dd57600080fd5b506101026101ec36600461126b565b6108eb565b3480156101fd57600080fd5b506000546001600160a01b0316610159565b34801561021b57600080fd5b5061022f61022a36600461110b565b610952565b60405161016d9b9a9998979695949392919061131e565b34801561025257600080fd5b506101026102613660046113ab565b610acf565b34801561027257600080fd5b50600654610159906001600160a01b031681565b6101026102943660046113d5565b610b45565b3480156102a557600080fd5b506101026102b4366004611436565b610d85565b3480156102c557600080fd5b506102d96102d436600461110b565b610e2f565b60405161016d9190611451565b336102f96000546001600160a01b031690565b6001600160a01b0316146103285760405162461bcd60e51b815260040161031f9061151e565b60405180910390fd5b60008181526003602052604090206002600382810154600160a81b900460ff1690811115610358576103586112e4565b146103a55760405162461bcd60e51b815260206004820152601760248201527f53657276696365206e6f7420696e2070726f6772657373000000000000000000604482015260640161031f565b60038101805460ff60a81b1916600360a81b1790556006546001600160a01b03161561044057600680546003830154918301546040516359ec645960e11b81526001600160a01b039283169363b3d8c8b29361040d936002880193929091169160040161158d565b600060405180830381600087803b15801561042757600080fd5b505af115801561043b573d6000803e3d6000fd5b505050505b60405182907f1f67d03cb2fcad5608054854c5acce0db47379a9e6a8cb0439581b939a10a90e90600090a25050565b336104826000546001600160a01b031690565b6001600160a01b0316146104a85760405162461bcd60e51b815260040161031f9061151e565b6002600154036104fa5760405162461bcd60e51b815260206004820152601f60248201527f5265656e7472616e637947756172643a207265656e7472616e742063616c6c00604482015260640161031f565b600260015547806105445760405162461bcd60e51b81526020600482015260146024820152734e6f2066756e647320746f20776974686472617760601b604482015260640161031f565b600080546040516001600160a01b039091169183156108fc02918491818181858888f1935050505015801561057d573d6000803e3d6000fd5b505060018055565b336105986000546001600160a01b031690565b6001600160a01b0316146105be5760405162461bcd60e51b815260040161031f9061151e565b60008181526003602052604090206001600382810154600160a81b900460ff16908111156105ee576105ee6112e4565b146106335760405162461bcd60e51b815260206004820152601560248201527414d95c9d9a58d9481b9bdd0818dbdb999a5c9b5959605a1b604482015260640161031f565b600881015460ff1661067e5760405162461bcd60e51b815260206004820152601460248201527314185e5b595b9d081b9bdd081c9958d95a5d995960621b604482015260640161031f565b600301805460ff60a81b1916600160a91b17905550565b6005546000906001600160a01b031633146106f25760405162461bcd60e51b815260206004820152601a60248201527f4f6e6c7920686f73706974616c2063616e20696e697469617465000000000000604482015260640161031f565b610700600280546001019055565b600061070b60025490565b9050604051806101600160405280828152602001868152602001858152602001846001600160a01b031681526020016000600281111561074d5761074d6112e4565b8152602001600081526020016004600080600281111561076f5761076f6112e4565b815260208082019290925260409081016000908120548452428484015283820181905281518084018352818152606085015260809093018390528483526003825291829020835181559083015160018201559082015160028201906107d4908261167f565b5060608201516003820180546001600160a01b039092166001600160a01b03198316811782556080850151926001600160a81b03191617600160a01b836002811115610822576108226112e4565b021790555060a08201518160030160156101000a81548160ff02191690836003811115610851576108516112e4565b021790555060c0820151600482015560e082015160058201556101008201516006820155610120820151600782019061088a908261167f565b5061014091909101516008909101805460ff191691151591909117905560405181907f3ef7eb9f95ef9ab2a26c9bf2b460d1f8399570bc3a0c8c15ad1641f385917cfc906108db908890889061173f565b60405180910390a2949350505050565b336108fe6000546001600160a01b031690565b6001600160a01b0316146109245760405162461bcd60e51b815260040161031f9061151e565b600580546001600160a01b039384166001600160a01b03199182161790915560068054929093169116179055565b6003602052600090815260409020805460018201546002830180549293919261097a90611553565b80601f01602080910402602001604051908101604052809291908181526020018280546109a690611553565b80156109f35780601f106109c8576101008083540402835291602001916109f3565b820191906000526020600020905b8154815290600101906020018083116109d657829003601f168201915b50505050600383015460048401546005850154600686015460078701805496976001600160a01b0386169760ff600160a01b880481169850600160a81b90970490961695909190610a4390611553565b80601f0160208091040260200160405190810160405280929190818152602001828054610a6f90611553565b8015610abc5780601f10610a9157610100808354040283529160200191610abc565b820191906000526020600020905b815481529060010190602001808311610a9f57829003601f168201915b5050506008909301549192505060ff168b565b33610ae26000546001600160a01b031690565b6001600160a01b031614610b085760405162461bcd60e51b815260040161031f9061151e565b8060046000846002811115610b1f57610b1f6112e4565b6002811115610b3057610b306112e4565b81526020810191909152604001600020555050565b6000848152600360208190526040909120908101546001600160a01b03163314610bb15760405162461bcd60e51b815260206004820152601760248201527f4f6e6c792066616d696c792063616e20636f6e6669726d000000000000000000604482015260640161031f565b6000600382810154600160a81b900460ff1690811115610bd357610bd36112e4565b14610c115760405162461bcd60e51b815260206004820152600e60248201526d496e76616c69642073746174757360901b604482015260640161031f565b60038101805485919060ff60a01b1916600160a01b836002811115610c3857610c386112e4565b021790555060046000856002811115610c5357610c536112e4565b6002811115610c6457610c646112e4565b815260208101919091526040016000205460048201556006810183905560078101610c8f838261167f565b5060038101805460ff60a81b1916600160a81b17905560048101543410610d465760088101805460ff1916600117905560405185907f4edf5b39e08b0c159ffd68891bacf2cc9020b9d4e9e807b91f94fe88c443538890610cf39034815260200190565b60405180910390a28060040154341115610d4657600481015433906108fc90610d1c9034611760565b6040518115909202916000818181858888f19350505050158015610d44573d6000803e3d6000fd5b505b847f4b397db061e9ae78ccfc139c5c8d636bb134737320bf04f73d88a3f9be1416f185604051610d769190611787565b60405180910390a25050505050565b33610d986000546001600160a01b031690565b6001600160a01b031614610dbe5760405162461bcd60e51b815260040161031f9061151e565b6001600160a01b038116610e235760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b606482015260840161031f565b610e2c81611045565b50565b610e37611095565b60036000838152602001908152602001600020604051806101600160405290816000820154815260200160018201548152602001600282018054610e7a90611553565b80601f0160208091040260200160405190810160405280929190818152602001828054610ea690611553565b8015610ef35780601f10610ec857610100808354040283529160200191610ef3565b820191906000526020600020905b815481529060010190602001808311610ed657829003601f168201915b505050918352505060038201546001600160a01b0381166020830152604090910190600160a01b900460ff166002811115610f3057610f306112e4565b6002811115610f4157610f416112e4565b81526020016003820160159054906101000a900460ff166003811115610f6957610f696112e4565b6003811115610f7a57610f7a6112e4565b8152602001600482015481526020016005820154815260200160068201548152602001600782018054610fac90611553565b80601f0160208091040260200160405190810160405280929190818152602001828054610fd890611553565b80156110255780601f10610ffa57610100808354040283529160200191611025565b820191906000526020600020905b81548152906001019060200180831161100857829003601f168201915b50505091835250506008919091015460ff16151560209091015292915050565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b60405180610160016040528060008152602001600081526020016060815260200160006001600160a01b03168152602001600060028111156110d9576110d96112e4565b815260200160008152602001600081526020016000815260200160008152602001606081526020016000151581525090565b60006020828403121561111d57600080fd5b5035919050565b634e487b7160e01b600052604160045260246000fd5b600082601f83011261114b57600080fd5b813567ffffffffffffffff8082111561116657611166611124565b604051601f8301601f19908116603f0116810190828211818310171561118e5761118e611124565b816040528381528660208588010111156111a757600080fd5b836020870160208301376000602085830101528094505050505092915050565b80356001600160a01b03811681146111de57600080fd5b919050565b6000806000606084860312156111f857600080fd5b83359250602084013567ffffffffffffffff81111561121657600080fd5b6112228682870161113a565b925050611231604085016111c7565b90509250925092565b8035600381106111de57600080fd5b60006020828403121561125b57600080fd5b6112648261123a565b9392505050565b6000806040838503121561127e57600080fd5b611287836111c7565b9150611295602084016111c7565b90509250929050565b6000815180845260005b818110156112c4576020818501810151868301820152016112a8565b506000602082860101526020601f19601f83011685010191505092915050565b634e487b7160e01b600052602160045260246000fd5b6003811061130a5761130a6112e4565b9052565b6004811061130a5761130a6112e4565b60006101608d83528c602084015280604084015261133e8184018d61129e565b6001600160a01b038c166060850152905061135c608084018b6112fa565b61136960a084018a61130e565b8760c08401528660e08401528561010084015282810361012084015261138f818661129e565b9150508215156101408301529c9b505050505050505050505050565b600080604083850312156113be57600080fd5b6113c78361123a565b946020939093013593505050565b600080600080608085870312156113eb57600080fd5b843593506113fb6020860161123a565b925060408501359150606085013567ffffffffffffffff81111561141e57600080fd5b61142a8782880161113a565b91505092959194509250565b60006020828403121561144857600080fd5b611264826111c7565b6020815281516020820152602082015160408201526000604083015161016080606085015261148461018085018361129e565b915060608501516114a060808601826001600160a01b03169052565b5060808501516114b360a08601826112fa565b5060a08501516114c660c086018261130e565b5060c085015160e085015260e0850151610100818187015280870151915050610120818187015280870151915050610140601f19868503018187015261150c848361129e565b96015115159190940152509192915050565b6020808252818101527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572604082015260600190565b600181811c9082168061156757607f821691505b60208210810361158757634e487b7160e01b600052602260045260246000fd5b50919050565b60608152600080855461159f81611553565b80606086015260806001808416600081146115c157600181146115db5761160c565b60ff1985168884015283151560051b88018301955061160c565b8a60005260208060002060005b868110156116035781548b82018701529084019082016115e8565b8a018501975050505b505050506001600160a01b0386166020850152509050826040830152949350505050565b601f82111561167a57600081815260208120601f850160051c810160208610156116575750805b601f850160051c820191505b8181101561167657828155600101611663565b5050505b505050565b815167ffffffffffffffff81111561169957611699611124565b6116ad816116a78454611553565b84611630565b602080601f8311600181146116e257600084156116ca5750858301515b600019600386901b1c1916600185901b178555611676565b600085815260208120601f198616915b82811015611711578886015182559484019460019091019084016116f2565b508582101561172f5787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b828152604060208201526000611758604083018461129e565b949350505050565b8181038181111561178157634e487b7160e01b600052601160045260246000fd5b92915050565b6020810161178182846112fa56fea26469706673582212209c436658448795030db9f0caefa822107d6227b4446288d0a29b973470e3230864736f6c63430008140033",
+  "deployedBytecode": "0x6080604052600436106100dd5760003560e01c80638da5cb5b1161007f578063c9e0d22011610059578063c9e0d22014610266578063cbb8653514610286578063f2fde38b14610299578063facda154146102b957600080fd5b80638da5cb5b146101f1578063923258671461020f578063b426cbeb1461024657600080fd5b806347dbb71a116100bb57806347dbb71a146101395780634ea57b1d146101765780635363ae9b146101a45780635bba7f5a146101d157600080fd5b80632f3ccebd146100e25780633ccfd60b146101045780633e4a1e6c14610119575b600080fd5b3480156100ee57600080fd5b506101026100fd36600461110b565b6102e6565b005b34801561011057600080fd5b5061010261046f565b34801561012557600080fd5b5061010261013436600461110b565b610585565b34801561014557600080fd5b50600554610159906001600160a01b031681565b6040516001600160a01b0390911681526020015b60405180910390f35b34801561018257600080fd5b506101966101913660046111e3565b610695565b60405190815260200161016d565b3480156101b057600080fd5b506101966101bf366004611249565b60046020526000908152604090205481565b3480156101dd57600080fd5b506101026101ec36600461126b565b6108eb565b3480156101fd57600080fd5b506000546001600160a01b0316610159565b34801561021b57600080fd5b5061022f61022a36600461110b565b610952565b60405161016d9b9a9998979695949392919061131e565b34801561025257600080fd5b506101026102613660046113ab565b610acf565b34801561027257600080fd5b50600654610159906001600160a01b031681565b6101026102943660046113d5565b610b45565b3480156102a557600080fd5b506101026102b4366004611436565b610d85565b3480156102c557600080fd5b506102d96102d436600461110b565b610e2f565b60405161016d9190611451565b336102f96000546001600160a01b031690565b6001600160a01b0316146103285760405162461bcd60e51b815260040161031f9061151e565b60405180910390fd5b60008181526003602052604090206002600382810154600160a81b900460ff1690811115610358576103586112e4565b146103a55760405162461bcd60e51b815260206004820152601760248201527f53657276696365206e6f7420696e2070726f6772657373000000000000000000604482015260640161031f565b60038101805460ff60a81b1916600360a81b1790556006546001600160a01b03161561044057600680546003830154918301546040516359ec645960e11b81526001600160a01b039283169363b3d8c8b29361040d936002880193929091169160040161158d565b600060405180830381600087803b15801561042757600080fd5b505af115801561043b573d6000803e3d6000fd5b505050505b60405182907f1f67d03cb2fcad5608054854c5acce0db47379a9e6a8cb0439581b939a10a90e90600090a25050565b336104826000546001600160a01b031690565b6001600160a01b0316146104a85760405162461bcd60e51b815260040161031f9061151e565b6002600154036104fa5760405162461bcd60e51b815260206004820152601f60248201527f5265656e7472616e637947756172643a207265656e7472616e742063616c6c00604482015260640161031f565b600260015547806105445760405162461bcd60e51b81526020600482015260146024820152734e6f2066756e647320746f20776974686472617760601b604482015260640161031f565b600080546040516001600160a01b039091169183156108fc02918491818181858888f1935050505015801561057d573d6000803e3d6000fd5b505060018055565b336105986000546001600160a01b031690565b6001600160a01b0316146105be5760405162461bcd60e51b815260040161031f9061151e565b60008181526003602052604090206001600382810154600160a81b900460ff16908111156105ee576105ee6112e4565b146106335760405162461bcd60e51b815260206004820152601560248201527414d95c9d9a58d9481b9bdd0818dbdb999a5c9b5959605a1b604482015260640161031f565b600881015460ff1661067e5760405162461bcd60e51b815260206004820152601460248201527314185e5b595b9d081b9bdd081c9958d95a5d995960621b604482015260640161031f565b600301805460ff60a81b1916600160a91b17905550565b6005546000906001600160a01b031633146106f25760405162461bcd60e51b815260206004820152601a60248201527f4f6e6c7920686f73706974616c2063616e20696e697469617465000000000000604482015260640161031f565b610700600280546001019055565b600061070b60025490565b9050604051806101600160405280828152602001868152602001858152602001846001600160a01b031681526020016000600281111561074d5761074d6112e4565b8152602001600081526020016004600080600281111561076f5761076f6112e4565b815260208082019290925260409081016000908120548452428484015283820181905281518084018352818152606085015260809093018390528483526003825291829020835181559083015160018201559082015160028201906107d4908261167f565b5060608201516003820180546001600160a01b039092166001600160a01b03198316811782556080850151926001600160a81b03191617600160a01b836002811115610822576108226112e4565b021790555060a08201518160030160156101000a81548160ff02191690836003811115610851576108516112e4565b021790555060c0820151600482015560e082015160058201556101008201516006820155610120820151600782019061088a908261167f565b5061014091909101516008909101805460ff191691151591909117905560405181907f3ef7eb9f95ef9ab2a26c9bf2b460d1f8399570bc3a0c8c15ad1641f385917cfc906108db908890889061173f565b60405180910390a2949350505050565b336108fe6000546001600160a01b031690565b6001600160a01b0316146109245760405162461bcd60e51b815260040161031f9061151e565b600580546001600160a01b039384166001600160a01b03199182161790915560068054929093169116179055565b6003602052600090815260409020805460018201546002830180549293919261097a90611553565b80601f01602080910402602001604051908101604052809291908181526020018280546109a690611553565b80156109f35780601f106109c8576101008083540402835291602001916109f3565b820191906000526020600020905b8154815290600101906020018083116109d657829003601f168201915b50505050600383015460048401546005850154600686015460078701805496976001600160a01b0386169760ff600160a01b880481169850600160a81b90970490961695909190610a4390611553565b80601f0160208091040260200160405190810160405280929190818152602001828054610a6f90611553565b8015610abc5780601f10610a9157610100808354040283529160200191610abc565b820191906000526020600020905b815481529060010190602001808311610a9f57829003601f168201915b5050506008909301549192505060ff168b565b33610ae26000546001600160a01b031690565b6001600160a01b031614610b085760405162461bcd60e51b815260040161031f9061151e565b8060046000846002811115610b1f57610b1f6112e4565b6002811115610b3057610b306112e4565b81526020810191909152604001600020555050565b6000848152600360208190526040909120908101546001600160a01b03163314610bb15760405162461bcd60e51b815260206004820152601760248201527f4f6e6c792066616d696c792063616e20636f6e6669726d000000000000000000604482015260640161031f565b6000600382810154600160a81b900460ff1690811115610bd357610bd36112e4565b14610c115760405162461bcd60e51b815260206004820152600e60248201526d496e76616c69642073746174757360901b604482015260640161031f565b60038101805485919060ff60a01b1916600160a01b836002811115610c3857610c386112e4565b021790555060046000856002811115610c5357610c536112e4565b6002811115610c6457610c646112e4565b815260208101919091526040016000205460048201556006810183905560078101610c8f838261167f565b5060038101805460ff60a81b1916600160a81b17905560048101543410610d465760088101805460ff1916600117905560405185907f4edf5b39e08b0c159ffd68891bacf2cc9020b9d4e9e807b91f94fe88c443538890610cf39034815260200190565b60405180910390a28060040154341115610d4657600481015433906108fc90610d1c9034611760565b6040518115909202916000818181858888f19350505050158015610d44573d6000803e3d6000fd5b505b847f4b397db061e9ae78ccfc139c5c8d636bb134737320bf04f73d88a3f9be1416f185604051610d769190611787565b60405180910390a25050505050565b33610d986000546001600160a01b031690565b6001600160a01b031614610dbe5760405162461bcd60e51b815260040161031f9061151e565b6001600160a01b038116610e235760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b606482015260840161031f565b610e2c81611045565b50565b610e37611095565b60036000838152602001908152602001600020604051806101600160405290816000820154815260200160018201548152602001600282018054610e7a90611553565b80601f0160208091040260200160405190810160405280929190818152602001828054610ea690611553565b8015610ef35780601f10610ec857610100808354040283529160200191610ef3565b820191906000526020600020905b815481529060010190602001808311610ed657829003601f168201915b505050918352505060038201546001600160a01b0381166020830152604090910190600160a01b900460ff166002811115610f3057610f306112e4565b6002811115610f4157610f416112e4565b81526020016003820160159054906101000a900460ff166003811115610f6957610f696112e4565b6003811115610f7a57610f7a6112e4565b8152602001600482015481526020016005820154815260200160068201548152602001600782018054610fac90611553565b80601f0160208091040260200160405190810160405280929190818152602001828054610fd890611553565b80156110255780601f10610ffa57610100808354040283529160200191611025565b820191906000526020600020905b81548152906001019060200180831161100857829003601f168201915b50505091835250506008919091015460ff16151560209091015292915050565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b60405180610160016040528060008152602001600081526020016060815260200160006001600160a01b03168152602001600060028111156110d9576110d96112e4565b815260200160008152602001600081526020016000815260200160008152602001606081526020016000151581525090565b60006020828403121561111d57600080fd5b5035919050565b634e487b7160e01b600052604160045260246000fd5b600082601f83011261114b57600080fd5b813567ffffffffffffffff8082111561116657611166611124565b604051601f8301601f19908116603f0116810190828211818310171561118e5761118e611124565b816040528381528660208588010111156111a757600080fd5b836020870160208301376000602085830101528094505050505092915050565b80356001600160a01b03811681146111de57600080fd5b919050565b6000806000606084860312156111f857600080fd5b83359250602084013567ffffffffffffffff81111561121657600080fd5b6112228682870161113a565b925050611231604085016111c7565b90509250925092565b8035600381106111de57600080fd5b60006020828403121561125b57600080fd5b6112648261123a565b9392505050565b6000806040838503121561127e57600080fd5b611287836111c7565b9150611295602084016111c7565b90509250929050565b6000815180845260005b818110156112c4576020818501810151868301820152016112a8565b506000602082860101526020601f19601f83011685010191505092915050565b634e487b7160e01b600052602160045260246000fd5b6003811061130a5761130a6112e4565b9052565b6004811061130a5761130a6112e4565b60006101608d83528c602084015280604084015261133e8184018d61129e565b6001600160a01b038c166060850152905061135c608084018b6112fa565b61136960a084018a61130e565b8760c08401528660e08401528561010084015282810361012084015261138f818661129e565b9150508215156101408301529c9b505050505050505050505050565b600080604083850312156113be57600080fd5b6113c78361123a565b946020939093013593505050565b600080600080608085870312156113eb57600080fd5b843593506113fb6020860161123a565b925060408501359150606085013567ffffffffffffffff81111561141e57600080fd5b61142a8782880161113a565b91505092959194509250565b60006020828403121561144857600080fd5b611264826111c7565b6020815281516020820152602082015160408201526000604083015161016080606085015261148461018085018361129e565b915060608501516114a060808601826001600160a01b03169052565b5060808501516114b360a08601826112fa565b5060a08501516114c660c086018261130e565b5060c085015160e085015260e0850151610100818187015280870151915050610120818187015280870151915050610140601f19868503018187015261150c848361129e565b96015115159190940152509192915050565b6020808252818101527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572604082015260600190565b600181811c9082168061156757607f821691505b60208210810361158757634e487b7160e01b600052602260045260246000fd5b50919050565b60608152600080855461159f81611553565b80606086015260806001808416600081146115c157600181146115db5761160c565b60ff1985168884015283151560051b88018301955061160c565b8a60005260208060002060005b868110156116035781548b82018701529084019082016115e8565b8a018501975050505b505050506001600160a01b0386166020850152509050826040830152949350505050565b601f82111561167a57600081815260208120601f850160051c810160208610156116575750805b601f850160051c820191505b8181101561167657828155600101611663565b5050505b505050565b815167ffffffffffffffff81111561169957611699611124565b6116ad816116a78454611553565b84611630565b602080601f8311600181146116e257600084156116ca5750858301515b600019600386901b1c1916600185901b178555611676565b600085815260208120601f198616915b82811015611711578886015182559484019460019091019084016116f2565b508582101561172f5787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b828152604060208201526000611758604083018461129e565b949350505050565b8181038181111561178157634e487b7160e01b600052601160045260246000fd5b92915050565b6020810161178182846112fa56fea26469706673582212209c436658448795030db9f0caefa822107d6227b4446288d0a29b973470e3230864736f6c63430008140033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 803,
+        "contract": "contracts/FuneralService.sol:FuneralService",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 889,
+        "contract": "contracts/FuneralService.sol:FuneralService",
+        "label": "_status",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 996,
+        "contract": "contracts/FuneralService.sol:FuneralService",
+        "label": "_serviceIds",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_struct(Counter)920_storage"
+      },
+      {
+        "astId": 1035,
+        "contract": "contracts/FuneralService.sol:FuneralService",
+        "label": "funeralOrders",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_mapping(t_uint256,t_struct(FuneralOrder)1030_storage)"
+      },
+      {
+        "astId": 1040,
+        "contract": "contracts/FuneralService.sol:FuneralService",
+        "label": "servicePrices",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_mapping(t_enum(ServiceType)1005,t_uint256)"
+      },
+      {
+        "astId": 1042,
+        "contract": "contracts/FuneralService.sol:FuneralService",
+        "label": "hospitalContract",
+        "offset": 0,
+        "slot": "5",
+        "type": "t_address"
+      },
+      {
+        "astId": 1044,
+        "contract": "contracts/FuneralService.sol:FuneralService",
+        "label": "cemeteryContract",
+        "offset": 0,
+        "slot": "6",
+        "type": "t_address"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_enum(ServiceStatus)1001": {
+        "encoding": "inplace",
+        "label": "enum FuneralService.ServiceStatus",
+        "numberOfBytes": "1"
+      },
+      "t_enum(ServiceType)1005": {
+        "encoding": "inplace",
+        "label": "enum FuneralService.ServiceType",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_enum(ServiceType)1005,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_enum(ServiceType)1005",
+        "label": "mapping(enum FuneralService.ServiceType => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_mapping(t_uint256,t_struct(FuneralOrder)1030_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct FuneralService.FuneralOrder)",
+        "numberOfBytes": "32",
+        "value": "t_struct(FuneralOrder)1030_storage"
+      },
+      "t_string_storage": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_struct(Counter)920_storage": {
+        "encoding": "inplace",
+        "label": "struct Counters.Counter",
+        "members": [
+          {
+            "astId": 919,
+            "contract": "contracts/FuneralService.sol:FuneralService",
+            "label": "_value",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "32"
+      },
+      "t_struct(FuneralOrder)1030_storage": {
+        "encoding": "inplace",
+        "label": "struct FuneralService.FuneralOrder",
+        "members": [
+          {
+            "astId": 1007,
+            "contract": "contracts/FuneralService.sol:FuneralService",
+            "label": "id",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 1009,
+            "contract": "contracts/FuneralService.sol:FuneralService",
+            "label": "patientId",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 1011,
+            "contract": "contracts/FuneralService.sol:FuneralService",
+            "label": "deceasedName",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 1013,
+            "contract": "contracts/FuneralService.sol:FuneralService",
+            "label": "familyContact",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_address"
+          },
+          {
+            "astId": 1016,
+            "contract": "contracts/FuneralService.sol:FuneralService",
+            "label": "serviceType",
+            "offset": 20,
+            "slot": "3",
+            "type": "t_enum(ServiceType)1005"
+          },
+          {
+            "astId": 1019,
+            "contract": "contracts/FuneralService.sol:FuneralService",
+            "label": "status",
+            "offset": 21,
+            "slot": "3",
+            "type": "t_enum(ServiceStatus)1001"
+          },
+          {
+            "astId": 1021,
+            "contract": "contracts/FuneralService.sol:FuneralService",
+            "label": "totalCost",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 1023,
+            "contract": "contracts/FuneralService.sol:FuneralService",
+            "label": "initiatedTime",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 1025,
+            "contract": "contracts/FuneralService.sol:FuneralService",
+            "label": "serviceDate",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 1027,
+            "contract": "contracts/FuneralService.sol:FuneralService",
+            "label": "specialRequests",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 1029,
+            "contract": "contracts/FuneralService.sol:FuneralService",
+            "label": "isPaid",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_bool"
+          }
+        ],
+        "numberOfBytes": "288"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

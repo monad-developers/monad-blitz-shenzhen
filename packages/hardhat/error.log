@@ -1,0 +1,23 @@
+Signer had insufficient balance {"name":"ProviderError","_stack":"ProviderError: Signer had insufficient balance\n    at HttpProvider.request (/Users/a58/Documents/web3/YD-Monade-Happy-Pro/packages/hardhat/node_modules/hardhat/src/internal/core/providers/http.ts:107:21)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)","code":-32603,"_isProviderError":true} ProviderError: Signer had insufficient balance
+    at HttpProvider.request (/Users/a58/Documents/web3/YD-Monade-Happy-Pro/packages/hardhat/node_modules/hardhat/src/internal/core/providers/http.ts:107:21)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+[31mAn unexpected error occurred:[39m
+Error: ERROR processing /Users/a58/Documents/web3/YD-Monade-Happy-Pro/packages/hardhat/deploy/00_deploy_your_contract.ts:
+ProviderError: Signer had insufficient balance
+    at HttpProvider.request (/Users/a58/Documents/web3/YD-Monade-Happy-Pro/packages/hardhat/node_modules/hardhat/src/internal/core/providers/http.ts:107:21)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at DeploymentsManager.executeDeployScripts (/Users/a58/Documents/web3/YD-Monade-Happy-Pro/packages/hardhat/node_modules/hardhat-deploy/src/DeploymentsManager.ts:1215:19)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async DeploymentsManager.runDeploy (/Users/a58/Documents/web3/YD-Monade-Happy-Pro/packages/hardhat/node_modules/hardhat-deploy/src/DeploymentsManager.ts:1061:5)
+    at async SimpleTaskDefinition.action (/Users/a58/Documents/web3/YD-Monade-Happy-Pro/packages/hardhat/node_modules/hardhat-deploy/src/index.ts:450:5)
+    at async Environment._runTaskDefinition (/Users/a58/Documents/web3/YD-Monade-Happy-Pro/packages/hardhat/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at async Environment.run (/Users/a58/Documents/web3/YD-Monade-Happy-Pro/packages/hardhat/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at async SimpleTaskDefinition.action (/Users/a58/Documents/web3/YD-Monade-Happy-Pro/packages/hardhat/node_modules/hardhat-deploy/src/index.ts:601:32)
+    at async Environment._runTaskDefinition (/Users/a58/Documents/web3/YD-Monade-Happy-Pro/packages/hardhat/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at async Environment.run (/Users/a58/Documents/web3/YD-Monade-Happy-Pro/packages/hardhat/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at async SimpleTaskDefinition.action (/Users/a58/Documents/web3/YD-Monade-Happy-Pro/packages/hardhat/node_modules/hardhat-deploy/src/index.ts:690:5)
+npm notice
+npm notice New major version of npm available! 10.8.2 -> 11.4.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.4.1
+npm notice To update run: npm install -g npm@11.4.1
+npm notice

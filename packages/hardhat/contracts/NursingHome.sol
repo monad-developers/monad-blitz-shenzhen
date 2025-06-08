@@ -109,7 +109,7 @@ contract NursingHome is Ownable {
         address _familyContact,
         uint256 _monthlyFee,
         string memory _healthCondition
-    ) external onlyOwner returns (uint256) {
+    ) external returns (uint256) {
         _residentIds.increment();
         uint256 newResidentId = _residentIds.current();
         

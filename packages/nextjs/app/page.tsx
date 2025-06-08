@@ -5,7 +5,8 @@ import type { NextPage } from "next";
 import { BuildingOffice2Icon, HeartIcon, UserGroupIcon, ArchiveBoxIcon } from "@heroicons/react/24/outline";
 import { RainbowKitCustomConnectButton, FaucetButton } from "~~/components/scaffold-eth";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth";
-import { hardhat } from "viem/chains";
+// 移除hardhat导入，使用更通用的方式检查网络
+// import { hardhat } from "viem/chains";
 import { NursingHomeForm } from "~~/components/nursing/NursingHomeForm";
 import { HospitalTransferForm } from "~~/components/hospital/HospitalTransferForm";
 import { HospitalPaymentForm } from "~~/components/hospital/HospitalPaymentForm";
@@ -56,7 +57,8 @@ const Home: NextPage = () => {
   const [activeTab, setActiveTab] = useState("nursing");
   const [activeSubTab, setActiveSubTab] = useState("create"); // 添加子标签状态
   const { targetNetwork } = useTargetNetwork();
-  const isLocalNetwork = targetNetwork.id === hardhat.id;
+  // 修改为检查是否为测试网，而不是特定的hardhat网络
+  const isTestNetwork = targetNetwork.testnet === true;
 
   const activeTabData = tabs.find(tab => tab.id === activeTab) || tabs[0];
   const IconComponent = activeTabData.icon;
@@ -146,7 +148,7 @@ const Home: NextPage = () => {
       {/* Wallet Connection Bar */}
       <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
         <RainbowKitCustomConnectButton />
-        {isLocalNetwork && <FaucetButton />}
+        {isTestNetwork && <FaucetButton />}
       </div>
 
       {/* Hero Section */}

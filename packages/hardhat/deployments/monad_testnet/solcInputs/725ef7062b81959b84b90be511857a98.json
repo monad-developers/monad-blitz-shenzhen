@@ -1,0 +1,36 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/NursingHome.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.19;\n\n// 基础库\nabstract contract Ownable {\n    address private _owner;\n\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\n\n    constructor() {\n        _transferOwnership(msg.sender);\n    }\n\n    modifier onlyOwner() {\n        require(owner() == msg.sender, \"Ownable: caller is not the owner\");\n        _;\n    }\n\n    function owner() public view virtual returns (address) {\n        return _owner;\n    }\n\n    function transferOwnership(address newOwner) public virtual onlyOwner {\n        require(newOwner != address(0), \"Ownable: new owner is the zero address\");\n        _transferOwnership(newOwner);\n    }\n\n    function _transferOwnership(address newOwner) internal virtual {\n        address oldOwner = _owner;\n        _owner = newOwner;\n        emit OwnershipTransferred(oldOwner, newOwner);\n    }\n}\n\n// 计数器库\nlibrary Counters {\n    struct Counter {\n        uint256 _value;\n    }\n\n    function current(Counter storage counter) internal view returns (uint256) {\n        return counter._value;\n    }\n\n    function increment(Counter storage counter) internal {\n        unchecked {\n            counter._value += 1;\n        }\n    }\n\n    function decrement(Counter storage counter) internal {\n        uint256 value = counter._value;\n        require(value > 0, \"Counter: decrement overflow\");\n        unchecked {\n            counter._value = value - 1;\n        }\n    }\n}\n\n// 医院接口\ninterface IHospitalCore {\n    function admitPatient(\n        string memory _name,\n        uint256 _age,\n        address _familyContact,\n        string memory _initialRecord\n    ) external returns (uint256);\n}\n\n// 养老院合约\ncontract NursingHome is Ownable {\n    using Counters for Counters.Counter;\n    \n    Counters.Counter private _residentIds;\n    \n    enum ResidentStatus {\n        ACTIVE,      // 在院\n        TRANSFERRED, // 转院\n        DECEASED     // 去世\n    }\n    \n    struct Resident {\n        uint256 id;\n        string name;\n        uint256 age;\n        address familyContact;\n        ResidentStatus status;\n        uint256 admissionDate;\n        uint256 monthlyFee;\n        string healthCondition;\n    }\n    \n    mapping(uint256 => Resident) public residents;\n    mapping(address => uint256[]) public familyResidents;\n    \n    address public hospitalContract;\n    \n    event ResidentAdmitted(uint256 indexed residentId, string name);\n    event ResidentTransferred(uint256 indexed residentId, address hospital);\n    event ResidentDeceased(uint256 indexed residentId);\n    \n    function setHospitalContract(address _hospital) external onlyOwner {\n        hospitalContract = _hospital;\n    }\n    \n    function admitResident(\n        string memory _name,\n        uint256 _age,\n        address _familyContact,\n        uint256 _monthlyFee,\n        string memory _healthCondition\n    ) external returns (uint256) {\n        _residentIds.increment();\n        uint256 newResidentId = _residentIds.current();\n        \n        residents[newResidentId] = Resident({\n            id: newResidentId,\n            name: _name,\n            age: _age,\n            familyContact: _familyContact,\n            status: ResidentStatus.ACTIVE,\n            admissionDate: block.timestamp,\n            monthlyFee: _monthlyFee,\n            healthCondition: _healthCondition\n        });\n        \n        familyResidents[_familyContact].push(newResidentId);\n        emit ResidentAdmitted(newResidentId, _name);\n        return newResidentId;\n    }\n    \n    // 转院到医院\n    function transferToHospital(\n        uint256 _residentId,\n        string memory _reason\n    ) external onlyOwner {\n        require(_residentId <= _residentIds.current(), \"Resident does not exist\");\n        Resident storage resident = residents[_residentId];\n        require(resident.status == ResidentStatus.ACTIVE, \"Resident not active\");\n        \n        resident.status = ResidentStatus.TRANSFERRED;\n        \n        // 调用医院合约进行入院登记\n        if (hospitalContract != address(0)) {\n            IHospitalCore(hospitalContract).admitPatient(\n                resident.name,\n                resident.age,\n                resident.familyContact,\n                string(abi.encodePacked(\"Transferred from nursing home: \", _reason))\n            );\n        }\n        \n        emit ResidentTransferred(_residentId, hospitalContract);\n    }\n    \n    function getResident(uint256 _residentId) external view returns (Resident memory) {\n        return residents[_residentId];\n    }\n}"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "evmVersion": "paris",
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

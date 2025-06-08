@@ -2,35 +2,40 @@
 
 import { useState } from "react";
 import { createWalletClient, http, parseEther } from "viem";
-import { hardhat } from "viem/chains";
+// 移除hardhat导入
+// import { hardhat } from "viem/chains";
 import { useAccount } from "wagmi";
 import { BanknotesIcon } from "@heroicons/react/24/outline";
 import { useTransactor } from "~~/hooks/scaffold-eth";
+import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { useWatchBalance } from "~~/hooks/scaffold-eth/useWatchBalance";
 
 // Number of ETH faucet sends to an address
 const NUM_OF_ETH = "1";
+// 注意：这个地址只在hardhat网络上有效
 const FAUCET_ADDRESS = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
-
-const localWalletClient = createWalletClient({
-  chain: hardhat,
-  transport: http(),
-});
 
 /**
  * FaucetButton button which lets you grab eth.
  */
 export const FaucetButton = () => {
   const { address, chain: ConnectedChain } = useAccount();
+  const { targetNetwork } = useTargetNetwork();
 
   const { data: balance } = useWatchBalance({ address });
 
   const [loading, setLoading] = useState(false);
 
-  const faucetTxn = useTransactor(localWalletClient);
+  // 使用当前连接的链创建钱包客户端
+  const walletClient = ConnectedChain ? createWalletClient({
+    chain: ConnectedChain,
+    transport: http(),
+  }) : null;
+
+  const faucetTxn = useTransactor(walletClient);
 
   const sendETH = async () => {
-    if (!address) return;
+    if (!address || !walletClient) return;
     try {
       setLoading(true);
       await faucetTxn({
@@ -45,29 +50,20 @@ export const FaucetButton = () => {
     }
   };
 
-  // Render only on local chain
-  if (ConnectedChain?.id !== hardhat.id) {
+  // 在Monad测试网上，我们不显示Faucet按钮，因为我们没有控制测试网的水龙头
+  // 如果需要在Monad测试网上添加水龙头功能，需要修改这里的逻辑
+  if (!targetNetwork.testnet || targetNetwork.id === 10143) {
     return null;
   }
 
-  const isBalanceZero = balance && balance.value === 0n;
-
   return (
-    <div
-      className={
-        !isBalanceZero
-          ? "ml-1"
-          : "ml-1 tooltip tooltip-bottom tooltip-primary tooltip-open font-bold before:left-auto before:transform-none before:content-[attr(data-tip)] before:-translate-x-2/5"
-      }
-      data-tip="Grab funds from faucet"
-    >
-      <button className="btn btn-secondary btn-sm px-2 rounded-full" onClick={sendETH} disabled={loading}>
-        {!loading ? (
-          <BanknotesIcon className="h-4 w-4" />
-        ) : (
-          <span className="loading loading-spinner loading-xs"></span>
-        )}
-      </button>
+    <div onClick={sendETH} className="btn btn-secondary btn-sm px-2 rounded-full">
+      {!loading ? (
+        <BanknotesIcon className="h-4 w-4" />
+      ) : (
+        <span className="loading loading-spinner loading-xs"></span>
+      )}
+      <span className="ml-1">Faucet</span>
     </div>
   );
 };

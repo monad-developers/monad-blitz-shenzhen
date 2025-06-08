@@ -1,0 +1,698 @@
+{
+  "address": "0xed791AC909e6530C097983626Ad8afa19B9EBe09",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "deceasedName",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "plotId",
+          "type": "uint256"
+        }
+      ],
+      "name": "BurialCompleted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "deceasedName",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "plotId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "burialDate",
+          "type": "uint256"
+        }
+      ],
+      "name": "BurialScheduled",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "plotId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "buyer",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "location",
+          "type": "string"
+        }
+      ],
+      "name": "PlotPurchased",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "name": "burialRecords",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "plotId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "deceasedName",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "familyContact",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "burialDate",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "ceremony",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "familyPlots",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "funeralServiceContract",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_plotId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getPlot",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "enum Cemetery.PlotType",
+              "name": "plotType",
+              "type": "uint8"
+            },
+            {
+              "internalType": "enum Cemetery.PlotStatus",
+              "name": "status",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "price",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "location",
+              "type": "string"
+            },
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "internalType": "string",
+              "name": "occupantName",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "burialDate",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "epitaph",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct Cemetery.Plot",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "plots",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "internalType": "enum Cemetery.PlotType",
+          "name": "plotType",
+          "type": "uint8"
+        },
+        {
+          "internalType": "enum Cemetery.PlotStatus",
+          "name": "status",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "location",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "occupantName",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "burialDate",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "epitaph",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_deceasedName",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "_familyContact",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_burialDate",
+          "type": "uint256"
+        }
+      ],
+      "name": "prepareBurial",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_plotId",
+          "type": "uint256"
+        }
+      ],
+      "name": "purchasePlot",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_plotId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_epitaph",
+          "type": "string"
+        }
+      ],
+      "name": "setEpitaph",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_funeralService",
+          "type": "address"
+        }
+      ],
+      "name": "setFuneralServiceContract",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "withdraw",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x04330a8085cc79ddff48fe6f6029b871d35aa47e8a4bac367fdc2645ed090896",
+  "receipt": {
+    "to": null,
+    "from": "0xEbAd73D4daf681F7e08F5feb48D972393CcC9f19",
+    "contractAddress": "0xed791AC909e6530C097983626Ad8afa19B9EBe09",
+    "transactionIndex": 13,
+    "gasUsed": "9675960",
+    "logsBloom": "0x00000000000000000000000000000000000000000200000000800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000020000000000000000000800000000000000080000000000000000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000100000000000000000000000000000100000010000000000000000000000000",
+    "blockHash": "0x515193680b953109be71da54a0ef540b09c7dacd3967a1d0b6fd4a82c14852da",
+    "transactionHash": "0x04330a8085cc79ddff48fe6f6029b871d35aa47e8a4bac367fdc2645ed090896",
+    "logs": [
+      {
+        "transactionIndex": 13,
+        "blockNumber": 20638328,
+        "transactionHash": "0x04330a8085cc79ddff48fe6f6029b871d35aa47e8a4bac367fdc2645ed090896",
+        "address": "0xed791AC909e6530C097983626Ad8afa19B9EBe09",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x000000000000000000000000ebad73d4daf681f7e08f5feb48d972393ccc9f19"
+        ],
+        "data": "0x",
+        "logIndex": 57,
+        "blockHash": "0x515193680b953109be71da54a0ef540b09c7dacd3967a1d0b6fd4a82c14852da"
+      }
+    ],
+    "blockNumber": 20638328,
+    "cumulativeGasUsed": "11876205",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "da1ddd2d5521bb4532d1a290be9dd42b",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"deceasedName\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"plotId\",\"type\":\"uint256\"}],\"name\":\"BurialCompleted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"deceasedName\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"plotId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"burialDate\",\"type\":\"uint256\"}],\"name\":\"BurialScheduled\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"plotId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"buyer\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"}],\"name\":\"PlotPurchased\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"burialRecords\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"plotId\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"deceasedName\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"familyContact\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"burialDate\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"ceremony\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"familyPlots\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"funeralServiceContract\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_plotId\",\"type\":\"uint256\"}],\"name\":\"getPlot\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"enum Cemetery.PlotType\",\"name\":\"plotType\",\"type\":\"uint8\"},{\"internalType\":\"enum Cemetery.PlotStatus\",\"name\":\"status\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"occupantName\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"burialDate\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"epitaph\",\"type\":\"string\"}],\"internalType\":\"struct Cemetery.Plot\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"plots\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"enum Cemetery.PlotType\",\"name\":\"plotType\",\"type\":\"uint8\"},{\"internalType\":\"enum Cemetery.PlotStatus\",\"name\":\"status\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"occupantName\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"burialDate\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"epitaph\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_deceasedName\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"_familyContact\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_burialDate\",\"type\":\"uint256\"}],\"name\":\"prepareBurial\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_plotId\",\"type\":\"uint256\"}],\"name\":\"purchasePlot\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_plotId\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"_epitaph\",\"type\":\"string\"}],\"name\":\"setEpitaph\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_funeralService\",\"type\":\"address\"}],\"name\":\"setFuneralServiceContract\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/Cemetery.sol\":\"Cemetery\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/Cemetery.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.19;\\n\\n// \\u57fa\\u7840\\u5e93\\nabstract contract Ownable {\\n    address private _owner;\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    constructor() {\\n        _transferOwnership(msg.sender);\\n    }\\n\\n    modifier onlyOwner() {\\n        require(owner() == msg.sender, \\\"Ownable: caller is not the owner\\\");\\n        _;\\n    }\\n\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        require(newOwner != address(0), \\\"Ownable: new owner is the zero address\\\");\\n        _transferOwnership(newOwner);\\n    }\\n\\n    function _transferOwnership(address newOwner) internal virtual {\\n        address oldOwner = _owner;\\n        _owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\\n// \\u8ba1\\u6570\\u5668\\u5e93\\nlibrary Counters {\\n    struct Counter {\\n        uint256 _value;\\n    }\\n\\n    function current(Counter storage counter) internal view returns (uint256) {\\n        return counter._value;\\n    }\\n\\n    function increment(Counter storage counter) internal {\\n        unchecked {\\n            counter._value += 1;\\n        }\\n    }\\n\\n    function decrement(Counter storage counter) internal {\\n        uint256 value = counter._value;\\n        require(value > 0, \\\"Counter: decrement overflow\\\");\\n        unchecked {\\n            counter._value = value - 1;\\n        }\\n    }\\n}\\n\\n// \\u5893\\u5730\\u5408\\u7ea6\\ncontract Cemetery is Ownable {\\n    using Counters for Counters.Counter;\\n    \\n    Counters.Counter private _plotIds;\\n    \\n    enum PlotStatus {\\n        AVAILABLE,  // \\u53ef\\u7528\\n        RESERVED,   // \\u5df2\\u9884\\u8ba2\\n        OCCUPIED    // \\u5df2\\u5360\\u7528\\n    }\\n    \\n    enum PlotType {\\n        STANDARD,   // \\u6807\\u51c6\\u5893\\u4f4d\\n        PREMIUM,    // \\u9ad8\\u7ea7\\u5893\\u4f4d\\n        FAMILY      // \\u5bb6\\u65cf\\u5893\\u4f4d\\n    }\\n    \\n    struct Plot {\\n        uint256 id;\\n        PlotType plotType;\\n        PlotStatus status;\\n        uint256 price;\\n        string location;\\n        address owner;\\n        string occupantName;\\n        uint256 burialDate;\\n        string epitaph;\\n    }\\n    \\n    struct BurialRecord {\\n        uint256 plotId;\\n        string deceasedName;\\n        address familyContact;\\n        uint256 burialDate;\\n        string ceremony;\\n    }\\n    \\n    mapping(uint256 => Plot) public plots;\\n    mapping(address => uint256[]) public familyPlots;\\n    mapping(string => BurialRecord) public burialRecords; // \\u6309\\u59d3\\u540d\\u7d22\\u5f15\\n    \\n    address public funeralServiceContract;\\n    \\n    event PlotPurchased(uint256 indexed plotId, address buyer, string location);\\n    event BurialScheduled(string deceasedName, uint256 plotId, uint256 burialDate);\\n    event BurialCompleted(string deceasedName, uint256 plotId);\\n    \\n    constructor() {\\n        // \\u521d\\u59cb\\u5316\\u4e00\\u4e9b\\u5893\\u4f4d\\n        _initializePlots();\\n    }\\n    \\n    function _initializePlots() internal {\\n        // \\u521b\\u5efa\\u6807\\u51c6\\u5893\\u4f4d\\n        for (uint256 i = 1; i <= 50; i++) {\\n            _plotIds.increment();\\n            uint256 plotId = _plotIds.current();\\n            plots[plotId] = Plot({\\n                id: plotId,\\n                plotType: PlotType.STANDARD,\\n                status: PlotStatus.AVAILABLE,\\n                price: 1 ether,\\n                location: string(abi.encodePacked(\\\"Section A, Plot \\\", _toString(i))),\\n                owner: address(0),\\n                occupantName: \\\"\\\",\\n                burialDate: 0,\\n                epitaph: \\\"\\\"\\n            });\\n        }\\n        \\n        // \\u521b\\u5efa\\u9ad8\\u7ea7\\u5893\\u4f4d\\n        for (uint256 i = 1; i <= 30; i++) {\\n            _plotIds.increment();\\n            uint256 plotId = _plotIds.current();\\n            plots[plotId] = Plot({\\n                id: plotId,\\n                plotType: PlotType.PREMIUM,\\n                status: PlotStatus.AVAILABLE,\\n                price: 3 ether,\\n                location: string(abi.encodePacked(\\\"Section B, Plot \\\", _toString(i))),\\n                owner: address(0),\\n                occupantName: \\\"\\\",\\n                burialDate: 0,\\n                epitaph: \\\"\\\"\\n            });\\n        }\\n        \\n        // \\u521b\\u5efa\\u5bb6\\u65cf\\u5893\\u4f4d\\n        for (uint256 i = 1; i <= 10; i++) {\\n            _plotIds.increment();\\n            uint256 plotId = _plotIds.current();\\n            plots[plotId] = Plot({\\n                id: plotId,\\n                plotType: PlotType.FAMILY,\\n                status: PlotStatus.AVAILABLE,\\n                price: 5 ether,\\n                location: string(abi.encodePacked(\\\"Section C, Plot \\\", _toString(i))),\\n                owner: address(0),\\n                occupantName: \\\"\\\",\\n                burialDate: 0,\\n                epitaph: \\\"\\\"\\n            });\\n        }\\n    }\\n    \\n    function _toString(uint256 value) internal pure returns (string memory) {\\n        // \\u7b80\\u5355\\u7684\\u6570\\u5b57\\u8f6c\\u5b57\\u7b26\\u4e32\\u51fd\\u6570\\n        if (value == 0) {\\n            return \\\"0\\\";\\n        }\\n        uint256 temp = value;\\n        uint256 digits;\\n        while (temp != 0) {\\n            digits++;\\n            temp /= 10;\\n        }\\n        bytes memory buffer = new bytes(digits);\\n        while (value != 0) {\\n            digits -= 1;\\n            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));\\n            value /= 10;\\n        }\\n        return string(buffer);\\n    }\\n    \\n    function setFuneralServiceContract(address _funeralService) external onlyOwner {\\n        funeralServiceContract = _funeralService;\\n    }\\n    \\n    // \\u8d2d\\u4e70\\u5893\\u4f4d\\n    function purchasePlot(uint256 _plotId) external payable {\\n        require(_plotId <= _plotIds.current(), \\\"Plot does not exist\\\");\\n        Plot storage plot = plots[_plotId];\\n        require(plot.status == PlotStatus.AVAILABLE, \\\"Plot not available\\\");\\n        require(msg.value >= plot.price, \\\"Insufficient payment\\\");\\n        \\n        plot.status = PlotStatus.RESERVED;\\n        plot.owner = msg.sender;\\n        \\n        familyPlots[msg.sender].push(_plotId);\\n        \\n        // \\u9000\\u8fd8\\u591a\\u4f59\\u7684ETH\\n        if (msg.value > plot.price) {\\n            payable(msg.sender).transfer(msg.value - plot.price);\\n        }\\n        \\n        emit PlotPurchased(_plotId, msg.sender, plot.location);\\n    }\\n    \\n    // \\u51c6\\u5907\\u5b89\\u846c\\uff08\\u7531\\u6ba1\\u846c\\u670d\\u52a1\\u5408\\u7ea6\\u8c03\\u7528\\uff09\\n    function prepareBurial(\\n        string memory _deceasedName,\\n        address _familyContact,\\n        uint256 _burialDate\\n    ) external {\\n        require(msg.sender == funeralServiceContract, \\\"Only funeral service can call\\\");\\n        \\n        // \\u67e5\\u627e\\u8be5\\u5bb6\\u5ead\\u62e5\\u6709\\u7684\\u5893\\u4f4d\\n        uint256[] memory ownedPlots = familyPlots[_familyContact];\\n        require(ownedPlots.length > 0, \\\"Family has no plots\\\");\\n        \\n        // \\u627e\\u5230\\u4e00\\u4e2a\\u5df2\\u9884\\u8ba2\\u4f46\\u672a\\u5360\\u7528\\u7684\\u5893\\u4f4d\\n        uint256 plotId = 0;\\n        for (uint256 i = 0; i < ownedPlots.length; i++) {\\n            if (plots[ownedPlots[i]].status == PlotStatus.RESERVED) {\\n                plotId = ownedPlots[i];\\n                break;\\n            }\\n        }\\n        \\n        require(plotId > 0, \\\"No reserved plots available\\\");\\n        \\n        Plot storage plot = plots[plotId];\\n        plot.occupantName = _deceasedName;\\n        plot.burialDate = _burialDate;\\n        plot.status = PlotStatus.OCCUPIED;\\n        \\n        // \\u8bb0\\u5f55\\u5b89\\u846c\\u4fe1\\u606f\\n        burialRecords[_deceasedName] = BurialRecord({\\n            plotId: plotId,\\n            deceasedName: _deceasedName,\\n            familyContact: _familyContact,\\n            burialDate: _burialDate,\\n            ceremony: \\\"Standard\\\"\\n        });\\n        \\n        emit BurialScheduled(_deceasedName, plotId, _burialDate);\\n    }\\n    \\n    // \\u8bbe\\u7f6e\\u5893\\u5fd7\\u94ed\\n    function setEpitaph(uint256 _plotId, string memory _epitaph) external {\\n        require(_plotId <= _plotIds.current(), \\\"Plot does not exist\\\");\\n        Plot storage plot = plots[_plotId];\\n        require(plot.owner == msg.sender, \\\"Not the plot owner\\\");\\n        require(plot.status == PlotStatus.OCCUPIED, \\\"Plot not occupied\\\");\\n        \\n        plot.epitaph = _epitaph;\\n    }\\n    \\n    // \\u83b7\\u53d6\\u5893\\u4f4d\\u4fe1\\u606f\\n    function getPlot(uint256 _plotId) external view returns (Plot memory) {\\n        require(_plotId <= _plotIds.current(), \\\"Plot does not exist\\\");\\n        return plots[_plotId];\\n    }\\n    \\n    // \\u63d0\\u53d6\\u8d44\\u91d1\\n    function withdraw() external onlyOwner {\\n        uint256 balance = address(this).balance;\\n        require(balance > 0, \\\"No funds to withdraw\\\");\\n        payable(owner()).transfer(balance);\\n    }\\n}\",\"keccak256\":\"0x6b85818890de79584bf77415ade053290059ba2a0a4a9c4cd25f5e760da9503a\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x60806040523480156200001157600080fd5b506200001d336200002d565b620000276200007d565b620009d2565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b60015b603281116200023c5762000098600180546001019055565b6000620000a460015490565b604080516101208101909152818152909150602081016000815260200160008152670de0b6b3a76400006020820152604001620000e184620005bf565b604051602001620000f3919062000727565b60408051601f19818403018152918152908252600060208381018290528251808201845282815284840152606084018290528251808201845282815260809094019390935284815260028084529190208351815591830151600180840180549293909260ff191691908490811115620001705762000170620006df565b0217905550604082015160018201805461ff0019166101008360028111156200019d576200019d620006df565b02179055506060820151600282015560808201516003820190620001c29082620007fa565b5060a08201516004820180546001600160a01b0319166001600160a01b0390921691909117905560c08201516005820190620001ff9082620007fa565b5060e082015160068201556101008201516007820190620002219082620007fa565b509050505080806200023390620008dc565b91505062000080565b5060015b601e8111620003fc5762000258600180546001019055565b60006200026460015490565b6040805161012081019091528181529091506020810160018152602001600081526729a2241af62c00006020820152604001620002a184620005bf565b604051602001620002b39190620008f8565b60408051601f19818403018152918152908252600060208381018290528251808201845282815284840152606084018290528251808201845282815260809094019390935284815260028084529190208351815591830151600180840180549293909260ff191691908490811115620003305762000330620006df565b0217905550604082015160018201805461ff0019166101008360028111156200035d576200035d620006df565b02179055506060820151600282015560808201516003820190620003829082620007fa565b5060a08201516004820180546001600160a01b0319166001600160a01b0390921691909117905560c08201516005820190620003bf9082620007fa565b5060e082015160068201556101008201516007820190620003e19082620007fa565b50905050508080620003f390620008dc565b91505062000240565b5060015b600a8111620005bc5762000418600180546001019055565b60006200042460015490565b604080516101208101909152818152909150602081016002815260200160008152674563918244f4000060208201526040016200046184620005bf565b6040516020016200047391906200091f565b60408051601f19818403018152918152908252600060208381018290528251808201845282815284840152606084018290528251808201845282815260809094019390935284815260028084529190208351815591830151600180840180549293909260ff191691908490811115620004f057620004f0620006df565b0217905550604082015160018201805461ff0019166101008360028111156200051d576200051d620006df565b02179055506060820151600282015560808201516003820190620005429082620007fa565b5060a08201516004820180546001600160a01b0319166001600160a01b0390921691909117905560c082015160058201906200057f9082620007fa565b5060e082015160068201556101008201516007820190620005a19082620007fa565b50905050508080620005b390620008dc565b91505062000400565b50565b606081600003620005e75750506040805180820190915260018152600360fc1b602082015290565b8160005b8115620006175780620005fe81620008dc565b91506200060f9050600a836200095c565b9150620005eb565b6000816001600160401b0381111562000634576200063462000755565b6040519080825280601f01601f1916602001820160405280156200065f576020820181803683370190505b5090505b8415620006d7576200067760018362000973565b915062000686600a866200098f565b62000693906030620009a6565b60f81b818381518110620006ab57620006ab620009bc565b60200101906001600160f81b031916908160001a905350620006cf600a866200095c565b945062000663565b949350505050565b634e487b7160e01b600052602160045260246000fd5b6000815160005b81811015620007185760208185018101518683015201620006fc565b50600093019283525090919050565b6f029b2b1ba34b7b710209610283637ba160851b815260006200074e6010830184620006f5565b9392505050565b634e487b7160e01b600052604160045260246000fd5b600181811c908216806200078057607f821691505b602082108103620007a157634e487b7160e01b600052602260045260246000fd5b50919050565b601f821115620007f557600081815260208120601f850160051c81016020861015620007d05750805b601f850160051c820191505b81811015620007f157828155600101620007dc565b5050505b505050565b81516001600160401b0381111562000816576200081662000755565b6200082e816200082784546200076b565b84620007a7565b602080601f8311600181146200086657600084156200084d5750858301515b600019600386901b1c1916600185901b178555620007f1565b600085815260208120601f198616915b82811015620008975788860151825594840194600190910190840162000876565b5085821015620008b65787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b634e487b7160e01b600052601160045260246000fd5b600060018201620008f157620008f1620008c6565b5060010190565b6f029b2b1ba34b7b710211610283637ba160851b815260006200074e6010830184620006f5565b6f029b2b1ba34b7b710219610283637ba160851b815260006200074e6010830184620006f5565b634e487b7160e01b600052601260045260246000fd5b6000826200096e576200096e62000946565b500490565b81810381811115620009895762000989620008c6565b92915050565b600082620009a157620009a162000946565b500690565b80820180821115620009895762000989620008c6565b634e487b7160e01b600052603260045260246000fd5b61182a80620009e26000396000f3fe6080604052600436106100a75760003560e01c8063c16b33f811610064578063c16b33f8146101a1578063cfdd4fbd146101c1578063d0f11ea1146101ee578063e96f568014610201578063f2fde38b14610232578063f435dae61461025257600080fd5b806303c1eca9146100ac5780630d838388146100df5780633ccfd60b1461011757806361bf49ee1461012e5780638da5cb5b14610163578063b3d8c8b214610181575b600080fd5b3480156100b857600080fd5b506100cc6100c73660046110fc565b610272565b6040519081526020015b60405180910390f35b3480156100eb57600080fd5b506005546100ff906001600160a01b031681565b6040516001600160a01b0390911681526020016100d6565b34801561012357600080fd5b5061012c6102a3565b005b34801561013a57600080fd5b5061014e610149366004611126565b610367565b6040516100d6999897969594939291906111d0565b34801561016f57600080fd5b506000546001600160a01b03166100ff565b34801561018d57600080fd5b5061012c61019c3660046112ff565b61055f565b3480156101ad57600080fd5b5061012c6101bc366004611356565b61089c565b3480156101cd57600080fd5b506101e16101dc366004611126565b6108f7565b6040516100d69190611378565b61012c6101fc366004611126565b610be8565b34801561020d57600080fd5b5061022161021c36600461143e565b610d98565b6040516100d695949392919061147b565b34801561023e57600080fd5b5061012c61024d366004611356565b610ef0565b34801561025e57600080fd5b5061012c61026d3660046114c8565b610f9a565b6003602052816000526040600020818154811061028e57600080fd5b90600052602060002001600091509150505481565b336102b66000546001600160a01b031690565b6001600160a01b0316146102e55760405162461bcd60e51b81526004016102dc9061150f565b60405180910390fd5b478061032a5760405162461bcd60e51b81526020600482015260146024820152734e6f2066756e647320746f20776974686472617760601b60448201526064016102dc565b600080546040516001600160a01b039091169183156108fc02918491818181858888f19350505050158015610363573d6000803e3d6000fd5b5050565b60026020819052600091825260409091208054600182015492820154600383018054929460ff8082169561010090920416939091906103a590611544565b80601f01602080910402602001604051908101604052809291908181526020018280546103d190611544565b801561041e5780601f106103f35761010080835404028352916020019161041e565b820191906000526020600020905b81548152906001019060200180831161040157829003601f168201915b505050600484015460058501805494956001600160a01b0390921694919350915061044890611544565b80601f016020809104026020016040519081016040528092919081815260200182805461047490611544565b80156104c15780601f10610496576101008083540402835291602001916104c1565b820191906000526020600020905b8154815290600101906020018083116104a457829003601f168201915b5050505050908060060154908060070180546104dc90611544565b80601f016020809104026020016040519081016040528092919081815260200182805461050890611544565b80156105555780601f1061052a57610100808354040283529160200191610555565b820191906000526020600020905b81548152906001019060200180831161053857829003601f168201915b5050505050905089565b6005546001600160a01b031633146105b95760405162461bcd60e51b815260206004820152601d60248201527f4f6e6c792066756e6572616c20736572766963652063616e2063616c6c00000060448201526064016102dc565b6001600160a01b03821660009081526003602090815260408083208054825181850281018501909352808352919290919083018282801561061957602002820191906000526020600020905b815481526020019060010190808311610605575b5050505050905060008151116106675760405162461bcd60e51b815260206004820152601360248201527246616d696c7920686173206e6f20706c6f747360681b60448201526064016102dc565b6000805b82518110156106fc5760016002600085848151811061068c5761068c61157e565b6020026020010151815260200190815260200160002060010160019054906101000a900460ff1660028111156106c4576106c461113f565b036106ea578281815181106106db576106db61157e565b602002602001015191506106fc565b806106f4816115aa565b91505061066b565b506000811161074d5760405162461bcd60e51b815260206004820152601b60248201527f4e6f20726573657276656420706c6f747320617661696c61626c65000000000060448201526064016102dc565b6000818152600260205260409020600581016107698782611612565b50600681018490556001810180546002919061ff0019166101008302179055506040518060a00160405280838152602001878152602001866001600160a01b031681526020018581526020016040518060400160405280600881526020016714dd185b99185c9960c21b8152508152506004876040516107e991906116d2565b90815260405160209181900382019020825181559082015160018201906108109082611612565b5060408201516002820180546001600160a01b0319166001600160a01b0390921691909117905560608201516003820155608082015160048201906108559082611612565b509050507f1da5a22f6a59c5ed90802d2836ff1f493a4fb65f6d264ceaf952f337a14e056886838660405161088c939291906116ee565b60405180910390a1505050505050565b336108af6000546001600160a01b031690565b6001600160a01b0316146108d55760405162461bcd60e51b81526004016102dc9061150f565b600580546001600160a01b0319166001600160a01b0392909216919091179055565b61095060408051610120810190915260008082526020820190815260200160008152602001600081526020016060815260200160006001600160a01b031681526020016060815260200160008152602001606081525090565b6001548211156109725760405162461bcd60e51b81526004016102dc90611713565b6000828152600260208181526040928390208351610120810190945280548452600181015490929184019160ff909116908111156109b2576109b261113f565b60028111156109c3576109c361113f565b81526020016001820160019054906101000a900460ff1660028111156109eb576109eb61113f565b60028111156109fc576109fc61113f565b815260200160028201548152602001600382018054610a1a90611544565b80601f0160208091040260200160405190810160405280929190818152602001828054610a4690611544565b8015610a935780601f10610a6857610100808354040283529160200191610a93565b820191906000526020600020905b815481529060010190602001808311610a7657829003601f168201915b505050918352505060048201546001600160a01b03166020820152600582018054604090920191610ac390611544565b80601f0160208091040260200160405190810160405280929190818152602001828054610aef90611544565b8015610b3c5780601f10610b1157610100808354040283529160200191610b3c565b820191906000526020600020905b815481529060010190602001808311610b1f57829003601f168201915b5050505050815260200160068201548152602001600782018054610b5f90611544565b80601f0160208091040260200160405190810160405280929190818152602001828054610b8b90611544565b8015610bd85780601f10610bad57610100808354040283529160200191610bd8565b820191906000526020600020905b815481529060010190602001808311610bbb57829003601f168201915b5050505050815250509050919050565b600154811115610c0a5760405162461bcd60e51b81526004016102dc90611713565b6000818152600260205260408120906001820154610100900460ff166002811115610c3757610c3761113f565b14610c795760405162461bcd60e51b8152602060048201526012602482015271506c6f74206e6f7420617661696c61626c6560701b60448201526064016102dc565b8060020154341015610cc45760405162461bcd60e51b8152602060048201526014602482015273125b9cdd59999a58da595b9d081c185e5b595b9d60621b60448201526064016102dc565b6001818101805461ff0019166101001790556004820180546001600160a01b03191633908117909155600090815260036020908152604082208054938401815582529020018290556002810154341115610d5757600281015433906108fc90610d2d9034611740565b6040518115909202916000818181858888f19350505050158015610d55573d6000803e3d6000fd5b505b817f9b2f667555f4739339cd95fdacf61ee77ed06a7488b7042f618fbc5d2228da913383600301604051610d8c929190611759565b60405180910390a25050565b805160208183018101805160048252928201919093012091528054600182018054919291610dc590611544565b80601f0160208091040260200160405190810160405280929190818152602001828054610df190611544565b8015610e3e5780601f10610e1357610100808354040283529160200191610e3e565b820191906000526020600020905b815481529060010190602001808311610e2157829003601f168201915b505050506002830154600384015460048501805494956001600160a01b039093169491935090610e6d90611544565b80601f0160208091040260200160405190810160405280929190818152602001828054610e9990611544565b8015610ee65780601f10610ebb57610100808354040283529160200191610ee6565b820191906000526020600020905b815481529060010190602001808311610ec957829003601f168201915b5050505050905085565b33610f036000546001600160a01b031690565b6001600160a01b031614610f295760405162461bcd60e51b81526004016102dc9061150f565b6001600160a01b038116610f8e5760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b60648201526084016102dc565b610f9781611090565b50565b600154821115610fbc5760405162461bcd60e51b81526004016102dc90611713565b600082815260026020526040902060048101546001600160a01b0316331461101b5760405162461bcd60e51b81526020600482015260126024820152712737ba103a343290383637ba1037bbb732b960711b60448201526064016102dc565b60026001820154610100900460ff16600281111561103b5761103b61113f565b1461107c5760405162461bcd60e51b8152602060048201526011602482015270141b1bdd081b9bdd081bd8d8dd5c1a5959607a1b60448201526064016102dc565b6007810161108a8382611612565b50505050565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b80356001600160a01b03811681146110f757600080fd5b919050565b6000806040838503121561110f57600080fd5b611118836110e0565b946020939093013593505050565b60006020828403121561113857600080fd5b5035919050565b634e487b7160e01b600052602160045260246000fd5b60038110610f9757634e487b7160e01b600052602160045260246000fd5b61117c81611155565b9052565b60005b8381101561119b578181015183820152602001611183565b50506000910152565b600081518084526111bc816020860160208601611180565b601f01601f19169290920160200192915050565b60006101208b83526111e18b611155565b8a60208401526111f08a611155565b89604084015288606084015280608084015261120e818401896111a4565b6001600160a01b03881660a085015283810360c0850152905061123181876111a4565b90508460e084015282810361010084015261124c81856111a4565b9c9b505050505050505050505050565b634e487b7160e01b600052604160045260246000fd5b600082601f83011261128357600080fd5b813567ffffffffffffffff8082111561129e5761129e61125c565b604051601f8301601f19908116603f011681019082821181831017156112c6576112c661125c565b816040528381528660208588010111156112df57600080fd5b836020870160208301376000602085830101528094505050505092915050565b60008060006060848603121561131457600080fd5b833567ffffffffffffffff81111561132b57600080fd5b61133786828701611272565b935050611346602085016110e0565b9150604084013590509250925092565b60006020828403121561136857600080fd5b611371826110e0565b9392505050565b6020815281516020820152600060208301516113976040840182611173565b5060408301516113aa6060840182611173565b506060830151608083015260808301516101208060a08501526113d16101408501836111a4565b915060a08501516113ed60c08601826001600160a01b03169052565b5060c0850151601f19808685030160e087015261140a84836111a4565b60e088015161010088810191909152880151878203909201848801529350905061143483826111a4565b9695505050505050565b60006020828403121561145057600080fd5b813567ffffffffffffffff81111561146757600080fd5b61147384828501611272565b949350505050565b85815260a06020820152600061149460a08301876111a4565b6001600160a01b03861660408401526060830185905282810360808401526114bc81856111a4565b98975050505050505050565b600080604083850312156114db57600080fd5b82359150602083013567ffffffffffffffff8111156114f957600080fd5b61150585828601611272565b9150509250929050565b6020808252818101527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572604082015260600190565b600181811c9082168061155857607f821691505b60208210810361157857634e487b7160e01b600052602260045260246000fd5b50919050565b634e487b7160e01b600052603260045260246000fd5b634e487b7160e01b600052601160045260246000fd5b6000600182016115bc576115bc611594565b5060010190565b601f82111561160d57600081815260208120601f850160051c810160208610156115ea5750805b601f850160051c820191505b81811015611609578281556001016115f6565b5050505b505050565b815167ffffffffffffffff81111561162c5761162c61125c565b6116408161163a8454611544565b846115c3565b602080601f831160018114611675576000841561165d5750858301515b600019600386901b1c1916600185901b178555611609565b600085815260208120601f198616915b828110156116a457888601518255948401946001909101908401611685565b50858210156116c25787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b600082516116e4818460208701611180565b9190910192915050565b60608152600061170160608301866111a4565b60208301949094525060400152919050565b602080825260139082015272141b1bdd08191bd95cc81b9bdd08195e1a5cdd606a1b604082015260600190565b8181038181111561175357611753611594565b92915050565b60018060a01b0383168152600060206040818401526000845461177b81611544565b806040870152606060018084166000811461179d57600181146117b7576117e5565b60ff1985168984015283151560051b8901830195506117e5565b896000528660002060005b858110156117dd5781548b82018601529083019088016117c2565b8a0184019650505b5093999850505050505050505056fea26469706673582212204373b8bbdf337102e32784ebbb95a16a9bcc447c1fde675d0aa5af7d6962acc664736f6c63430008140033",
+  "deployedBytecode": "0x6080604052600436106100a75760003560e01c8063c16b33f811610064578063c16b33f8146101a1578063cfdd4fbd146101c1578063d0f11ea1146101ee578063e96f568014610201578063f2fde38b14610232578063f435dae61461025257600080fd5b806303c1eca9146100ac5780630d838388146100df5780633ccfd60b1461011757806361bf49ee1461012e5780638da5cb5b14610163578063b3d8c8b214610181575b600080fd5b3480156100b857600080fd5b506100cc6100c73660046110fc565b610272565b6040519081526020015b60405180910390f35b3480156100eb57600080fd5b506005546100ff906001600160a01b031681565b6040516001600160a01b0390911681526020016100d6565b34801561012357600080fd5b5061012c6102a3565b005b34801561013a57600080fd5b5061014e610149366004611126565b610367565b6040516100d6999897969594939291906111d0565b34801561016f57600080fd5b506000546001600160a01b03166100ff565b34801561018d57600080fd5b5061012c61019c3660046112ff565b61055f565b3480156101ad57600080fd5b5061012c6101bc366004611356565b61089c565b3480156101cd57600080fd5b506101e16101dc366004611126565b6108f7565b6040516100d69190611378565b61012c6101fc366004611126565b610be8565b34801561020d57600080fd5b5061022161021c36600461143e565b610d98565b6040516100d695949392919061147b565b34801561023e57600080fd5b5061012c61024d366004611356565b610ef0565b34801561025e57600080fd5b5061012c61026d3660046114c8565b610f9a565b6003602052816000526040600020818154811061028e57600080fd5b90600052602060002001600091509150505481565b336102b66000546001600160a01b031690565b6001600160a01b0316146102e55760405162461bcd60e51b81526004016102dc9061150f565b60405180910390fd5b478061032a5760405162461bcd60e51b81526020600482015260146024820152734e6f2066756e647320746f20776974686472617760601b60448201526064016102dc565b600080546040516001600160a01b039091169183156108fc02918491818181858888f19350505050158015610363573d6000803e3d6000fd5b5050565b60026020819052600091825260409091208054600182015492820154600383018054929460ff8082169561010090920416939091906103a590611544565b80601f01602080910402602001604051908101604052809291908181526020018280546103d190611544565b801561041e5780601f106103f35761010080835404028352916020019161041e565b820191906000526020600020905b81548152906001019060200180831161040157829003601f168201915b505050600484015460058501805494956001600160a01b0390921694919350915061044890611544565b80601f016020809104026020016040519081016040528092919081815260200182805461047490611544565b80156104c15780601f10610496576101008083540402835291602001916104c1565b820191906000526020600020905b8154815290600101906020018083116104a457829003601f168201915b5050505050908060060154908060070180546104dc90611544565b80601f016020809104026020016040519081016040528092919081815260200182805461050890611544565b80156105555780601f1061052a57610100808354040283529160200191610555565b820191906000526020600020905b81548152906001019060200180831161053857829003601f168201915b5050505050905089565b6005546001600160a01b031633146105b95760405162461bcd60e51b815260206004820152601d60248201527f4f6e6c792066756e6572616c20736572766963652063616e2063616c6c00000060448201526064016102dc565b6001600160a01b03821660009081526003602090815260408083208054825181850281018501909352808352919290919083018282801561061957602002820191906000526020600020905b815481526020019060010190808311610605575b5050505050905060008151116106675760405162461bcd60e51b815260206004820152601360248201527246616d696c7920686173206e6f20706c6f747360681b60448201526064016102dc565b6000805b82518110156106fc5760016002600085848151811061068c5761068c61157e565b6020026020010151815260200190815260200160002060010160019054906101000a900460ff1660028111156106c4576106c461113f565b036106ea578281815181106106db576106db61157e565b602002602001015191506106fc565b806106f4816115aa565b91505061066b565b506000811161074d5760405162461bcd60e51b815260206004820152601b60248201527f4e6f20726573657276656420706c6f747320617661696c61626c65000000000060448201526064016102dc565b6000818152600260205260409020600581016107698782611612565b50600681018490556001810180546002919061ff0019166101008302179055506040518060a00160405280838152602001878152602001866001600160a01b031681526020018581526020016040518060400160405280600881526020016714dd185b99185c9960c21b8152508152506004876040516107e991906116d2565b90815260405160209181900382019020825181559082015160018201906108109082611612565b5060408201516002820180546001600160a01b0319166001600160a01b0390921691909117905560608201516003820155608082015160048201906108559082611612565b509050507f1da5a22f6a59c5ed90802d2836ff1f493a4fb65f6d264ceaf952f337a14e056886838660405161088c939291906116ee565b60405180910390a1505050505050565b336108af6000546001600160a01b031690565b6001600160a01b0316146108d55760405162461bcd60e51b81526004016102dc9061150f565b600580546001600160a01b0319166001600160a01b0392909216919091179055565b61095060408051610120810190915260008082526020820190815260200160008152602001600081526020016060815260200160006001600160a01b031681526020016060815260200160008152602001606081525090565b6001548211156109725760405162461bcd60e51b81526004016102dc90611713565b6000828152600260208181526040928390208351610120810190945280548452600181015490929184019160ff909116908111156109b2576109b261113f565b60028111156109c3576109c361113f565b81526020016001820160019054906101000a900460ff1660028111156109eb576109eb61113f565b60028111156109fc576109fc61113f565b815260200160028201548152602001600382018054610a1a90611544565b80601f0160208091040260200160405190810160405280929190818152602001828054610a4690611544565b8015610a935780601f10610a6857610100808354040283529160200191610a93565b820191906000526020600020905b815481529060010190602001808311610a7657829003601f168201915b505050918352505060048201546001600160a01b03166020820152600582018054604090920191610ac390611544565b80601f0160208091040260200160405190810160405280929190818152602001828054610aef90611544565b8015610b3c5780601f10610b1157610100808354040283529160200191610b3c565b820191906000526020600020905b815481529060010190602001808311610b1f57829003601f168201915b5050505050815260200160068201548152602001600782018054610b5f90611544565b80601f0160208091040260200160405190810160405280929190818152602001828054610b8b90611544565b8015610bd85780601f10610bad57610100808354040283529160200191610bd8565b820191906000526020600020905b815481529060010190602001808311610bbb57829003601f168201915b5050505050815250509050919050565b600154811115610c0a5760405162461bcd60e51b81526004016102dc90611713565b6000818152600260205260408120906001820154610100900460ff166002811115610c3757610c3761113f565b14610c795760405162461bcd60e51b8152602060048201526012602482015271506c6f74206e6f7420617661696c61626c6560701b60448201526064016102dc565b8060020154341015610cc45760405162461bcd60e51b8152602060048201526014602482015273125b9cdd59999a58da595b9d081c185e5b595b9d60621b60448201526064016102dc565b6001818101805461ff0019166101001790556004820180546001600160a01b03191633908117909155600090815260036020908152604082208054938401815582529020018290556002810154341115610d5757600281015433906108fc90610d2d9034611740565b6040518115909202916000818181858888f19350505050158015610d55573d6000803e3d6000fd5b505b817f9b2f667555f4739339cd95fdacf61ee77ed06a7488b7042f618fbc5d2228da913383600301604051610d8c929190611759565b60405180910390a25050565b805160208183018101805160048252928201919093012091528054600182018054919291610dc590611544565b80601f0160208091040260200160405190810160405280929190818152602001828054610df190611544565b8015610e3e5780601f10610e1357610100808354040283529160200191610e3e565b820191906000526020600020905b815481529060010190602001808311610e2157829003601f168201915b505050506002830154600384015460048501805494956001600160a01b039093169491935090610e6d90611544565b80601f0160208091040260200160405190810160405280929190818152602001828054610e9990611544565b8015610ee65780601f10610ebb57610100808354040283529160200191610ee6565b820191906000526020600020905b815481529060010190602001808311610ec957829003601f168201915b5050505050905085565b33610f036000546001600160a01b031690565b6001600160a01b031614610f295760405162461bcd60e51b81526004016102dc9061150f565b6001600160a01b038116610f8e5760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b60648201526084016102dc565b610f9781611090565b50565b600154821115610fbc5760405162461bcd60e51b81526004016102dc90611713565b600082815260026020526040902060048101546001600160a01b0316331461101b5760405162461bcd60e51b81526020600482015260126024820152712737ba103a343290383637ba1037bbb732b960711b60448201526064016102dc565b60026001820154610100900460ff16600281111561103b5761103b61113f565b1461107c5760405162461bcd60e51b8152602060048201526011602482015270141b1bdd081b9bdd081bd8d8dd5c1a5959607a1b60448201526064016102dc565b6007810161108a8382611612565b50505050565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b80356001600160a01b03811681146110f757600080fd5b919050565b6000806040838503121561110f57600080fd5b611118836110e0565b946020939093013593505050565b60006020828403121561113857600080fd5b5035919050565b634e487b7160e01b600052602160045260246000fd5b60038110610f9757634e487b7160e01b600052602160045260246000fd5b61117c81611155565b9052565b60005b8381101561119b578181015183820152602001611183565b50506000910152565b600081518084526111bc816020860160208601611180565b601f01601f19169290920160200192915050565b60006101208b83526111e18b611155565b8a60208401526111f08a611155565b89604084015288606084015280608084015261120e818401896111a4565b6001600160a01b03881660a085015283810360c0850152905061123181876111a4565b90508460e084015282810361010084015261124c81856111a4565b9c9b505050505050505050505050565b634e487b7160e01b600052604160045260246000fd5b600082601f83011261128357600080fd5b813567ffffffffffffffff8082111561129e5761129e61125c565b604051601f8301601f19908116603f011681019082821181831017156112c6576112c661125c565b816040528381528660208588010111156112df57600080fd5b836020870160208301376000602085830101528094505050505092915050565b60008060006060848603121561131457600080fd5b833567ffffffffffffffff81111561132b57600080fd5b61133786828701611272565b935050611346602085016110e0565b9150604084013590509250925092565b60006020828403121561136857600080fd5b611371826110e0565b9392505050565b6020815281516020820152600060208301516113976040840182611173565b5060408301516113aa6060840182611173565b506060830151608083015260808301516101208060a08501526113d16101408501836111a4565b915060a08501516113ed60c08601826001600160a01b03169052565b5060c0850151601f19808685030160e087015261140a84836111a4565b60e088015161010088810191909152880151878203909201848801529350905061143483826111a4565b9695505050505050565b60006020828403121561145057600080fd5b813567ffffffffffffffff81111561146757600080fd5b61147384828501611272565b949350505050565b85815260a06020820152600061149460a08301876111a4565b6001600160a01b03861660408401526060830185905282810360808401526114bc81856111a4565b98975050505050505050565b600080604083850312156114db57600080fd5b82359150602083013567ffffffffffffffff8111156114f957600080fd5b61150585828601611272565b9150509250929050565b6020808252818101527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572604082015260600190565b600181811c9082168061155857607f821691505b60208210810361157857634e487b7160e01b600052602260045260246000fd5b50919050565b634e487b7160e01b600052603260045260246000fd5b634e487b7160e01b600052601160045260246000fd5b6000600182016115bc576115bc611594565b5060010190565b601f82111561160d57600081815260208120601f850160051c810160208610156115ea5750805b601f850160051c820191505b81811015611609578281556001016115f6565b5050505b505050565b815167ffffffffffffffff81111561162c5761162c61125c565b6116408161163a8454611544565b846115c3565b602080601f831160018114611675576000841561165d5750858301515b600019600386901b1c1916600185901b178555611609565b600085815260208120601f198616915b828110156116a457888601518255948401946001909101908401611685565b50858210156116c25787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b600082516116e4818460208701611180565b9190910192915050565b60608152600061170160608301866111a4565b60208301949094525060400152919050565b602080825260139082015272141b1bdd08191bd95cc81b9bdd08195e1a5cdd606a1b604082015260600190565b8181038181111561175357611753611594565b92915050565b60018060a01b0383168152600060206040818401526000845461177b81611544565b806040870152606060018084166000811461179d57600181146117b7576117e5565b60ff1985168984015283151560051b8901830195506117e5565b896000528660002060005b858110156117dd5781548b82018601529083019088016117c2565b8a0184019650505b5093999850505050505050505056fea26469706673582212204373b8bbdf337102e32784ebbb95a16a9bcc447c1fde675d0aa5af7d6962acc664736f6c63430008140033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 3,
+        "contract": "contracts/Cemetery.sol:Cemetery",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 148,
+        "contract": "contracts/Cemetery.sol:Cemetery",
+        "label": "_plotIds",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_struct(Counter)84_storage"
+      },
+      {
+        "astId": 193,
+        "contract": "contracts/Cemetery.sol:Cemetery",
+        "label": "plots",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_uint256,t_struct(Plot)177_storage)"
+      },
+      {
+        "astId": 198,
+        "contract": "contracts/Cemetery.sol:Cemetery",
+        "label": "familyPlots",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_mapping(t_address,t_array(t_uint256)dyn_storage)"
+      },
+      {
+        "astId": 203,
+        "contract": "contracts/Cemetery.sol:Cemetery",
+        "label": "burialRecords",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_mapping(t_string_memory_ptr,t_struct(BurialRecord)188_storage)"
+      },
+      {
+        "astId": 205,
+        "contract": "contracts/Cemetery.sol:Cemetery",
+        "label": "funeralServiceContract",
+        "offset": 0,
+        "slot": "5",
+        "type": "t_address"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_uint256)dyn_storage": {
+        "base": "t_uint256",
+        "encoding": "dynamic_array",
+        "label": "uint256[]",
+        "numberOfBytes": "32"
+      },
+      "t_enum(PlotStatus)152": {
+        "encoding": "inplace",
+        "label": "enum Cemetery.PlotStatus",
+        "numberOfBytes": "1"
+      },
+      "t_enum(PlotType)156": {
+        "encoding": "inplace",
+        "label": "enum Cemetery.PlotType",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_address,t_array(t_uint256)dyn_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256[])",
+        "numberOfBytes": "32",
+        "value": "t_array(t_uint256)dyn_storage"
+      },
+      "t_mapping(t_string_memory_ptr,t_struct(BurialRecord)188_storage)": {
+        "encoding": "mapping",
+        "key": "t_string_memory_ptr",
+        "label": "mapping(string => struct Cemetery.BurialRecord)",
+        "numberOfBytes": "32",
+        "value": "t_struct(BurialRecord)188_storage"
+      },
+      "t_mapping(t_uint256,t_struct(Plot)177_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct Cemetery.Plot)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Plot)177_storage"
+      },
+      "t_string_memory_ptr": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_string_storage": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_struct(BurialRecord)188_storage": {
+        "encoding": "inplace",
+        "label": "struct Cemetery.BurialRecord",
+        "members": [
+          {
+            "astId": 179,
+            "contract": "contracts/Cemetery.sol:Cemetery",
+            "label": "plotId",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 181,
+            "contract": "contracts/Cemetery.sol:Cemetery",
+            "label": "deceasedName",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 183,
+            "contract": "contracts/Cemetery.sol:Cemetery",
+            "label": "familyContact",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_address"
+          },
+          {
+            "astId": 185,
+            "contract": "contracts/Cemetery.sol:Cemetery",
+            "label": "burialDate",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 187,
+            "contract": "contracts/Cemetery.sol:Cemetery",
+            "label": "ceremony",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_string_storage"
+          }
+        ],
+        "numberOfBytes": "160"
+      },
+      "t_struct(Counter)84_storage": {
+        "encoding": "inplace",
+        "label": "struct Counters.Counter",
+        "members": [
+          {
+            "astId": 83,
+            "contract": "contracts/Cemetery.sol:Cemetery",
+            "label": "_value",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "32"
+      },
+      "t_struct(Plot)177_storage": {
+        "encoding": "inplace",
+        "label": "struct Cemetery.Plot",
+        "members": [
+          {
+            "astId": 158,
+            "contract": "contracts/Cemetery.sol:Cemetery",
+            "label": "id",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 161,
+            "contract": "contracts/Cemetery.sol:Cemetery",
+            "label": "plotType",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_enum(PlotType)156"
+          },
+          {
+            "astId": 164,
+            "contract": "contracts/Cemetery.sol:Cemetery",
+            "label": "status",
+            "offset": 1,
+            "slot": "1",
+            "type": "t_enum(PlotStatus)152"
+          },
+          {
+            "astId": 166,
+            "contract": "contracts/Cemetery.sol:Cemetery",
+            "label": "price",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 168,
+            "contract": "contracts/Cemetery.sol:Cemetery",
+            "label": "location",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 170,
+            "contract": "contracts/Cemetery.sol:Cemetery",
+            "label": "owner",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_address"
+          },
+          {
+            "astId": 172,
+            "contract": "contracts/Cemetery.sol:Cemetery",
+            "label": "occupantName",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 174,
+            "contract": "contracts/Cemetery.sol:Cemetery",
+            "label": "burialDate",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 176,
+            "contract": "contracts/Cemetery.sol:Cemetery",
+            "label": "epitaph",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_string_storage"
+          }
+        ],
+        "numberOfBytes": "256"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

@@ -1,0 +1,542 @@
+{
+  "address": "0x0A206B77d94498fEdCAaF23e4Dde0D1928153d96",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "residentId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        }
+      ],
+      "name": "ResidentAdmitted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "residentId",
+          "type": "uint256"
+        }
+      ],
+      "name": "ResidentDeceased",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "residentId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "hospital",
+          "type": "address"
+        }
+      ],
+      "name": "ResidentTransferred",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_age",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_familyContact",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_monthlyFee",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_healthCondition",
+          "type": "string"
+        }
+      ],
+      "name": "admitResident",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "familyResidents",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_residentId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getResident",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "age",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "familyContact",
+              "type": "address"
+            },
+            {
+              "internalType": "enum NursingHome.ResidentStatus",
+              "name": "status",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "admissionDate",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "monthlyFee",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "healthCondition",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct NursingHome.Resident",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "hospitalContract",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "residents",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "age",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "familyContact",
+          "type": "address"
+        },
+        {
+          "internalType": "enum NursingHome.ResidentStatus",
+          "name": "status",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint256",
+          "name": "admissionDate",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "monthlyFee",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "healthCondition",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_hospital",
+          "type": "address"
+        }
+      ],
+      "name": "setHospitalContract",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_residentId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_reason",
+          "type": "string"
+        }
+      ],
+      "name": "transferToHospital",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x5a977f0d47b1e0b12283d66bc2b59ebd4bfb69de82974556b860477ca9eab070",
+  "receipt": {
+    "to": null,
+    "from": "0xEbAd73D4daf681F7e08F5feb48D972393CcC9f19",
+    "contractAddress": "0x0A206B77d94498fEdCAaF23e4Dde0D1928153d96",
+    "transactionIndex": 7,
+    "gasUsed": "1010450",
+    "logsBloom": "0x00000000000000000000000000000000000000000200000000800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000020000000000000000000800100000000000080000000000000000400000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000080000010000000000000000000000000",
+    "blockHash": "0xdebf97e84d0c6c5efba698f07fb631721dbd26264e8d706483acbcbaaaadd2dd",
+    "transactionHash": "0x5a977f0d47b1e0b12283d66bc2b59ebd4bfb69de82974556b860477ca9eab070",
+    "logs": [
+      {
+        "transactionIndex": 7,
+        "blockNumber": 20646539,
+        "transactionHash": "0x5a977f0d47b1e0b12283d66bc2b59ebd4bfb69de82974556b860477ca9eab070",
+        "address": "0x0A206B77d94498fEdCAaF23e4Dde0D1928153d96",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x000000000000000000000000ebad73d4daf681f7e08f5feb48d972393ccc9f19"
+        ],
+        "data": "0x",
+        "logIndex": 27,
+        "blockHash": "0xdebf97e84d0c6c5efba698f07fb631721dbd26264e8d706483acbcbaaaadd2dd"
+      }
+    ],
+    "blockNumber": 20646539,
+    "cumulativeGasUsed": "2034587",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 2,
+  "solcInputHash": "725ef7062b81959b84b90be511857a98",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"residentId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"}],\"name\":\"ResidentAdmitted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"residentId\",\"type\":\"uint256\"}],\"name\":\"ResidentDeceased\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"residentId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"hospital\",\"type\":\"address\"}],\"name\":\"ResidentTransferred\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"_age\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_familyContact\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_monthlyFee\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"_healthCondition\",\"type\":\"string\"}],\"name\":\"admitResident\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"familyResidents\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_residentId\",\"type\":\"uint256\"}],\"name\":\"getResident\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"age\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"familyContact\",\"type\":\"address\"},{\"internalType\":\"enum NursingHome.ResidentStatus\",\"name\":\"status\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"admissionDate\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"monthlyFee\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"healthCondition\",\"type\":\"string\"}],\"internalType\":\"struct NursingHome.Resident\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"hospitalContract\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"residents\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"age\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"familyContact\",\"type\":\"address\"},{\"internalType\":\"enum NursingHome.ResidentStatus\",\"name\":\"status\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"admissionDate\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"monthlyFee\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"healthCondition\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_hospital\",\"type\":\"address\"}],\"name\":\"setHospitalContract\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_residentId\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"_reason\",\"type\":\"string\"}],\"name\":\"transferToHospital\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/NursingHome.sol\":\"NursingHome\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/NursingHome.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.19;\\n\\n// \\u57fa\\u7840\\u5e93\\nabstract contract Ownable {\\n    address private _owner;\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    constructor() {\\n        _transferOwnership(msg.sender);\\n    }\\n\\n    modifier onlyOwner() {\\n        require(owner() == msg.sender, \\\"Ownable: caller is not the owner\\\");\\n        _;\\n    }\\n\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        require(newOwner != address(0), \\\"Ownable: new owner is the zero address\\\");\\n        _transferOwnership(newOwner);\\n    }\\n\\n    function _transferOwnership(address newOwner) internal virtual {\\n        address oldOwner = _owner;\\n        _owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\\n// \\u8ba1\\u6570\\u5668\\u5e93\\nlibrary Counters {\\n    struct Counter {\\n        uint256 _value;\\n    }\\n\\n    function current(Counter storage counter) internal view returns (uint256) {\\n        return counter._value;\\n    }\\n\\n    function increment(Counter storage counter) internal {\\n        unchecked {\\n            counter._value += 1;\\n        }\\n    }\\n\\n    function decrement(Counter storage counter) internal {\\n        uint256 value = counter._value;\\n        require(value > 0, \\\"Counter: decrement overflow\\\");\\n        unchecked {\\n            counter._value = value - 1;\\n        }\\n    }\\n}\\n\\n// \\u533b\\u9662\\u63a5\\u53e3\\ninterface IHospitalCore {\\n    function admitPatient(\\n        string memory _name,\\n        uint256 _age,\\n        address _familyContact,\\n        string memory _initialRecord\\n    ) external returns (uint256);\\n}\\n\\n// \\u517b\\u8001\\u9662\\u5408\\u7ea6\\ncontract NursingHome is Ownable {\\n    using Counters for Counters.Counter;\\n    \\n    Counters.Counter private _residentIds;\\n    \\n    enum ResidentStatus {\\n        ACTIVE,      // \\u5728\\u9662\\n        TRANSFERRED, // \\u8f6c\\u9662\\n        DECEASED     // \\u53bb\\u4e16\\n    }\\n    \\n    struct Resident {\\n        uint256 id;\\n        string name;\\n        uint256 age;\\n        address familyContact;\\n        ResidentStatus status;\\n        uint256 admissionDate;\\n        uint256 monthlyFee;\\n        string healthCondition;\\n    }\\n    \\n    mapping(uint256 => Resident) public residents;\\n    mapping(address => uint256[]) public familyResidents;\\n    \\n    address public hospitalContract;\\n    \\n    event ResidentAdmitted(uint256 indexed residentId, string name);\\n    event ResidentTransferred(uint256 indexed residentId, address hospital);\\n    event ResidentDeceased(uint256 indexed residentId);\\n    \\n    function setHospitalContract(address _hospital) external onlyOwner {\\n        hospitalContract = _hospital;\\n    }\\n    \\n    function admitResident(\\n        string memory _name,\\n        uint256 _age,\\n        address _familyContact,\\n        uint256 _monthlyFee,\\n        string memory _healthCondition\\n    ) external returns (uint256) {\\n        _residentIds.increment();\\n        uint256 newResidentId = _residentIds.current();\\n        \\n        residents[newResidentId] = Resident({\\n            id: newResidentId,\\n            name: _name,\\n            age: _age,\\n            familyContact: _familyContact,\\n            status: ResidentStatus.ACTIVE,\\n            admissionDate: block.timestamp,\\n            monthlyFee: _monthlyFee,\\n            healthCondition: _healthCondition\\n        });\\n        \\n        familyResidents[_familyContact].push(newResidentId);\\n        emit ResidentAdmitted(newResidentId, _name);\\n        return newResidentId;\\n    }\\n    \\n    // \\u8f6c\\u9662\\u5230\\u533b\\u9662\\n    function transferToHospital(\\n        uint256 _residentId,\\n        string memory _reason\\n    ) external onlyOwner {\\n        require(_residentId <= _residentIds.current(), \\\"Resident does not exist\\\");\\n        Resident storage resident = residents[_residentId];\\n        require(resident.status == ResidentStatus.ACTIVE, \\\"Resident not active\\\");\\n        \\n        resident.status = ResidentStatus.TRANSFERRED;\\n        \\n        // \\u8c03\\u7528\\u533b\\u9662\\u5408\\u7ea6\\u8fdb\\u884c\\u5165\\u9662\\u767b\\u8bb0\\n        if (hospitalContract != address(0)) {\\n            IHospitalCore(hospitalContract).admitPatient(\\n                resident.name,\\n                resident.age,\\n                resident.familyContact,\\n                string(abi.encodePacked(\\\"Transferred from nursing home: \\\", _reason))\\n            );\\n        }\\n        \\n        emit ResidentTransferred(_residentId, hospitalContract);\\n    }\\n    \\n    function getResident(uint256 _residentId) external view returns (Resident memory) {\\n        return residents[_residentId];\\n    }\\n}\",\"keccak256\":\"0x50f0ced38388220612b78eae7bbea5b782e32d67ff80ea9047cc934bb70fd972\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5061001a3361001f565b61006f565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b6110b78061007e6000396000f3fe608060405234801561001057600080fd5b50600436106100935760003560e01c806352e864081161006657806352e86408146101295780638da5cb5b1461013c578063d449cf271461014d578063dd82ce0314610160578063f2fde38b1461018057600080fd5b80631283d0a01461009857806315759754146100c85780632fa50025146100dd57806347dbb71a146100fe575b600080fd5b6100ab6100a6366004610a5d565b610193565b6040516100bf989796959493929190610afe565b60405180910390f35b6100db6100d6366004610b86565b6102f9565b005b6100f06100eb366004610c4b565b61035d565b6040519081526020016100bf565b600454610111906001600160a01b031681565b6040516001600160a01b0390911681526020016100bf565b6100f0610137366004610cd3565b6104f9565b6000546001600160a01b0316610111565b6100db61015b366004610cfd565b61052a565b61017361016e366004610a5d565b610741565b6040516100bf9190610d44565b6100db61018e366004610b86565b610904565b600260205260009081526040902080546001820180549192916101b590610dd6565b80601f01602080910402602001604051908101604052809291908181526020018280546101e190610dd6565b801561022e5780601f106102035761010080835404028352916020019161022e565b820191906000526020600020905b81548152906001019060200180831161021157829003601f168201915b505050506002830154600384015460048501546005860154600687018054969794966001600160a01b0385169650600160a01b90940460ff1694929391929161027690610dd6565b80601f01602080910402602001604051908101604052809291908181526020018280546102a290610dd6565b80156102ef5780601f106102c4576101008083540402835291602001916102ef565b820191906000526020600020905b8154815290600101906020018083116102d257829003601f168201915b5050505050905088565b3361030c6000546001600160a01b031690565b6001600160a01b03161461033b5760405162461bcd60e51b815260040161033290610e10565b60405180910390fd5b600480546001600160a01b0319166001600160a01b0392909216919091179055565b600061036d600180546001019055565b600061037860015490565b9050604051806101000160405280828152602001888152602001878152602001866001600160a01b03168152602001600060028111156103ba576103ba610ac6565b8152426020808301919091526040808301889052606090920186905260008481526002825291909120825181559082015160018201906103fa9082610e94565b50604082015160028083019190915560608301516003830180546001600160a01b039092166001600160a01b031983168117825560808601519391926001600160a81b0319161790600160a01b90849081111561045957610459610ac6565b021790555060a0820151600482015560c0820151600582015560e082015160068201906104869082610e94565b5050506001600160a01b0385166000908152600360209081526040808320805460018101825590845291909220018290555181907f39d82ccd238e15a4d639c54c938dc366f3d7e3599e868acc3d952f6918dcfdeb906104e7908a90610f54565b60405180910390a29695505050505050565b6003602052816000526040600020818154811061051557600080fd5b90600052602060002001600091509150505481565b3361053d6000546001600160a01b031690565b6001600160a01b0316146105635760405162461bcd60e51b815260040161033290610e10565b6001548211156105b55760405162461bcd60e51b815260206004820152601760248201527f5265736964656e7420646f6573206e6f742065786973740000000000000000006044820152606401610332565b6000828152600260205260408120906003820154600160a01b900460ff1660028111156105e4576105e4610ac6565b146106275760405162461bcd60e51b81526020600482015260136024820152725265736964656e74206e6f742061637469766560681b6044820152606401610332565b60038101805460ff60a01b1916600160a01b1790556004546001600160a01b0316156106fa57600454600282015460038301546040516001600160a01b039384169363f36ddd349360018701939092911690610687908890602001610f67565b6040516020818303038152906040526040518563ffffffff1660e01b81526004016106b59493929190610fac565b6020604051808303816000875af11580156106d4573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906106f89190611068565b505b6004546040516001600160a01b03909116815283907fae8ac18e200ac0d7ae8c2b56bccd30e8697bae1ae2df88bb98ce689bcb6f24979060200160405180910390a2505050565b6107496109fe565b60026000838152602001908152602001600020604051806101000160405290816000820154815260200160018201805461078290610dd6565b80601f01602080910402602001604051908101604052809291908181526020018280546107ae90610dd6565b80156107fb5780601f106107d0576101008083540402835291602001916107fb565b820191906000526020600020905b8154815290600101906020018083116107de57829003601f168201915b5050509183525050600282810154602083015260038301546001600160a01b0381166040840152606090920191600160a01b900460ff169081111561084257610842610ac6565b600281111561085357610853610ac6565b8152602001600482015481526020016005820154815260200160068201805461087b90610dd6565b80601f01602080910402602001604051908101604052809291908181526020018280546108a790610dd6565b80156108f45780601f106108c9576101008083540402835291602001916108f4565b820191906000526020600020905b8154815290600101906020018083116108d757829003601f168201915b5050505050815250509050919050565b336109176000546001600160a01b031690565b6001600160a01b03161461093d5760405162461bcd60e51b815260040161033290610e10565b6001600160a01b0381166109a25760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b6064820152608401610332565b6109ab816109ae565b50565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b60405180610100016040528060008152602001606081526020016000815260200160006001600160a01b0316815260200160006002811115610a4257610a42610ac6565b81526020016000815260200160008152602001606081525090565b600060208284031215610a6f57600080fd5b5035919050565b60005b83811015610a91578181015183820152602001610a79565b50506000910152565b60008151808452610ab2816020860160208601610a76565b601f01601f19169290920160200192915050565b634e487b7160e01b600052602160045260246000fd5b60038110610afa57634e487b7160e01b600052602160045260246000fd5b9052565b60006101008a8352806020840152610b188184018b610a9a565b604084018a90526001600160a01b03891660608501529050610b3d6080840188610adc565b8560a08401528460c084015282810360e0840152610b5b8185610a9a565b9b9a5050505050505050505050565b80356001600160a01b0381168114610b8157600080fd5b919050565b600060208284031215610b9857600080fd5b610ba182610b6a565b9392505050565b634e487b7160e01b600052604160045260246000fd5b600082601f830112610bcf57600080fd5b813567ffffffffffffffff80821115610bea57610bea610ba8565b604051601f8301601f19908116603f01168101908282118183101715610c1257610c12610ba8565b81604052838152866020858801011115610c2b57600080fd5b836020870160208301376000602085830101528094505050505092915050565b600080600080600060a08688031215610c6357600080fd5b853567ffffffffffffffff80821115610c7b57600080fd5b610c8789838a01610bbe565b965060208801359550610c9c60408901610b6a565b9450606088013593506080880135915080821115610cb957600080fd5b50610cc688828901610bbe565b9150509295509295909350565b60008060408385031215610ce657600080fd5b610cef83610b6a565b946020939093013593505050565b60008060408385031215610d1057600080fd5b82359150602083013567ffffffffffffffff811115610d2e57600080fd5b610d3a85828601610bbe565b9150509250929050565b602081528151602082015260006020830151610100806040850152610d6d610120850183610a9a565b91506040850151606085015260018060a01b0360608601511660808501526080850151610d9d60a0860182610adc565b5060a085015160c085015260c085015160e085015260e0850151601f198584030182860152610dcc8382610a9a565b9695505050505050565b600181811c90821680610dea57607f821691505b602082108103610e0a57634e487b7160e01b600052602260045260246000fd5b50919050565b6020808252818101527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572604082015260600190565b601f821115610e8f57600081815260208120601f850160051c81016020861015610e6c5750805b601f850160051c820191505b81811015610e8b57828155600101610e78565b5050505b505050565b815167ffffffffffffffff811115610eae57610eae610ba8565b610ec281610ebc8454610dd6565b84610e45565b602080601f831160018114610ef75760008415610edf5750858301515b600019600386901b1c1916600185901b178555610e8b565b600085815260208120601f198616915b82811015610f2657888601518255948401946001909101908401610f07565b5085821015610f445787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b602081526000610ba16020830184610a9a565b7f5472616e736665727265642066726f6d206e757273696e6720686f6d653a2000815260008251610f9f81601f850160208701610a76565b91909101601f0192915050565b608081526000808654610fbe81610dd6565b80608086015260a0600180841660008114610fe05760018114610ffa5761102b565b60ff1985168884015283151560051b88018301955061102b565b8b60005260208060002060005b868110156110225781548b8201870152908401908201611007565b8a018501975050505b505050505085602084015261104b60408401866001600160a01b03169052565b828103606084015261105d8185610a9a565b979650505050505050565b60006020828403121561107a57600080fd5b505191905056fea2646970667358221220cfdc547192854b90d0c35efab0f61fcd9b1ca22ef1bd6d1fa301c26c68c705c964736f6c63430008140033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100935760003560e01c806352e864081161006657806352e86408146101295780638da5cb5b1461013c578063d449cf271461014d578063dd82ce0314610160578063f2fde38b1461018057600080fd5b80631283d0a01461009857806315759754146100c85780632fa50025146100dd57806347dbb71a146100fe575b600080fd5b6100ab6100a6366004610a5d565b610193565b6040516100bf989796959493929190610afe565b60405180910390f35b6100db6100d6366004610b86565b6102f9565b005b6100f06100eb366004610c4b565b61035d565b6040519081526020016100bf565b600454610111906001600160a01b031681565b6040516001600160a01b0390911681526020016100bf565b6100f0610137366004610cd3565b6104f9565b6000546001600160a01b0316610111565b6100db61015b366004610cfd565b61052a565b61017361016e366004610a5d565b610741565b6040516100bf9190610d44565b6100db61018e366004610b86565b610904565b600260205260009081526040902080546001820180549192916101b590610dd6565b80601f01602080910402602001604051908101604052809291908181526020018280546101e190610dd6565b801561022e5780601f106102035761010080835404028352916020019161022e565b820191906000526020600020905b81548152906001019060200180831161021157829003601f168201915b505050506002830154600384015460048501546005860154600687018054969794966001600160a01b0385169650600160a01b90940460ff1694929391929161027690610dd6565b80601f01602080910402602001604051908101604052809291908181526020018280546102a290610dd6565b80156102ef5780601f106102c4576101008083540402835291602001916102ef565b820191906000526020600020905b8154815290600101906020018083116102d257829003601f168201915b5050505050905088565b3361030c6000546001600160a01b031690565b6001600160a01b03161461033b5760405162461bcd60e51b815260040161033290610e10565b60405180910390fd5b600480546001600160a01b0319166001600160a01b0392909216919091179055565b600061036d600180546001019055565b600061037860015490565b9050604051806101000160405280828152602001888152602001878152602001866001600160a01b03168152602001600060028111156103ba576103ba610ac6565b8152426020808301919091526040808301889052606090920186905260008481526002825291909120825181559082015160018201906103fa9082610e94565b50604082015160028083019190915560608301516003830180546001600160a01b039092166001600160a01b031983168117825560808601519391926001600160a81b0319161790600160a01b90849081111561045957610459610ac6565b021790555060a0820151600482015560c0820151600582015560e082015160068201906104869082610e94565b5050506001600160a01b0385166000908152600360209081526040808320805460018101825590845291909220018290555181907f39d82ccd238e15a4d639c54c938dc366f3d7e3599e868acc3d952f6918dcfdeb906104e7908a90610f54565b60405180910390a29695505050505050565b6003602052816000526040600020818154811061051557600080fd5b90600052602060002001600091509150505481565b3361053d6000546001600160a01b031690565b6001600160a01b0316146105635760405162461bcd60e51b815260040161033290610e10565b6001548211156105b55760405162461bcd60e51b815260206004820152601760248201527f5265736964656e7420646f6573206e6f742065786973740000000000000000006044820152606401610332565b6000828152600260205260408120906003820154600160a01b900460ff1660028111156105e4576105e4610ac6565b146106275760405162461bcd60e51b81526020600482015260136024820152725265736964656e74206e6f742061637469766560681b6044820152606401610332565b60038101805460ff60a01b1916600160a01b1790556004546001600160a01b0316156106fa57600454600282015460038301546040516001600160a01b039384169363f36ddd349360018701939092911690610687908890602001610f67565b6040516020818303038152906040526040518563ffffffff1660e01b81526004016106b59493929190610fac565b6020604051808303816000875af11580156106d4573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906106f89190611068565b505b6004546040516001600160a01b03909116815283907fae8ac18e200ac0d7ae8c2b56bccd30e8697bae1ae2df88bb98ce689bcb6f24979060200160405180910390a2505050565b6107496109fe565b60026000838152602001908152602001600020604051806101000160405290816000820154815260200160018201805461078290610dd6565b80601f01602080910402602001604051908101604052809291908181526020018280546107ae90610dd6565b80156107fb5780601f106107d0576101008083540402835291602001916107fb565b820191906000526020600020905b8154815290600101906020018083116107de57829003601f168201915b5050509183525050600282810154602083015260038301546001600160a01b0381166040840152606090920191600160a01b900460ff169081111561084257610842610ac6565b600281111561085357610853610ac6565b8152602001600482015481526020016005820154815260200160068201805461087b90610dd6565b80601f01602080910402602001604051908101604052809291908181526020018280546108a790610dd6565b80156108f45780601f106108c9576101008083540402835291602001916108f4565b820191906000526020600020905b8154815290600101906020018083116108d757829003601f168201915b5050505050815250509050919050565b336109176000546001600160a01b031690565b6001600160a01b03161461093d5760405162461bcd60e51b815260040161033290610e10565b6001600160a01b0381166109a25760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b6064820152608401610332565b6109ab816109ae565b50565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b60405180610100016040528060008152602001606081526020016000815260200160006001600160a01b0316815260200160006002811115610a4257610a42610ac6565b81526020016000815260200160008152602001606081525090565b600060208284031215610a6f57600080fd5b5035919050565b60005b83811015610a91578181015183820152602001610a79565b50506000910152565b60008151808452610ab2816020860160208601610a76565b601f01601f19169290920160200192915050565b634e487b7160e01b600052602160045260246000fd5b60038110610afa57634e487b7160e01b600052602160045260246000fd5b9052565b60006101008a8352806020840152610b188184018b610a9a565b604084018a90526001600160a01b03891660608501529050610b3d6080840188610adc565b8560a08401528460c084015282810360e0840152610b5b8185610a9a565b9b9a5050505050505050505050565b80356001600160a01b0381168114610b8157600080fd5b919050565b600060208284031215610b9857600080fd5b610ba182610b6a565b9392505050565b634e487b7160e01b600052604160045260246000fd5b600082601f830112610bcf57600080fd5b813567ffffffffffffffff80821115610bea57610bea610ba8565b604051601f8301601f19908116603f01168101908282118183101715610c1257610c12610ba8565b81604052838152866020858801011115610c2b57600080fd5b836020870160208301376000602085830101528094505050505092915050565b600080600080600060a08688031215610c6357600080fd5b853567ffffffffffffffff80821115610c7b57600080fd5b610c8789838a01610bbe565b965060208801359550610c9c60408901610b6a565b9450606088013593506080880135915080821115610cb957600080fd5b50610cc688828901610bbe565b9150509295509295909350565b60008060408385031215610ce657600080fd5b610cef83610b6a565b946020939093013593505050565b60008060408385031215610d1057600080fd5b82359150602083013567ffffffffffffffff811115610d2e57600080fd5b610d3a85828601610bbe565b9150509250929050565b602081528151602082015260006020830151610100806040850152610d6d610120850183610a9a565b91506040850151606085015260018060a01b0360608601511660808501526080850151610d9d60a0860182610adc565b5060a085015160c085015260c085015160e085015260e0850151601f198584030182860152610dcc8382610a9a565b9695505050505050565b600181811c90821680610dea57607f821691505b602082108103610e0a57634e487b7160e01b600052602260045260246000fd5b50919050565b6020808252818101527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572604082015260600190565b601f821115610e8f57600081815260208120601f850160051c81016020861015610e6c5750805b601f850160051c820191505b81811015610e8b57828155600101610e78565b5050505b505050565b815167ffffffffffffffff811115610eae57610eae610ba8565b610ec281610ebc8454610dd6565b84610e45565b602080601f831160018114610ef75760008415610edf5750858301515b600019600386901b1c1916600185901b178555610e8b565b600085815260208120601f198616915b82811015610f2657888601518255948401946001909101908401610f07565b5085821015610f445787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b602081526000610ba16020830184610a9a565b7f5472616e736665727265642066726f6d206e757273696e6720686f6d653a2000815260008251610f9f81601f850160208701610a76565b91909101601f0192915050565b608081526000808654610fbe81610dd6565b80608086015260a0600180841660008114610fe05760018114610ffa5761102b565b60ff1985168884015283151560051b88018301955061102b565b8b60005260208060002060005b868110156110225781548b8201870152908401908201611007565b8a018501975050505b505050505085602084015261104b60408401866001600160a01b03169052565b828103606084015261105d8185610a9a565b979650505050505050565b60006020828403121561107a57600080fd5b505191905056fea2646970667358221220cfdc547192854b90d0c35efab0f61fcd9b1ca22ef1bd6d1fa301c26c68c705c964736f6c63430008140033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 3,
+        "contract": "contracts/NursingHome.sol:NursingHome",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 162,
+        "contract": "contracts/NursingHome.sol:NursingHome",
+        "label": "_residentIds",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_struct(Counter)84_storage"
+      },
+      {
+        "astId": 189,
+        "contract": "contracts/NursingHome.sol:NursingHome",
+        "label": "residents",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_uint256,t_struct(Resident)184_storage)"
+      },
+      {
+        "astId": 194,
+        "contract": "contracts/NursingHome.sol:NursingHome",
+        "label": "familyResidents",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_mapping(t_address,t_array(t_uint256)dyn_storage)"
+      },
+      {
+        "astId": 196,
+        "contract": "contracts/NursingHome.sol:NursingHome",
+        "label": "hospitalContract",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_address"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_uint256)dyn_storage": {
+        "base": "t_uint256",
+        "encoding": "dynamic_array",
+        "label": "uint256[]",
+        "numberOfBytes": "32"
+      },
+      "t_enum(ResidentStatus)166": {
+        "encoding": "inplace",
+        "label": "enum NursingHome.ResidentStatus",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_address,t_array(t_uint256)dyn_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256[])",
+        "numberOfBytes": "32",
+        "value": "t_array(t_uint256)dyn_storage"
+      },
+      "t_mapping(t_uint256,t_struct(Resident)184_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct NursingHome.Resident)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Resident)184_storage"
+      },
+      "t_string_storage": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_struct(Counter)84_storage": {
+        "encoding": "inplace",
+        "label": "struct Counters.Counter",
+        "members": [
+          {
+            "astId": 83,
+            "contract": "contracts/NursingHome.sol:NursingHome",
+            "label": "_value",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "32"
+      },
+      "t_struct(Resident)184_storage": {
+        "encoding": "inplace",
+        "label": "struct NursingHome.Resident",
+        "members": [
+          {
+            "astId": 168,
+            "contract": "contracts/NursingHome.sol:NursingHome",
+            "label": "id",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 170,
+            "contract": "contracts/NursingHome.sol:NursingHome",
+            "label": "name",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 172,
+            "contract": "contracts/NursingHome.sol:NursingHome",
+            "label": "age",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 174,
+            "contract": "contracts/NursingHome.sol:NursingHome",
+            "label": "familyContact",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_address"
+          },
+          {
+            "astId": 177,
+            "contract": "contracts/NursingHome.sol:NursingHome",
+            "label": "status",
+            "offset": 20,
+            "slot": "3",
+            "type": "t_enum(ResidentStatus)166"
+          },
+          {
+            "astId": 179,
+            "contract": "contracts/NursingHome.sol:NursingHome",
+            "label": "admissionDate",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 181,
+            "contract": "contracts/NursingHome.sol:NursingHome",
+            "label": "monthlyFee",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 183,
+            "contract": "contracts/NursingHome.sol:NursingHome",
+            "label": "healthCondition",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_string_storage"
+          }
+        ],
+        "numberOfBytes": "224"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
