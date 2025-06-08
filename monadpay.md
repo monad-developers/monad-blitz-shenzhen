@@ -1,7 +1,7 @@
 ### 项目名称
 MonadPay
 ### 团队信息
-- **ryan.ke:** 邮箱: kelh93@163.clm
+- **ryan.ke:** 邮箱: kelh93@163.com
 - **xiaohao:** 邮箱: hahn.xgong@gmail.com
 - **ww:** 邮箱: 605489324@qq.com
 ### 项目描述
@@ -10,7 +10,7 @@ MonadPay
 链接: <必须填写>
 
 ### 所有部署在Monad Testnet的合约地址
-- 合约名称1: `0x...` (用途: ...)
+- 合约名称1: `0x...` 
 - 合约名称2: `0x...` (用途: ...)
 ### (可选) PPT
 链接/说明:
