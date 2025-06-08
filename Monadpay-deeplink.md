@@ -5,6 +5,8 @@ MonadPay
 - **成员2:** 邮箱: hahn.xgong@gmail.com
 - **成员3:** 邮箱: 605489324@qq.com
 ### 项目描述
+https://github.com/kelh93/ryan-monad-playground
+
 基于 Deeplinks 的规范，用于在 URL 中编码 Monad 交易请求，以启用支付、NFC 和其他用例。发送、请求和触发加密支付的最简单方法--只需一个链接。
 ### 可用的在线演示链接
 链接: https://ryan-monad-playground.vercel.app/
