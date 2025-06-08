@@ -10,14 +10,13 @@ MonadPay
 链接: <必须填写>
 
 ### 所有部署在Monad Testnet的合约地址
-- 合约名称1: `0x...` 
-- 合约名称2: `0x...` (用途: ...)
+- MonadPaymentSystem 0x973112eC6e02E307C1Aa045187601AECA34cd8a5 主支付系统合约 
+- MonadPayURLParser 0x2d4453C4054D18c895062c3a0f31f3a84c2911E0 URL参数解析辅助合约 
 ### (可选) PPT
 链接/说明:
 
 ### (可选) 视频
-链接:
-
+链接: https://ryan-monad-playground.vercel.app/
 ---
 
 ### 请确认以下事项：
