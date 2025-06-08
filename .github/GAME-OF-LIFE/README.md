@@ -7,7 +7,8 @@ GAME OF LIFE
 - **Karl4chill:** 邮箱:limlamleen@gmail.com
 
 ### 项目描述
-<第一行请填写你的开源仓库地址>
+https://github.com/new4u/GOL.git 
+
 1.Pro版本功能NFT化：通过持有NFT解锁高级功能
 2.订阅即资产：每月订阅费用转化为可交易的数字资产
 3.社区共享：NFT持有者可参与治理和收益分配
