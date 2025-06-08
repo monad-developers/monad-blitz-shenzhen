@@ -11,6 +11,6 @@ No alpha groups. No fake gurus. Just onchain signals from the people you trust.
 
 🔗 Built with Next.js, Warpcast Frames, and deeply integrated with Monad's ultra-high-performance chain to deliver low-latency trading insights.
 ### 可用的在线演示链接
-- https://signalcast.vercel.app
+- https://signal-cast.vercel.app
 
 - https://www.canva.com/design/DAGpvM6g31k/_yThyRflgB_Zl8muxPd_bg/edit?utm_content=DAGpvM6g31k&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
