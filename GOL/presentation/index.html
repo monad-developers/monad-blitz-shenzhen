@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Game of Life NFT Presentation</title>
+    <style>
+        body {
+            background: #000;
+            color: #33ff33;
+            font-family: monospace;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        pre {
+            font-size: 18px;
+            white-space: pre-wrap;
+            margin: 0;
+        }
+        .slide {
+            display: none;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .active {
+            display: block;
+        }
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #000;
+            padding: 10px;
+        }
+        button {
+            background: #33ff33;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            font-family: monospace;
+        }
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="timer" id="timer">03:00</div>
+
+    <div class="slide active" id="slide1">
+        <pre>
++------------------------------------------+
+|                                          |
+|           Game of Life NFT               |
+|           数字生命永存                   |
+|                                          |
+|               ⬡ ⬢ ⬡                      |
+|               ⬢ ⬢ ⬢                      |
+|               ⬡ ⬢ ⬡                      |
+|                                          |
+|      Press → to start presentation       |
++------------------------------------------+
+        </pre>
+    </div>
+
+    <div class="slide" id="slide2">
+        <pre>
++------------------------------------------+
+|             项目亮点                     |
++------------------------------------------+
+
+🎮 经典游戏新玩法
+   └── 康威生命游戏 × 区块链
+
+🔗 Web3无缝集成
+   └── 私钥直连，无需插件
+
+🚀 极致用户体验
+   └── 一键保存，随时加载
+
+        </pre>
+    </div>
+
+    <div class="slide" id="slide3">
+        <pre>
++------------------------------------------+
+|             技术架构                     |
++------------------------------------------+
+
+Frontend ──────► ethers.js ──────► Smart Contract
+    │                                   │
+    │                                   │
+    └──── Game Logic ──────────► Monad Chain
+
+• 纯前端实现，性能优异
+• 私钥直连，体验顺滑
+• Monad测试网，高性低费
+• 完整错误处理，状态可控
+        </pre>
+    </div>
+
+    <div class="slide" id="slide4">
+        <pre>
++------------------------------------------+
+|             实机演示                     |
++------------------------------------------+
+
+ [1] 创建生命模式
+     └── 点击绘制，随机生成
+
+ [2] 运行演化
+     └── 观察生命变迁
+
+ [3] 保存NFT
+     └── 永存区块链
+
+ [4] 加载历史
+     └── 重现精彩瞬间
+        </pre>
+    </div>
+
+    <div class="slide" id="slide5">
+        <pre>
++------------------------------------------+
+|                                          |
+|              感谢关注！                  |
+|                                          |
+|            让数字生命永存                |
+|            让创意永不消逝                |
+|                                          |
+|                                          |
+|          Press ESC to restart            |
++------------------------------------------+
+        </pre>
+    </div>
+
+    <div class="controls">
+        <button onclick="prevSlide()">←</button>
+        <button onclick="nextSlide()">→</button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        let timer;
+        let timeLeft = 180; // 3 minutes in seconds
+
+        function updateSlides() {
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active');
+            });
+            document.getElementById('slide' + currentSlide).classList.add('active');
+        }
+
+        function nextSlide() {
+            if (currentSlide < 5) {
+                currentSlide++;
+                updateSlides();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlides();
+            }
+        }
+
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeLeft > 0) {
+                timeLeft--;
+                timer = setTimeout(updateTimer, 1000);
+            }
+        }
+
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'Escape') {
+                currentSlide = 1;
+                timeLeft = 180;
+                updateSlides();
+                clearTimeout(timer);
+                updateTimer();
+            }
+        });
+
+        // Start timer
+        updateTimer();
+    </script>
+</body>
+</html>
