@@ -1,40 +1,135 @@
-# Monad Blitz 深圳 提交流程
+# Torch — Light Up The Chain
 
-1. 查看 `monad-blitz-shenzhen` 仓库 ([此处链接](https://github.com/monad-developers/monad-blitz-shenzhen)) 并且fork.
 
-    ![image](https://github.com/user-attachments/assets/cbfb7954-18a4-4041-822a-3785adaded8e)
 
-    
-2. 名字设定为你的项目名，并提供一句简短描述，确保你正在分叉 main 分支，然后点击“Create fork”。
-    
-![image](https://github.com/user-attachments/assets/435f6c94-3ce3-4778-b71c-6073fe793c5c)
+Torch is a strategy-driven, onchain launch protocol built for high-performance chains like Monad. It transforms token launches into a competitive game with **mint thresholds**, **burn-to-win rewards**, and **automated liquidity** — all in one frictionless flow.
 
-    
-3. 在你的fork项目中，你可以进行任意修改：添加项目代码、创建分支、更新README.md文件内容，所有部分均可自由调整变更。
 
-4. 当你完成项目并准备提交时，请创建一个拉取请求。
-    
-![image](https://github.com/user-attachments/assets/e0319914-4610-4d30-af30-54db04003ec9)
 
-    
-![image](https://github.com/user-attachments/assets/a514d935-5e43-4ba0-8da8-251aefb3a5ed)
+## Team info
+- farmer.xingang08@gmail.com
+- skyhighfeng@gmail.com
+- haohanbang108@gmail.com
+- 563814345@qq.com
 
-    
+## Features
 
-5. **确保您向正确的仓库创建拉取请求 `monad-developers/monad-blitz-shenzhen`**
-    
-![image](https://github.com/user-attachments/assets/68702e75-de4d-40b9-9bd4-a2dfe5f2925b)
+- **Round-based Launch Flow**
 
-    
-6. 确保你看到了 **“Able to merge” 字样**, 然后点击 `Create Pull Request` 创建请求
-    
-![image](https://github.com/user-attachments/assets/0b06f6ce-443e-48de-8e63-7a701a6a77ed)
+  Mint tokens in multiple rounds with time limits and funding thresholds.
 
-    
-7. 为您的合并请求提供项目名称和项目描述（尽可能详细地描述您的项目，**甚至可以添加视频演示链接**），然后点击`Create pull request`。
-    
-![image](https://github.com/user-attachments/assets/58f58822-7c1a-4ddf-975d-70c955ce549d)
+- **Burn Leaderboard Mechanism**
 
-    
-8. 最后通过检查创建合并请求的仓库以及合并请求的源分支和目标分支，来确认您是否正确创建了合并请求！
- ![image](https://github.com/user-attachments/assets/f507b069-82ae-4cbd-a864-f16ec4449d8d)
+  Participants compete by burning tokens to earn rewards.
+
+- **Auto Liquidity Injection**
+
+  Upon meeting mint thresholds, liquidity is automatically created via integrated DEX router.
+
+- **Permissionless Deployment**
+
+  Anyone can deploy a new launch with configurable parameters.
+
+
+
+## Smart Contract Structure
+
+
+
+| **Contract**     | **Description**                                |
+| ---------------- | ---------------------------------------------- |
+| TorchFactory.sol | Main factory to create new Torch launch rounds |
+| TorchGame.sol    | Core round logic: mint, burn, claim, settle    |
+| TorchToken.sol   | Erc20 tokens                                   |
+| Interfaces/      | external interfaces (e.g., router)             |
+
+
+
+
+
+## Deployment (Testnet)
+
+
+
+
+
+Torch is deployed on **Monad Testnet**.
+
+**Network RPC**: https://testnet-rpc.monad.xyz/
+
+**Chain ID**: 10143
+
+**Example Deployment Address**:
+
+```
+TorchFactory: 0x...  
+Sample Launch: 0x...
+```
+
+
+
+## Basic Interactions
+
+
+
+### **Mint**
+
+
+
+```
+TorchLaunch.deposit{value: amount}();
+```
+
+
+
+### **Burn**
+
+
+
+```
+TorchGame.burnToCompete(amount);
+```
+
+
+
+### **Claim Reward (after round ends)**
+
+
+
+```
+TorchGame.claimReward();
+```
+
+
+
+### **Create New Launch (via Factory)**
+
+
+
+```
+TorchFactory.createGame(
+
+);
+```
+
+
+
+## License
+
+
+
+
+
+MIT License © Torch Protocol 2025
+
+
+
+##  Join Us
+
+
+
+
+
+Want to integrate Torch into your dApp or launch on Monad?
+
+Follow us on Twitter → [@**Torch Cool**](https://twitter.com/torchdotcool)
