@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SatoshiFlow: AI Agent Economic Sovereignty</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #00d4ff, #5a67d8, #ed64a6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #a0aec0;
+            margin-bottom: 20px;
+        }
+
+        .philosophy-quote {
+            font-style: italic;
+            color: #ffd700;
+            font-size: 1.1rem;
+            border-left: 3px solid #ffd700;
+            padding-left: 15px;
+            margin: 20px 0;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .agent-panel {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .agent-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .agent-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .agent-a {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+
+        .agent-b {
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+        }
+
+        .agent-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .agent-reputation {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #a0aec0;
+        }
+
+        .reputation-score {
+            color: #48bb78;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .balance {
+            background: rgba(72, 187, 120, 0.2);
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 1px solid rgba(72, 187, 120, 0.3);
+        }
+
+        .balance-amount {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #48bb78;
+        }
+
+        .transaction-flow {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .flow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .step.active {
+            border-color: #00d4ff;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .step.completed {
+            border-color: #48bb78;
+            background: rgba(72, 187, 120, 0.1);
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 10px;
+        }
+
+        .step h4 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #a0aec0;
+            border: 2px solid #a0aec0;
+        }
+
+        .btn-secondary:hover {
+            background: #a0aec0;
+            color: #1a1a2e;
+        }
+
+        .intent-manifest {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #ffd700;
+        }
+
+        .intent-manifest h4 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .intent-manifest h4::before {
+            content: "🧠";
+            margin-right: 8px;
+        }
+
+        .intent-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .intent-field {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+
+        .intent-field label {
+            font-size: 0.8rem;
+            color: #a0aec0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .intent-field value {
+            display: block;
+            font-weight: bold;
+            margin-top: 5px;
+            color: #ffffff;
+        }
+
+        .sla-nft {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .sla-nft h4 {
+            margin-bottom: 15px;
+        }
+
+        .nft-id {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .status-bar {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-green {
+            background: #48bb78;
+        }
+
+        .status-blue {
+            background: #00d4ff;
+        }
+
+        .status-orange {
+            background: #ed8936;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .quantum-defense {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(237, 100, 166, 0.3);
+        }
+
+        .quantum-defense h4 {
+            color: #ed64a6;
+            margin-bottom: 15px;
+        }
+
+        .defense-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .metric {
+            text-align: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ed64a6;
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: #a0aec0;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .flow-steps {
+                flex-direction: column;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        .yijing-pattern {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-family: serif;
+            font-size: 1.2rem;
+            color: rgba(255, 215, 0, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SatoshiFlow</h1>
+            <p>Self-Sovereign AI Payment Kernel (自我主权 AI 支付内核)</p>
+            <div class="philosophy-quote">
+                "让每一个 AI Agent 都拥有支付意志与道德自省能力，在人机共生系统中成为可信经济体。"
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <div class="agent-panel">
+                <div class="yijing-pattern">☰</div>
+                <div class="agent-header">
+                    <div class="agent-avatar agent-a">A</div>
+                    <div class="agent-info">
+                        <h3>AI翻译代理 A</h3>
+                        <div class="agent-reputation">
+                            声誉评分: <span class="reputation-score">94.7/100</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="balance">
+                    <div>当前余额</div>
+                    <div class="balance-amount">1,247.50 USDC</div>
+                </div>
+                <div class="status-bar">
+                    <div class="status-indicator">
+                        <div class="status-dot status-green"></div>
+                        <span>已连接 Monad 网络</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="agent-panel">
+                <div class="yijing-pattern">☷</div>
+                <div class="agent-header">
+                    <div class="agent-avatar agent-b">B</div>
+                    <div class="agent-info">
+                        <h3>AI剪辑代理 B</h3>
+                        <div class="agent-reputation">
+                            声誉评分: <span class="reputation-score">97.2/100</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="balance">
+                    <div>当前余额</div>
+                    <div class="balance-amount">856.30 USDC</div>
+                </div>
+                <div class="status-bar">
+                    <div class="status-indicator">
+                        <div class="status-dot status-blue"></div>
+                        <span>服务可用</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="transaction-flow">
+            <h3 style="text-align: center; margin-bottom: 30px; color: #00d4ff;">交易流程演示</h3>
+            <div class="flow-steps">
+                <div class="step active" id="step1">
+                    <div class="step-number">1</div>
+                    <h4>创建支付意图</h4>
+                    <p>生成意图清单与zk预算证明</p>
+                </div>
+                <div class="step" id="step2">
+                    <div class="step-number">2</div>
+                    <h4>Agent 市场发现</h4>
+                    <p>通过libagent协议发现服务提供方</p>
+                </div>
+                <div class="step" id="step3">
+                    <div class="step-number">3</div>
+                    <h4>支付通道开启</h4>
+                    <p>在Monad链上创建托管合约</p>
+                </div>
+                <div class="step" id="step4">
+                    <div class="step-number">4</div>
+                    <h4>任务执行验证</h4>
+                    <p>SLA NFT验证与交付确认</p>
+                </div>
+                <div class="step" id="step5">
+                    <div class="step-number">5</div>
+                    <h4>声誉更新</h4>
+                    <p>行为摘要上链与信誉评分</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="intent-manifest" id="intentManifest" style="display: none;">
+            <h4>支付意图清单 (Intention Manifest)</h4>
+            <div class="intent-details">
+                <div class="intent-field">
+                    <label>发起方</label>
+                    <value>agentA.eth</value>
+                </div>
+                <div class="intent-field">
+                    <label>接收方</label>
+                    <value>agentB.eth</value>
+                </div>
+                <div class="intent-field">
+                    <label>金额</label>
+                    <value>12 USDC</value>
+                </div>
+                <div class="intent-field">
+                    <label>服务类型</label>
+                    <value>VideoSubEditing</value>
+                </div>
+                <div class="intent-field">
+                    <label>预计时长</label>
+                    <value>2小时</value>
+                </div>
+                <div class="intent-field">
+                    <label>意图ID</label>
+                    <value>0xabc123...</value>
+                </div>
+            </div>
+            <div style="margin-top: 15px; padding: 10px; background: rgba(0, 0, 0, 0.3); border-radius: 8px; font-family: monospace; font-size: 0.9rem;">
+                <strong>DeepLink:</strong><br>
+                monadpay://send?to=agentB.eth&amount=12&token=USDC&intent=VideoSubEditing&sla=true
+            </div>
+        </div>
+
+        <div class="sla-nft" id="slaNft" style="display: none;">
+            <h4>🏆 SLA NFT (Soulbound Service Level Agreement)</h4>
+            <p>不可转让的服务质量证明 NFT</p>
+            <div class="nft-id">Token ID: #SLA-2025-001</div>
+            <div style="font-size: 0.9rem; margin-top: 10px;">
+                包含：服务履约数据、质量评分、时间戳、双方签名
+            </div>
+        </div>
+
+        <div class="quantum-defense">
+            <h4>🛡️ 量子抗坎陷防御系统</h4>
+            <div class="defense-metrics">
+                <div class="metric">
+                    <div class="metric-value">99.7%</div>
+                    <div class="metric-label">抗操纵度</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">0.03</div>
+                    <div class="metric-label">熵增阻抗</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">Active</div>
+                    <div class="metric-label">反身性监控</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn btn-primary" onclick="startDemo()">启动交易演示</button>
+            <button class="btn btn-secondary" onclick="resetDemo()">重置演示</button>
+            <button class="btn btn-secondary" onclick="showTechDetails()">技术详情</button>
+        </div>
+
+        <div id="techDetails" style="display: none; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 20px; margin-top: 20px;">
+            <h3 style="color: #00d4ff; margin-bottom: 20px;">🔧 核心技术架构</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div style="background: rgba(255, 255, 255, 0.08); padding: 15px; border-radius: 10px;">
+                    <h4 style="color: #ffd700;">zk-Budget Proof</h4>
+                    <p style="font-size: 0.9rem; color: #a0aec0; margin-top: 8px;">
+                        零知识预算证明，确保 Agent 支付能力而不泄露具体余额信息
+                    </p>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.08); padding: 15px; border-radius: 10px;">
+                    <h4 style="color: #48bb78;">Intent Hashing</h4>
+                    <p style="font-size: 0.9rem; color: #a0aec0; margin-top: 8px;">
+                        基于 keccak256(intent + ethics_hash) 的意图签名机制
+                    </p>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.08); padding: 15px; border-radius: 10px;">
+                    <h4 style="color: #ed64a6;">libagent 协议</h4>
+                    <p style="font-size: 0.9rem; color: #a0aec0; margin-top: 8px;">
+                        机器可读的 Agent 交互 DSL，支持嵌套任务与委托链条
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        let demoRunning = false;
+
+        function startDemo() {
+            if (demoRunning) return;
+            demoRunning = true;
+            currentStep = 1;
+            
+            // 重置所有步骤
+            document.querySelectorAll('.step').forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                if (index === 0) step.classList.add('active');
+            });
+            
+            // 隐藏之前的元素
+            document.getElementById('intentManifest').style.display = 'none';
+            document.getElementById('slaNft').style.display = 'none';
+            
+            // 开始演示
+            setTimeout(() => executeStep(1), 1000);
+        }
+
+        function executeStep(step) {
+            const stepElement = document.getElementById(`step${step}`);
+            
+            switch(step) {
+                case 1:
+                    // 显示支付意图
+                    setTimeout(() => {
+                        document.getElementById('intentManifest').style.display = 'block';
+                        document.getElementById('intentManifest').style.animation = 'fadeIn 0.5s ease-in';
+                        completeStep(1);
+                        setTimeout(() => executeStep(2), 2000);
+                    }, 1000);
+                    break;
+                    
+                case 2:
+                    // Agent 市场发现
+                    updateAgentStatus('正在通过 libagent:// 协议发现服务...');
+                    setTimeout(() => {
+                        completeStep(2);
+                        setTimeout(() => executeStep(3), 2000);
+                    }, 1500);
+                    break;
+                    
+                case 3:
+                    // 支付通道开启
+                    updateAgentStatus('在 Monad 链上创建托管合约...');
+                    setTimeout(() => {
+                        completeStep(3);
+                        setTimeout(() => executeStep(4), 2000);
+                    }, 1500);
+                    break;
+                    
+                case 4:
+                    // 任务执行验证  
+                    updateAgentStatus('AI 剪辑代理 B 正在处理任务...');
+                    setTimeout(() => {
+                        document.getElementById('slaNft').style.display = 'block';
+                        document.getElementById('slaNft').style.animation = 'fadeIn 0.5s ease-in';
+                        completeStep(4);
+                        setTimeout(() => executeStep(5), 2000);
+                    }, 2000);
+                    break;
+                    
+                case 5:
+                    // 声誉更新
+                    updateAgentStatus('更新声誉评分与行为摘要上链...');
+                    setTimeout(() => {
+                        completeStep(5);
+                        updateAgentStatus('交易完成！所有 Agent 声誉已更新。');
+                        demoRunning = false;
+                    }, 1500);
+                    break;
+            }
+        }
+
+        function completeStep(step) {
+            const currentStepEl = document.getElementById(`step${step}`);
+            const nextStepEl = document.getElementById(`step${step + 1}`);
+            
+            currentStepEl.classList.remove('active');
+            currentStepEl.classList.add('completed');
+            
+            if (nextStepEl) {
+                nextStepEl.classList.add('active');
+            }
+        }
+
+        function updateAgentStatus(message) {
+            // 可以在这里更新状态栏显示
+            console.log(message);
+        }
+
+        function resetDemo() {
+            demoRunning = false;
+            currentStep = 1;
+            
+            document.querySelectorAll('.step').forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                if (index === 0) step.classList.add('active');
+            });
+            
+            document.getElementById('intentManifest').style.display = 'none';
+            document.getElementById('slaNft').style.display = 'none';
+        }
+
+        function showTechDetails() {
+            const techDetails = document.getElementById('techDetails');
+            if (techDetails.style.display === 'none' || !techDetails.style.display) {
+                techDetails.style.display = 'block';
+                techDetails.style.animation = 'fadeIn 0.5s ease-in';
+            } else {
+                techDetails.style.display = 'none';
+            }
+        }
+
+        // 添加 CSS 动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 添加一些动态效果
+            setInterval(() => {
+                const dots = document.querySelectorAll('.status-dot');
+                dots.forEach(dot => {
+                    dot.style.transform = `scale(${0.8 + Math.random() * 0.4})`;
+                });
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
