@@ -5,13 +5,6 @@
 Torch is a strategy-driven, onchain launch protocol built for high-performance chains like Monad. It transforms token launches into a competitive game with **mint thresholds**, **burn-to-win rewards**, and **automated liquidity** — all in one frictionless flow.
 
 
-
-## Team info
-- farmer.xingang08@gmail.com
-- skyhighfeng@gmail.com
-- haohanbang108@gmail.com
-- 563814345@qq.com
-
 ## Features
 
 - **Round-based Launch Flow**
