@@ -1,9 +1,9 @@
 ### 项目名称
 MonadPay
 ### 团队信息
-- **ryan.ke:** 邮箱: kelh93@163.com
-- **xiaohao:** 邮箱: hahn.xgong@gmail.com
-- **ww:** 邮箱: 605489324@qq.com
+- **成员1:** 邮箱: kelh93@163.com
+- **成员2:** 邮箱: hahn.xgong@gmail.com
+- **成员3:** 邮箱: 605489324@qq.com
 ### 项目描述
 基于 Deeplinks 的规范，用于在 URL 中编码 Monad 交易请求，以启用支付、NFC 和其他用例。发送、请求和触发加密支付的最简单方法--只需一个链接。
 ### 可用的在线演示链接
