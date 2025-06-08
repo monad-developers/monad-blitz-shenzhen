@@ -52,7 +52,7 @@ Torch is deployed on **Monad Testnet**.
 
 **Chain ID**: 10143
 
-**Example Deployment Address**:
+**Deployment Address**:
 
 ```
 TorchFactory: 0x38bB1A7BF8853190b59327719BECa08608326a2e
