@@ -10,12 +10,14 @@ interface NursingHomeFormProps {
 
 export const NursingHomeForm = ({ onSuccess }: NursingHomeFormProps) => {
   const [formData, setFormData] = useState({
+    name: "",
+    age: "",
     familyContact: "",
     healthCondition: "",
     monthlyFee: "",
   });
 
-  const { writeContractAsync, isLoading } = useScaffoldWriteContract({
+  const { writeContractAsync, isMining } = useScaffoldWriteContract({
     contractName: "NursingHome",
   });
 
@@ -27,19 +29,21 @@ export const NursingHomeForm = ({ onSuccess }: NursingHomeFormProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const tx = await writeContractAsync({
+      await writeContractAsync({
         functionName: "admitResident",
         args: [
-          "", // 空字符串代替姓名
-          0, // 0代替年龄
+          formData.name,
+          BigInt(formData.age),
           formData.familyContact as `0x${string}`,
-          formData.healthCondition,
           BigInt(parseFloat(formData.monthlyFee) * 10 ** 18),
+          formData.healthCondition,
         ],
       });
 
       notification.success("居民信息已成功提交！");
       setFormData({
+        name: "",
+        age: "",
         familyContact: "",
         healthCondition: "",
         monthlyFee: "",
@@ -64,50 +68,88 @@ export const NursingHomeForm = ({ onSuccess }: NursingHomeFormProps) => {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              家属联系地址
-            </label>
-            <div className="relative">
-              <input
-                type="text"
-                name="familyContact"
-                value={formData.familyContact}
-                onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-200 bg-white"
-                placeholder="0x..."
-                required
-              />
-              <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-              </div>
-            </div>
-            <p className="text-xs text-gray-500">钱包地址用于身份验证和联系</p>
+        <div className="space-y-2">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            居民姓名
+          </label>
+          <div className="relative">
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-200 bg-white"
+              placeholder="请输入姓名"
+              required
+            />
           </div>
-
-          <div className="space-y-2">
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              月费标准（ETH）
-            </label>
-            <div className="relative">
-              <input
-                type="text"
-                name="monthlyFee"
-                value={formData.monthlyFee}
-                onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-200 bg-white"
-                placeholder="0.1"
-                required
-              />
-              <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                <span className="text-sm text-gray-500">ETH</span>
-              </div>
-            </div>
-            <p className="text-xs text-gray-500">每月护理费用标准</p>
-          </div>
+          <p className="text-xs text-gray-500">居民的全名</p>
         </div>
+
+        <div className="space-y-2">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            年龄
+          </label>
+          <div className="relative">
+            <input
+              type="number"
+              name="age"
+              value={formData.age}
+              onChange={handleChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-200 bg-white"
+              placeholder="请输入年龄"
+              required
+            />
+          </div>
+          <p className="text-xs text-gray-500">居民的实际年龄</p>
+        </div>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-6">
+        <div className="space-y-2">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            家属联系地址
+          </label>
+          <div className="relative">
+            <input
+              type="text"
+              name="familyContact"
+              value={formData.familyContact}
+              onChange={handleChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-200 bg-white"
+              placeholder="0x..."
+              required
+            />
+            <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+              <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+          </div>
+          <p className="text-xs text-gray-500">钱包地址用于身份验证和联系</p>
+        </div>
+
+        <div className="space-y-2">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            月费标准（ETH）
+          </label>
+          <div className="relative">
+            <input
+              type="text"
+              name="monthlyFee"
+              value={formData.monthlyFee}
+              onChange={handleChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-200 bg-white"
+              placeholder="0.1"
+              required
+            />
+            <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+              <span className="text-sm text-gray-500">ETH</span>
+            </div>
+          </div>
+          <p className="text-xs text-gray-500">每月护理费用标准</p>
+        </div>
+      </div>
 
         <div className="space-y-2">
           <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -128,12 +170,12 @@ export const NursingHomeForm = ({ onSuccess }: NursingHomeFormProps) => {
         <div className="pt-4">
           <button
             type="submit"
-            className={`w-full bg-gradient-to-r from-gray-600 to-gray-700 text-white font-semibold py-4 px-6 rounded-lg hover:from-gray-700 hover:to-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transform transition-all duration-200 hover:scale-[1.02] ${isLoading ? "opacity-50 cursor-not-allowed" : ""
+            className={`w-full bg-gradient-to-r from-gray-600 to-gray-700 text-white font-semibold py-4 px-6 rounded-lg hover:from-gray-700 hover:to-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transform transition-all duration-200 hover:scale-[1.02] ${isMining ? "opacity-50 cursor-not-allowed" : ""
               }`}
-            disabled={isLoading}
+            disabled={isMining}
           >
             <div className="flex items-center justify-center space-x-3">
-              {isLoading ? (
+              {isMining ? (
                 <>
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                   <span>处理中...</span>
