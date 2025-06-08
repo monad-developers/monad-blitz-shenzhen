@@ -1,0 +1,23 @@
+{
+  "name": "SignalCast",
+  "short_name": "SignalCast",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6366f1",
+  "description": "AI pet that helps you follow trader signals on Farcaster",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "categories": ["finance", "social", "utilities"]
+} 
