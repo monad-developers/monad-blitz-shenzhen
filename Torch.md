@@ -1,10 +1,10 @@
 ### 项目名称
 Torch
 ### 团队信息
-- **成员1:** 邮箱:  farmer.xingang08@gmail.com
-- **成员2:** 邮箱: skyhighfeng@gmail.com
-- **成员3:** 邮箱: haohanbang108@gmail.com
-- **成员4:** 邮箱: 563814345@qq.com
+- **Gavin:** 邮箱:  farmer.xingang08@gmail.com
+- **skyh:** 邮箱: skyhighfeng@gmail.com
+- **李:** 邮箱: haohanbang108@gmail.com
+- **每每:** 邮箱: 563814345@qq.com
 ### 项目描述
 https://github.com/TorchDotCool/TorchSZ
 
