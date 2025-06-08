@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MonadPay URL</title>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <script>
+        // 备用加载方案
+        if (typeof ethers === 'undefined') {
+            console.log('主CDN加载失败，尝试备用CDN...');
+            const script = document.createElement('script');
+            script.src = 'https://unpkg.com/ethers@5.7.2/dist/ethers.umd.min.js';
+            script.onload = function() {
+                console.log('✅ 备用CDN加载成功');
+            };
+            script.onerror = function() {
+                console.error('❌ 所有CDN都加载失败');
+                document.body.innerHTML = '<div style="text-align:center;padding:50px;"><h2>❌ 网络错误</h2><p>无法加载ethers.js库，请检查网络连接</p></div>';
+            };
+            document.head.appendChild(script);
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .payment-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            background: #f8f9fa;
+        }
+        .amount {
+            font-size: 2em;
+            font-weight: bold;
+            color: #28a745;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin: 10px 0;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .warning { background: #fff3cd; color: #856404; }
+        .info { background: #cce7ff; color: #004085; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💳 MonadPay </h1>
+        
+        <div id="urlParams" class="payment-card">
+            <h3>📋 URL参数解析</h3>
+            <div id="paramsList"></div>
+        </div>
+
+        <div id="paymentCard" class="payment-card" style="display: none;">
+            <h3>💸 支付详情</h3>
+            <div class="amount" id="displayAmount">0 USDC</div>
+            
+            <div class="info-row">
+                <span><strong>收款地址:</strong></span>
+                <span id="displayRecipient">-</span>
+            </div>
+            <div class="info-row">
+                <span><strong>支付标签:</strong></span>
+                <span id="displayLabel">-</span>
+            </div>
+            <div class="info-row">
+                <span><strong>代币:</strong></span>
+                <span id="displayToken">-</span>
+            </div>
+            
+            <button class="button" onclick="connectWallet()" id="connectBtn">
+                🔗 连接MetaMask钱包
+            </button>
+            
+            <button class="button" onclick="executePayment()" id="payBtn" style="display: none;" disabled>
+                💳 确认支付
+            </button>
+        </div>
+
+        <div id="status"></div>
+
+        <div class="payment-card">
+            <h3>🔗 测试URL示例</h3>
+            <p>点击下面的链接测试URL参数解析：</p>
+            <a href="?to=0x0000000000000000000000000000000000000456&amount=0.01&token=MONAD&label=购买咖啡" 
+               onclick="window.location.href=this.href; return false;">
+                📱 测试支付链接 (0.01 MONAD) - 推荐
+            </a>
+            <br><br>
+            <a href="?to=0x0000000000000000000000000000000000000456&amount=1.0&token=USDC&label=购买商品" 
+               onclick="window.location.href=this.href; return false;">
+                📱 测试USDC支付 (1.0 USDC) - 实验性
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // 合约配置
+        const PAYMENT_SYSTEM_ADDRESS = "0x973112eC6e02E307C1Aa045187601AECA34cd8a5";
+        const MONAD_CHAIN_ID = 10143;
+        
+        const PAYMENT_ABI = [
+            "function singlePayment(address recipient, address token, uint256 amount, string memory label) external payable",
+            "function getTokenBySymbol(string memory symbol) external view returns (address)",
+            "function platformFee() external view returns (uint256)",
+            "function feeRecipient() external view returns (address)",
+            "function owner() external view returns (address)",
+            "function paused() external view returns (bool)"
+        ];
+
+        let provider;
+        let signer;
+        let paymentContract;
+        let paymentParams = {};
+
+        // 页面加载时解析URL参数
+        window.onload = function() {
+            // 检查ethers是否加载成功
+            if (typeof ethers === 'undefined') {
+                showStatus('❌ ethers.js库加载失败，请刷新页面重试', 'error');
+                return;
+            }
+            console.log('✅ ethers.js加载成功，版本:', ethers.version);
+            parseURLParams();
+        };
+
+        // 解析URL参数
+        function parseURLParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const params = {};
+            
+            // 支持的参数
+            const supportedParams = ['to', 'amount', 'token', 'label'];
+            
+            let paramsList = '<div class="info-row"><strong>检测到的URL参数:</strong></div>';
+            
+            supportedParams.forEach(param => {
+                const value = urlParams.get(param);
+                if (value) {
+                    params[param] = value;
+                    paramsList += `<div class="info-row"><span>${param}:</span><span>${value}</span></div>`;
+                }
+            });
+            
+            if (Object.keys(params).length === 0) {
+                paramsList = '<div class="warning">未检测到支付参数。使用测试链接或在URL中添加参数。</div>';
+                document.getElementById('paramsList').innerHTML = paramsList;
+                return;
+            }
+            
+            document.getElementById('paramsList').innerHTML = paramsList;
+            
+            // 验证必需参数
+            if (params.to && params.amount && params.token) {
+                paymentParams = params;
+                displayPaymentCard();
+            } else {
+                showStatus('缺少必需参数。需要: to, amount, token', 'error');
+            }
+        }
+
+        // 显示支付卡片
+        function displayPaymentCard() {
+            document.getElementById('displayAmount').textContent = 
+                `${paymentParams.amount} ${paymentParams.token}`;
+            document.getElementById('displayRecipient').textContent = paymentParams.to;
+            document.getElementById('displayLabel').textContent = paymentParams.label || '无标签';
+            document.getElementById('displayToken').textContent = paymentParams.token;
+            
+            document.getElementById('paymentCard').style.display = 'block';
+        }
+
+        // 连接钱包
+        async function connectWallet() {
+            try {
+                if (typeof window.ethereum === 'undefined') {
+                    throw new Error('请安装MetaMask钱包');
+                }
+
+                // 请求连接
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
+                
+                // 检查/切换网络
+                const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+                const targetChainId = '0x279F'; // 10143的十六进制
+                
+                if (chainId !== targetChainId) {
+                    try {
+                        await window.ethereum.request({
+                            method: 'wallet_switchEthereumChain',
+                            params: [{ chainId: targetChainId }],
+                        });
+                    } catch (switchError) {
+                        if (switchError.code === 4902) {
+                            await window.ethereum.request({
+                                method: 'wallet_addEthereumChain',
+                                params: [{
+                                    chainId: targetChainId,
+                                    chainName: 'Monad Testnet',
+                                    nativeCurrency: {
+                                        name: 'MON',
+                                        symbol: 'MON',
+                                        decimals: 18
+                                    },
+                                    rpcUrls: ['https://testnet-rpc.monad.xyz'],
+                                    blockExplorerUrls: ['https://testnet-explorer.monad.xyz']
+                                }]
+                            });
+                        }
+                    }
+                }
+
+                // 创建provider和signer
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                signer = provider.getSigner();
+                paymentContract = new ethers.Contract(PAYMENT_SYSTEM_ADDRESS, PAYMENT_ABI, signer);
+                
+                const address = await signer.getAddress();
+                
+                // 测试合约连接
+                try {
+                    const platformFee = await paymentContract.platformFee();
+                    showStatus(`✅ 钱包已连接: ${address}<br>🔗 合约连接成功，平台费率: ${platformFee}/10000`, 'success');
+                } catch (contractError) {
+                    showStatus(`⚠️ 钱包已连接: ${address}<br>❌ 合约连接失败: ${contractError.message}<br>💡 可能需要切换到正确的网络或合约地址有误`, 'warning');
+                }
+                
+                // 显示支付按钮
+                document.getElementById('connectBtn').style.display = 'none';
+                document.getElementById('payBtn').style.display = 'block';
+                document.getElementById('payBtn').disabled = false;
+                
+            } catch (error) {
+                showStatus(`❌ 钱包连接失败: ${error.message}`, 'error');
+            }
+        }
+
+        // 执行支付
+        async function executePayment() {
+            try {
+                showStatus('📤 正在准备交易...', 'info');
+                
+                const recipient = paymentParams.to;
+                const amount = paymentParams.amount;
+                const token = paymentParams.token;
+                const label = paymentParams.label || '';
+
+                let tokenAddress;
+                let amountWei;
+                let txValue = 0;
+
+                                 // 处理不同的代币类型
+                 if (token.toLowerCase() === 'monad' || token.toLowerCase() === 'mon') {
+                     // 原生代币
+                     tokenAddress = ethers.constants.AddressZero;
+                     amountWei = ethers.utils.parseEther(amount);
+                     txValue = amountWei;
+                 } else if (token.toLowerCase() === 'usdc') {
+                     // USDC代币 - 使用固定地址（测试网）
+                     tokenAddress = "0x0000000000000000000000000000000000000001"; // 在部署时注册的测试地址
+                     amountWei = ethers.utils.parseEther(amount);
+                     txValue = 0;
+                 } else if (token.toLowerCase() === 'usdt') {
+                     // USDT代币 - 使用固定地址（测试网）
+                     tokenAddress = "0x0000000000000000000000000000000000000002"; // 在部署时注册的测试地址
+                     amountWei = ethers.utils.parseEther(amount);
+                     txValue = 0;
+                 } else {
+                     throw new Error(`当前演示版本不支持代币: ${token}。支持的代币: MONAD, USDC, USDT`);
+                 }
+
+                showStatus('💸 正在发送交易...', 'info');
+
+                // 发送交易
+                const tx = await paymentContract.singlePayment(
+                    recipient,
+                    tokenAddress,
+                    amountWei,
+                    label,
+                    { value: txValue }
+                );
+
+                showStatus(`⏳ 等待交易确认...<br>交易哈希: ${tx.hash}`, 'info');
+
+                // 等待确认
+                const receipt = await tx.wait();
+
+                showStatus(`✅ 支付成功!<br>
+                    交易哈希: ${tx.hash}<br>
+                    区块号: ${receipt.blockNumber}<br>
+                    <a href="https://testnet-explorer.monad.xyz/tx/${tx.hash}" target="_blank">在区块链浏览器中查看</a>`, 'success');
+
+                // 禁用支付按钮
+                document.getElementById('payBtn').disabled = true;
+                document.getElementById('payBtn').textContent = '✅ 支付完成';
+
+            } catch (error) {
+                showStatus(`❌ 支付失败: ${error.message}`, 'error');
+            }
+        }
+
+        // 显示状态信息
+        function showStatus(message, type) {
+            document.getElementById('status').innerHTML = 
+                `<div class="status ${type}">${message}</div>`;
+        }
+    </script>
+</body>
+</html> 

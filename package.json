@@ -1,0 +1,41 @@
+{
+  "name": "monad-payment-system",
+  "version": "1.0.0",
+  "description": "Monad区块链上的多功能支付系统合约",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "test:single": "hardhat test test/SinglePayment.test.js",
+    "test:watch": "hardhat test --watch",
+    "deploy": "hardhat run deploy.js",
+    "deploy:testnet": "hardhat run deploy.js --network monad_testnet",
+    "deploy:mainnet": "hardhat run deploy.js --network monad_mainnet",
+    "deploy:monad": "hardhat run scripts/deploy-monad.js --network monad_testnet", 
+    "verify:testnet": "hardhat verify --network monad_testnet",
+    "verify:mainnet": "hardhat verify --network monad_mainnet",
+    "demo": "hardhat run scripts/deploy-and-demo.js",
+    "demo:testnet": "hardhat run scripts/deploy-and-demo.js --network monad_testnet",
+    "example": "hardhat run usage-examples.js",
+    "clean": "hardhat clean",
+    "coverage": "hardhat coverage"
+  },
+  "keywords": [
+    "solidity",
+    "ethereum",
+    "monad",
+    "payment",
+    "subscription",
+    "smart-contract",
+    "defi"
+  ],
+  "author": "Monad Payment System",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "@openzeppelin/contracts": "^4.9.0",
+    "hardhat": "^2.17.0",
+    "ethers": "^6.1.0"
+  },
+  "dependencies": {}
+} 
