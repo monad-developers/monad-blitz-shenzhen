@@ -37,4 +37,4 @@
 
     
 8. 最后通过检查创建合并请求的仓库以及合并请求的源分支和目标分支，来确认您是否正确创建了合并请求！
- ![image](https://github.com/user-attachments/assets/f507b069-82ae-4cbd-a864-f16ec4449d8d)
+![image](https://github.com/user-attachments/assets/f507b069-82ae-4cbd-a864-f16ec4449d8d)
