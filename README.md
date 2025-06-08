@@ -55,8 +55,9 @@ Torch is deployed on **Monad Testnet**.
 **Example Deployment Address**:
 
 ```
-TorchFactory: 0x...  
-Sample Launch: 0x...
+TorchFactory: 0x38bB1A7BF8853190b59327719BECa08608326a2e
+TorchGame: 0x450d745D7F9c9B335ed7C73dDac02accC92C1258
+TorchToken: 0xeE89D4EF0fb010b40Cfc7aCf9A95FF2A6C3aAcCB
 ```
 
 
