@@ -44,7 +44,7 @@ export const HospitalPaymentForm = ({ onSuccess }: HospitalPaymentFormProps) => 
       notification.success("付款成功！");
       setPatientId("");
       setPaymentAmount("");
-      
+
       if (onSuccess) {
         onSuccess();
       }
@@ -73,7 +73,7 @@ export const HospitalPaymentForm = ({ onSuccess }: HospitalPaymentFormProps) => 
           <input
             type="number"
             value={patientId}
-            onChange={(e) => setPatientId(e.target.value)}
+            onChange={e => setPatientId(e.target.value)}
             className="input input-bordered w-full"
             placeholder="输入患者ID"
             required
@@ -93,8 +93,12 @@ export const HospitalPaymentForm = ({ onSuccess }: HospitalPaymentFormProps) => 
             <p className="text-sm">姓名: {patientData.name}</p>
             <p className="text-sm">年龄: {Number(patientData.age)}</p>
             <p className="text-sm">状态: {getPatientStatusText(Number(patientData.status))}</p>
-            <p className="text-sm">入院日期: {new Date(Number(patientData.admissionDate) * 1000).toLocaleDateString()}</p>
-            <p className="text-sm">治疗费用: {patientData.treatmentCost ? Number(patientData.treatmentCost) / 10**18 : 0} ETH</p>
+            <p className="text-sm">
+              入院日期: {new Date(Number(patientData.admissionDate) * 1000).toLocaleDateString()}
+            </p>
+            <p className="text-sm">
+              治疗费用: {patientData.treatmentCost ? Number(patientData.treatmentCost) / 10 ** 18 : 0} ETH
+            </p>
           </div>
         )}
 
@@ -105,7 +109,7 @@ export const HospitalPaymentForm = ({ onSuccess }: HospitalPaymentFormProps) => 
           <input
             type="text"
             value={paymentAmount}
-            onChange={(e) => setPaymentAmount(e.target.value)}
+            onChange={e => setPaymentAmount(e.target.value)}
             className="input input-bordered w-full"
             placeholder="0.1"
             required
