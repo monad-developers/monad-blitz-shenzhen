@@ -18,6 +18,7 @@
     "hardhat-verify": "hardhat verify",
     "lint": "eslint",
     "lint-staged": "eslint",
+    "set-relationships": "hardhat run scripts/set-contract-relationships.ts --network localhost",
     "test": "REPORT_GAS=true hardhat test --network hardhat",
     "verify": "hardhat etherscan-verify"
   },
