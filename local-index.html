@@ -3,25 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MonadPay - Decentralized Payment System</title>
-    <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
-    <script>
-        // Backup CDN loading mechanism
-        if (typeof ethers === 'undefined') {
-            console.log('Main CDN failed, trying backup CDN...');
-            const script = document.createElement('script');
-            script.src = 'https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js';
-            script.onerror = () => {
-                console.log('Backup CDN also failed, redirecting to local version');
-                document.getElementById('status').innerHTML = 
-                    '<div class="status warning">❌ ethers.js library loading failed, redirecting to local version...<br>💡 Auto-redirect in 3 seconds</div>';
-                setTimeout(() => {
-                    window.location.href = '/local-index';
-                }, 3000);
-            };
-            document.head.appendChild(script);
-        }
-    </script>
+    <title>MonadPay - 本地版支付系统</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -167,128 +149,116 @@
 </head>
 <body>
     <div class="container">
-        <h1>💳 MonadPay</h1>
+        <h1>💳 MonadPay 本地版</h1>
+        
+        <div class="payment-card">
+            <div class="warning status">
+                ⚠️ 本地版本（无CDN依赖）<br>
+                💡 只支持MONAD原生代币支付
+            </div>
+        </div>
         
         <!-- 示例支付卡片 -->
         <div class="payment-card">
-            <h3>💸 Payment</h3>
+            <h3>💸 支付示例</h3>
             <div class="amount">0.05 MONAD</div>
             
             <div class="info-row">
-                <span>Recipient:</span>
+                <span>收款地址:</span>
                 <span>0x0000...0456</span>
             </div>
             <div class="info-row">
-                <span>Label:</span>
-                <span>Buy Coffee ☕</span>
+                <span>支付标签:</span>
+                <span>购买咖啡 ☕</span>
             </div>
             <div class="info-row">
-                <span>Token:</span>
-                <span>MONAD (Native)</span>
+                <span>代币类型:</span>
+                <span>MONAD (原生代币)</span>
             </div>
             <div class="info-row">
-                <span>Platform Fee:</span>
-                <span>1% (0.0005 MONAD)</span>
+                <span>说明:</span>
+                <span>使用原生MetaMask API</span>
             </div>
             
             <button class="button" onclick="connectWallet()" id="connectBtn">
-                🔗 Connect MetaMask Wallet
+                🔗 连接MetaMask钱包开始支付
             </button>
             
             <button class="button" onclick="executePayment()" id="payBtn" style="display: none;" disabled>
-                💳 Confirm Payment
+                💳 确认支付
             </button>
         </div>
 
-        <!-- Features Section -->
+        <!-- 系统功能介绍 -->
         <div class="payment-card">
-            <h3>🚀 MonadPay Features</h3>
+            <h3>🚀 本地版功能特性</h3>
             <ul class="feature-list">
-                <li>Support for MONAD native token and ERC20 payments</li>
-                <li>URL-driven payment link generation</li>
-                <li>Smart contract automation, secure and reliable</li>
-                <li>Batch payments and subscription support</li>
-                <li>Time-locked vault functionality</li>
-                <li>MetaMask wallet integration</li>
+                <li>无需CDN依赖，完全本地运行</li>
+                <li>支持MONAD原生代币支付</li>
+                <li>原生MetaMask API集成</li>
+                <li>轻量级，加载速度快</li>
+                <li>网络环境要求低</li>
             </ul>
         </div>
 
-        <!-- Demo Links -->
+        <!-- 演示链接 -->
         <div class="payment-card">
-            <h3>🔗 Try Different Payment Options</h3>
+            <h3>🔗 体验支付功能</h3>
             <div class="demo-section">
-                <a href="/pay?to=0x0000000000000000000000000000000000000456&amount=0.01&token=MONAD&label=Buy Coffee" 
+                <a href="/local?to=0x0000000000000000000000000000000000000456&amount=0.01&token=MONAD&label=购买咖啡" 
                    class="demo-link">
-                    ☕ Coffee Payment (0.01 MONAD)
+                    ☕ 咖啡支付 (0.01 MONAD)
                 </a>
                 
-                <a href="/pay?to=0x0000000000000000000000000000000000000456&amount=1.0&token=USDC&label=Buy Product" 
+                <a href="/local?to=0x0000000000000000000000000000000000000456&amount=5.0&token=MONAD&label=服务费用" 
                    class="demo-link">
-                    🛍️ Product Payment (1.0 USDC)
+                    🔧 服务支付 (5.0 MONAD)
                 </a>
                 
-                <a href="/pay?to=0x0000000000000000000000000000000000000456&amount=5.0&token=MONAD&label=Service Fee" 
-                   class="demo-link">
-                    🔧 Service Payment (5.0 MONAD)
+                <a href="/" class="demo-link">
+                    🌐 完整版本 (需要网络)
                 </a>
             </div>
         </div>
-
-
 
         <div id="status"></div>
     </div>
 
     <script>
-        // Contract configuration
-        const PAYMENT_SYSTEM_ADDRESS = "0x973112eC6e02E307C1Aa045187601AECA34cd8a5";
+        // 合约配置
         const MONAD_CHAIN_ID = 10143;
         
-        const PAYMENT_ABI = [
-            "function singlePayment(address recipient, address token, uint256 amount, string memory label) external payable",
-            "function platformFee() external view returns (uint256)",
-            "function feeRecipient() external view returns (address)",
-            "function owner() external view returns (address)",
-            "function paused() external view returns (bool)"
-        ];
-
-        let provider;
-        let signer;
-        let paymentContract;
+        let currentAccount = null;
         
-        // Demo payment parameters
+        // 示例支付参数
         const demoPaymentParams = {
             to: "0x0000000000000000000000000000000000000456",
             amount: "0.05",
             token: "MONAD",
-            label: "Buy Coffee"
+            label: "购买咖啡"
         };
 
-        // Check ethers on page load
+        // 页面加载时显示说明
         window.onload = function() {
-            if (typeof ethers === 'undefined') {
-                showStatus('❌ ethers.js library failed to load, please refresh the page', 'error');
-                return;
-            }
-            console.log('✅ ethers.js loaded successfully, version:', ethers.version);
-            showStatus('💡 This is MonadPay payment system demo page. Click the links above to try different payment scenarios!', 'info');
+            showStatus('💡 这是MonadPay本地版本，不依赖外部CDN。当前支持MONAD原生代币支付。', 'info');
         };
 
-        // Connect wallet
+        // 连接钱包
         async function connectWallet() {
             try {
                 if (typeof window.ethereum === 'undefined') {
-                    throw new Error('Please install MetaMask wallet');
+                    throw new Error('请安装MetaMask钱包');
                 }
 
-                showStatus('🔄 Connecting wallet...', 'info');
+                showStatus('🔄 正在连接钱包...', 'info');
 
-                // Request connection
-                await window.ethereum.request({ method: 'eth_requestAccounts' });
+                // 请求连接
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                currentAccount = accounts[0];
                 
-                // Check/switch network
+                // 检查/切换网络
                 const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-                const targetChainId = '0x279F'; // 10143 in hex
+                const targetChainId = '0x279F'; // 10143的十六进制
                 
                 if (chainId !== targetChainId) {
                     try {
@@ -316,86 +286,69 @@
                     }
                 }
 
-                // Create provider and signer
-                provider = new ethers.providers.Web3Provider(window.ethereum);
-                signer = provider.getSigner();
-                paymentContract = new ethers.Contract(PAYMENT_SYSTEM_ADDRESS, PAYMENT_ABI, signer);
+                showStatus(`✅ 钱包已连接: ${currentAccount}<br>🔗 已连接到Monad测试网<br>💡 现在可以执行支付了！`, 'success');
                 
-                const address = await signer.getAddress();
-                
-                // Test contract connection
-                try {
-                    const platformFee = await paymentContract.platformFee();
-                    showStatus(`✅ Wallet connected: ${address}<br>🔗 Contract connected successfully, platform fee: ${platformFee}/10000<br>💡 You can now execute demo payment!`, 'success');
-                    
-                    // Show payment button
-                    document.getElementById('connectBtn').style.display = 'none';
-                    document.getElementById('payBtn').style.display = 'block';
-                    document.getElementById('payBtn').disabled = false;
-                    
-                } catch (contractError) {
-                    showStatus(`⚠️ Wallet connected: ${address}<br>❌ Contract connection failed: ${contractError.message}<br>💡 Please check network connection or contract status`, 'warning');
-                }
+                // 显示支付按钮
+                document.getElementById('connectBtn').style.display = 'none';
+                document.getElementById('payBtn').style.display = 'block';
+                document.getElementById('payBtn').disabled = false;
                 
             } catch (error) {
-                showStatus(`❌ Wallet connection failed: ${error.message}`, 'error');
+                showStatus(`❌ 钱包连接失败: ${error.message}`, 'error');
             }
         }
 
-        // Execute demo payment
+        // 执行支付
         async function executePayment() {
             try {
-                showStatus('📤 Preparing transaction...', 'info');
+                showStatus('📤 正在准备交易...', 'info');
                 
                 const recipient = demoPaymentParams.to;
                 const amount = demoPaymentParams.amount;
-                const token = demoPaymentParams.token;
                 const label = demoPaymentParams.label;
 
-                // MONAD native token
-                const tokenAddress = ethers.constants.AddressZero;
-                const amountWei = ethers.utils.parseEther(amount);
-                const txValue = amountWei;
+                // 转换金额到wei（18位小数）
+                const amountWei = Math.floor(parseFloat(amount) * Math.pow(10, 18));
+                const amountHex = '0x' + amountWei.toString(16);
 
-                showStatus('💸 Sending transaction to blockchain...', 'info');
+                showStatus('💸 正在发送交易到区块链...', 'info');
 
-                // Call smart contract
-                const tx = await paymentContract.singlePayment(
-                    recipient,
-                    tokenAddress,
-                    amountWei,
-                    label,
-                    { value: txValue }
-                );
+                // 构建交易参数
+                const txParams = {
+                    from: currentAccount,
+                    to: recipient,
+                    value: amountHex,
+                    gas: '0x5208', // 21000 gas for simple transfer
+                };
 
-                showStatus(`⏳ Transaction submitted, waiting for confirmation...<br>Transaction hash: ${tx.hash}`, 'info');
+                // 发送交易
+                const txHash = await window.ethereum.request({
+                    method: 'eth_sendTransaction',
+                    params: [txParams],
+                });
 
-                // Wait for confirmation
-                const receipt = await tx.wait();
+                showStatus(`✅ 支付成功完成！<br>
+                    💰 金额: ${amount} MONAD<br>
+                    📝 标签: ${label}<br>
+                    🔗 交易哈希: ${txHash}<br>
+                    <a href="https://testnet-explorer.monad.xyz/tx/${txHash}" target="_blank" style="color: #FFC107;">在区块浏览器中查看</a>`, 'success');
 
-                showStatus(`✅ Payment completed successfully!<br>
-                    💰 Amount: ${amount} MONAD<br>
-                    📝 Label: ${label}<br>
-                    🔗 Transaction hash: ${tx.hash}<br>
-                    📦 Block number: ${receipt.blockNumber}<br>
-                    <a href="https://testnet-explorer.monad.xyz/tx/${tx.hash}" target="_blank" style="color: #FFC107;">View on block explorer</a>`, 'success');
-
-                // Disable payment button
+                // 禁用支付按钮
                 document.getElementById('payBtn').disabled = true;
-                document.getElementById('payBtn').textContent = '✅ Payment Complete';
+                document.getElementById('payBtn').textContent = '✅ 支付完成';
 
             } catch (error) {
-                showStatus(`❌ Payment failed: ${error.message}`, 'error');
+                showStatus(`❌ 支付失败: ${error.message}`, 'error');
                 
                 if (error.message.includes('insufficient funds')) {
-                    showStatus(`❌ Payment failed: Insufficient balance<br>💡 Please ensure you have enough MONAD tokens in your wallet`, 'error');
-                } else if (error.message.includes('user rejected')) {
-                    showStatus(`❌ Payment cancelled: User rejected the transaction`, 'warning');
+                    showStatus(`❌ 支付失败: 余额不足<br>💡 请确保钱包中有足够的MONAD代币`, 'error');
+                } else if (error.message.includes('User denied')) {
+                    showStatus(`❌ 支付被取消: 用户拒绝了交易`, 'warning');
                 }
             }
         }
 
-        // Display status information
+        // 显示状态信息
         function showStatus(message, type) {
             document.getElementById('status').innerHTML = 
                 `<div class="status ${type}">${message}</div>`;

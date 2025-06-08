@@ -20,7 +20,7 @@ const server = http.createServer((req, res) => {
     
     // 默认页面
     if (filePath === '/') {
-        filePath = '/url-payment-handler.html';
+        filePath = '/index.html';
     }
     
     // 支付页面路由
@@ -33,9 +33,19 @@ const server = http.createServer((req, res) => {
         filePath = '/local-payment-handler.html';
     }
     
+    // 本地首页（不依赖CDN）
+    if (filePath === '/local-index') {
+        filePath = '/local-index.html';
+    }
+    
     // 调试页面路由
     if (filePath === '/debug') {
         filePath = '/debug-network.html';
+    }
+    
+    // 系统状态页面
+    if (filePath === '/status') {
+        filePath = '/status.html';
     }
     
     // 构建文件路径
