@@ -7,7 +7,7 @@ MonadPay
 ### 项目描述
 基于 Deeplinks 的规范，用于在 URL 中编码 Monad 交易请求，以启用支付、NFC 和其他用例。发送、请求和触发加密支付的最简单方法--只需一个链接。
 ### 可用的在线演示链接
-链接: <必须填写>
+链接: https://ryan-monad-playground.vercel.app/
 
 ### 所有部署在Monad Testnet的合约地址
 - MonadPaymentSystem 0x973112eC6e02E307C1Aa045187601AECA34cd8a5 主支付系统合约 
@@ -16,7 +16,7 @@ MonadPay
 链接/说明:
 
 ### (可选) 视频
-链接: https://ryan-monad-playground.vercel.app/
+链接: 
 ---
 
 ### 请确认以下事项：
