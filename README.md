@@ -1,40 +1,177 @@
-# Monad Blitz 深圳 提交流程
 
-1. 查看 `monad-blitz-shenzhen` 仓库 ([此处链接](https://github.com/monad-developers/monad-blitz-shenzhen)) 并且fork.
+“让每一个 AI Agent 都拥有支付意志与道德自省能力，在人机共生系统中成为可信经济体。”
+---
 
-    ![image](https://github.com/user-attachments/assets/cbfb7954-18a4-4041-822a-3785adaded8e)
+## 📘 `README.md`
 
-    
-2. 名字设定为你的项目名，并提供一句简短描述，确保你正在分叉 main 分支，然后点击“Create fork”。
-    
-![image](https://github.com/user-attachments/assets/435f6c94-3ce3-4778-b71c-6073fe793c5c)
+````markdown
+# Monad Agent Pay 🪙
 
-    
-3. 在你的fork项目中，你可以进行任意修改：添加项目代码、创建分支、更新README.md文件内容，所有部分均可自由调整变更。
+> Web3-native NFT 支付与 Intent 履约交互前端，构建于 Monad 网络，支持 React + Wagmi 钱包交互与合约调用。
 
-4. 当你完成项目并准备提交时，请创建一个拉取请求。
-    
-![image](https://github.com/user-attachments/assets/e0319914-4610-4d30-af30-54db04003ec9)
+## ✨ 特性
 
-    
-![image](https://github.com/user-attachments/assets/a514d935-5e43-4ba0-8da8-251aefb3a5ed)
+- 基于 Monad `.monad.ts` 合约标准接口
+- NFT 支付模块（ERC-721 / ERC-1155 支持）
+- Wagmi 钱包连接
+- 全自动部署（Vercel + GitHub Actions）
+- 适配 Monad Intent 标准结构（签名履约）
 
-    
+## 🚀 快速开始
 
-5. **确保您向正确的仓库创建拉取请求 `monad-developers/monad-blitz-shenzhen`**
-    
-![image](https://github.com/user-attachments/assets/68702e75-de4d-40b9-9bd4-a2dfe5f2925b)
+### 1. 克隆项目
 
-    
-6. 确保你看到了 **“Able to merge” 字样**, 然后点击 `Create Pull Request` 创建请求
-    
-![image](https://github.com/user-attachments/assets/0b06f6ce-443e-48de-8e63-7a701a6a77ed)
+```bash
+git clone https://github.com/your-org/monad-agent-pay.git
+cd monad-agent-pay
+````
 
-    
-7. 为您的合并请求提供项目名称和项目描述（尽可能详细地描述您的项目，**甚至可以添加视频演示链接**），然后点击`Create pull request`。
-    
-![image](https://github.com/user-attachments/assets/58f58822-7c1a-4ddf-975d-70c955ce549d)
+### 2. 安装依赖
 
-    
-8. 最后通过检查创建合并请求的仓库以及合并请求的源分支和目标分支，来确认您是否正确创建了合并请求！
- ![image](https://github.com/user-attachments/assets/f507b069-82ae-4cbd-a864-f16ec4449d8d)
+```bash
+pnpm install
+```
+
+或
+
+```bash
+npm install
+```
+
+### 3. 环境变量配置
+
+创建 `.env.local` 文件，填入以下配置项：
+
+```env
+NEXT_PUBLIC_CONTRACT_ADDRESS=0xYourContractAddressHere
+NEXT_PUBLIC_CHAIN_ID=8453
+NEXT_PUBLIC_NFT_CONTRACT=0xNFTCollectionAddress
+```
+
+### 4. 启动开发服务器
+
+```bash
+pnpm dev
+```
+
+访问：`http://localhost:3000`
+
+---
+
+## 📄 目录结构
+
+```
+monad-agent-pay/
+├── lib/                      # 合约交互逻辑
+│   ├── .monad.ts             # Monad Intent 合约交互逻辑
+│   └── nftPay.ts             # NFT 支付函数
+├── pages/
+│   └── index.tsx             # 主页面
+├── scripts/
+│   └── test.ts               # 测试脚本
+├── .vercel/                  # Vercel 项目设置
+├── .github/workflows/        # GitHub Actions 自动部署
+│   └── deploy.yml
+├── vercel.json               # Rewrite 配置
+├── package.json
+├── README.md
+└── tsconfig.json
+```
+
+---
+
+## 🔐 合约 ABI 示例（部分）
+
+位于 `lib/abi/monadABI.ts` 中：
+
+```ts
+export const monadAbi = [
+  {
+    "inputs": [
+      { "internalType": "address", "name": "agent", "type": "address" },
+      { "internalType": "string", "name": "intent", "type": "string" }
+    ],
+    "name": "fulfillIntent",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllIntents",
+    "outputs": [{ "internalType": "string[]", "name": "", "type": "string[]" }],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
+```
+
+---
+
+## 🧪 测试方式
+
+执行以下脚本进行链上交互模拟：
+
+```bash
+pnpm tsx scripts/test.ts
+```
+
+你也可以将 `.monad.ts` 与 `nftPay.ts` 的调用逻辑复制到 Hardhat/Foundry 测试用例中。
+
+---
+
+## 🧾 Vercel 自动部署配置
+
+`vercel.json`：
+
+```json
+{
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }],
+  "framework": "nextjs"
+}
+```
+
+`.github/workflows/deploy.yml`：
+
+```yaml
+name: Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          scope: your-vercel-team
+```
+
+---
+
+## 📫 联系我们
+
+* Web: [https://clippy.life](https://clippy.life)
+* Twitter: [@life++clippy](https://x.com/lifeclippy)
+
+---
+
+> 项目由 [Monad](https://monad.xyz) 社区支持构建，致力于打造下一代意图驱动的 Web3 基础设施。
+
+```
+
+---
+
+### ✅ 附加建议
+
+你可将 `monadAbi.ts` 拆分至 `lib/abi/` 文件夹，并提供用于 TypeScript 的合约类型（可用 `typechain`, `viem` 生成）。
+
+如果你希望我为这个项目生成一份完整 ZIP 并打包上传，请告诉我，我可以立刻导出。需要自动上传至 GitHub / Vercel 的脚本我也可以一并提供。是否继续？
+```
