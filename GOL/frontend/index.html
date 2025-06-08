@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web3 Game of Life NFT - 自动演化版</title>
+    <script type="importmap">
+    {
+        "imports": {
+            "ethers": "https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.min.js"
+        }
+    }
+    </script>
+    <script type="module">
+        import * as ethers from 'ethers';
+        window.ethers = ethers;
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(10, 30px);
+            gap: 1px;
+            background: #ccc;
+            padding: 10px;
+            margin: 20px 0;
+        }
+        .cell {
+            width: 30px;
+            height: 30px;
+            background: white;
+            border: 1px solid #999;
+            cursor: pointer;
+        }
+        .cell.alive {
+            background: black;
+        }
+        .controls {
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+        }
+        #status {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Web3 Game of Life NFT - 自动演化版</h1>
+    
+    <div id="wallet-status">
+        钱包状态
+    </div>
+
+    <div class="controls">
+        <button onclick="connectWithBrowserWallet()" style="background-color: #553c9a; color: white;">连接钱包</button>
+        <button onclick="randomize()">随机生成</button>
+        <button onclick="step()">下一代</button>
+        <button onclick="mintNFT()">铸造NFT</button>
+        <button onclick="loadNFT()">加载NFT</button>
+    </div>
+
+    <div class="section">
+        <h2>自动演化控制</h2>
+        <button id="startRandomAutoEvolveBtn" onclick="startRandomAutoEvolution()">随机开始自动演化</button>
+        <button id="startCurrentAutoEvolveBtn" onclick="startCurrentStateAutoEvolution()">从当前状态开始自动演化</button>
+        <button id="stopAutoEvolveBtn" onclick="stopAutoEvolution(true)" disabled>停止自动演化</button>
+        <p>演化用时: <span id="evolutionTimeDisplay">N/A</span></p>
+        <div>
+            <label for="mowordInput">Moword: </label>
+            <input type="text" id="mowordInput" placeholder="请输入文字...">
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>所有已铸造的NFT列表</h2>
+        <button onclick="listAllNFTs()">列出所有NFT</button>
+        <div id="nftListTable" style="margin-top: 10px; max-height: 400px; overflow-y: auto;"></div>
+    </div>
+
+    <div id="game-container">
+        <div id="status">状态信息会显示在这里</div>
+        <p>当前代数: <span id="generationDisplay">0</span></p>
+        <div class="game-board" id="board"></div>
+        
+        <div>
+            NFT ID: <input type="number" id="tokenId" min="1" value="1">
+        </div>
+
+        <div id="status">
+            状态: 准备就绪
+        </div>
+    </div>
+
+    <script>
+        let boardState = Array(10).fill().map(() => Array(10).fill(false));
+        let generationCount = 0;
+        let provider, signer, contract;
+        let isAutoEvolving = false;
+        let autoEvolutionTimer = null;
+        let evolutionStartTime = 0;
+        let lastBoardStateForStabilityCheck = '';
+        
+        // 初始化页面
+        function initBoard() {
+            const board = document.getElementById('board');
+            board.innerHTML = '';
+            for (let i = 0; i < 10; i++) {
+                for (let j = 0; j < 10; j++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell';
+                    cell.onclick = () => toggleCell(i, j);
+                    board.appendChild(cell);
+                }
+            }
+            updateBoard();
+            generationCount = 0;
+            document.getElementById('generationDisplay').innerText = generationCount;
+        }
+
+        // 切换细胞状态
+        function toggleCell(i, j) {
+            boardState[i][j] = !boardState[i][j];
+            updateBoard();
+        }
+
+        // 更新显示
+        function updateBoard() {
+            const cells = document.getElementsByClassName('cell');
+            for (let i = 0; i < 10; i++) {
+                for (let j = 0; j < 10; j++) {
+                    const cell = cells[i * 10 + j];
+                    cell.className = 'cell' + (boardState[i][j] ? ' alive' : '');
+                }
+            }
+        }
+
+        // 随机生成
+        function randomize() {
+            boardState = boardState.map(row => 
+                row.map(() => Math.random() > 0.7)
+            );
+            generationCount = 0;
+            document.getElementById('generationDisplay').innerText = generationCount;
+            updateBoard();
+        }
+
+        // 计算下一代
+        function step() {
+            const newState = boardState.map(row => [...row]);
+            for (let i = 0; i < 10; i++) {
+                for (let j = 0; j < 10; j++) {
+                    const neighbors = countNeighbors(i, j);
+                    if (boardState[i][j]) {
+                        newState[i][j] = neighbors === 2 || neighbors === 3;
+                    } else {
+                        newState[i][j] = neighbors === 3;
+                    }
+                }
+            }
+            boardState = newState;
+            generationCount++;
+            document.getElementById('generationDisplay').innerText = generationCount;
+            updateBoard();
+        }
+
+        // 计算邻居数量
+        function countNeighbors(i, j) {
+            let count = 0;
+            for (let di = -1; di <= 1; di++) {
+                for (let dj = -1; dj <= 1; dj++) {
+                    if (di === 0 && dj === 0) continue;
+                    const ni = (i + di + 10) % 10;
+                    const nj = (j + dj + 10) % 10;
+                    if (boardState[ni][nj]) count++;
+                }
+            }
+            return count;
+        }
+
+        // 使用浏览器钱包连接 (例如 MetaMask)
+        async function connectWithBrowserWallet() {
+            try {
+                console.log("开始使用浏览器钱包连接...");
+                document.getElementById('status').innerText = '正在连接钱包...';
+
+                if (typeof window.ethereum === 'undefined') {
+                    alert('请安装MetaMask或兼容的浏览器钱包!');
+                    document.getElementById('status').innerText = '错误: 未检测到钱包。';
+                    return;
+                }
+
+                // 请求用户授权
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
+                console.log("用户已授权");
+
+                // 创建provider
+                provider = new ethers.BrowserProvider(window.ethereum);
+                console.log("Provider已创建 (BrowserProvider)");
+
+                // 获取signer
+                signer = await provider.getSigner();
+                console.log("Signer已获取");
+                
+                // 获取网络信息
+                const network = await provider.getNetwork();
+                console.log("网络信息:", {
+                    name: network.name,
+                    chainId: network.chainId.toString()
+                });
+
+                // 获取钱包地址和余额
+                const address = await signer.getAddress();
+                const balance = await provider.getBalance(address);
+                console.log("钱包地址:", address);
+                console.log("余额:", ethers.formatEther(balance), "MON");
+
+                // 更新状态显示
+                document.getElementById('wallet-status').innerHTML = 
+                    `钱包已连接: ${address}<br>` +
+                    `余额: ${parseFloat(ethers.formatEther(balance)).toFixed(4)} MON`;
+                document.getElementById('status').innerText = `已连接到钱包: ${address.substring(0,6)}...${address.substring(address.length-4)}`;
+
+                // 初始化合约
+                console.log("初始化合约...");
+                const contractAddress = "0x680c88f57717010661710C5849a47A13694F83A0"; // 合约地址来自 demo.md
+                const abi = [
+                    "function mintGame(string memory initialState) public payable",
+                    "function updateGameState(uint256 tokenId, string memory newState, uint256 generation) public",
+                    "function getGameState(uint256 tokenId) public view returns (string memory boardState, uint256 generation, uint256 timestamp, address player)",
+                    "function ownerOf(uint256 tokenId) view returns (address)"
+                ]; // ABI更新：添加了ownerOf
+                contract = new ethers.Contract(contractAddress, abi, signer);
+                console.log("合约已初始化:", contractAddress);
+                document.getElementById('status').innerText += `\n合约已准备就绪 (地址: ${contractAddress.substring(0,6)}...${contractAddress.substring(contractAddress.length-4)})`;
+
+            } catch (error) {
+                console.error("连接钱包或初始化合约时出错:", error);
+                document.getElementById('status').innerText = '错误: ' + error.message;
+                if (error.code === 4001) { // User rejected the request
+                    document.getElementById('status').innerText = '用户拒绝了连接请求。';
+                }
+                // 清理状态，以防部分连接
+                provider = null;
+                signer = null;
+                contract = null;
+                document.getElementById('wallet-status').innerHTML = '钱包未连接';
+            }
+        }
+
+        // 铸造NFT
+        async function mintNFT() {
+            try {
+                if (!contract) {
+                    throw new Error("请先连接钱包");
+                }
+                console.log("准备铸造NFT...");
+                // console.log("当前游戏状态:", boardState);
+                // const boardString = JSON.stringify(boardState);
+
+                // 临时修改用于测试：
+                const verySimpleBoard = [[false,false,false],[false,true,false],[false,false,false]]; // 一个非常简单的 3x3 板子，只有一个活细胞
+                console.log("使用简化的游戏状态进行测试:", verySimpleBoard);
+                const boardString = JSON.stringify(verySimpleBoard);
+                
+                console.log("发送交易中...");
+                const tx = await contract.mintGame(boardString, {
+                    value: ethers.parseEther("0.01")
+                });
+                console.log("交易已发送:", tx.hash);
+                
+                console.log("等待交易确认...");
+                const receipt = await tx.wait();
+                console.log("交易已确认:", receipt);
+                
+                document.getElementById('status').innerText = 'NFT铸造成功！交易哈希: ' + tx.hash;
+            } catch (error) {
+                console.error("铸造失败:", error);
+                document.getElementById('status').innerText = '铸造失败：' + error.message;
+            }
+        }
+
+        // 加载NFT
+        async function loadNFT() {
+            try {
+                if (!contract) {
+                    throw new Error("请先连接钱包");
+                }
+                const tokenId = document.getElementById('tokenId').value;
+                console.log("加载NFT...");
+                console.log("Token ID:", tokenId);
+                
+                const state = await contract.getGameState(tokenId);
+                console.log("游戏状态:", state);
+                
+                boardState = JSON.parse(state.boardState);
+                updateBoard();
+                
+                document.getElementById('status').innerText = 
+                    `加载成功！\n代数: ${state.generation}\n` +
+                    `所有者: ${state.player}\n` +
+                    `时间戳: ${new Date(Number(state.timestamp) * 1000).toLocaleString()}`;
+            } catch (error) {
+                console.error("加载失败:", error);
+                document.getElementById('status').innerText = '加载失败：' + error.message;
+            }
+        }
+
+        // 列出所有NFTs
+        async function listAllNFTs() {
+            if (!contract || !signer) {
+                document.getElementById('status').innerText = '请先连接钱包。';
+                return;
+            }
+            document.getElementById('status').innerText = '正在加载NFT列表，请稍候...';
+            const nftListTableDiv = document.getElementById('nftListTable');
+            nftListTableDiv.innerHTML = '正在扫描NFTs...';
+
+            const nftData = [];
+            let consecutiveErrors = 0;
+            const MAX_CONSECUTIVE_ERRORS = 5; // Stop if 5 tokens in a row don't exist
+            const MAX_TOKENS_TO_CHECK = 200; // Safety break for the loop
+
+            try {
+                for (let tokenId = 1; tokenId <= MAX_TOKENS_TO_CHECK; tokenId++) {
+                    try {
+                        const owner = await contract.ownerOf(tokenId);
+                        // If ownerOf succeeds, token exists
+                        const gameState = await contract.getGameState(tokenId);
+                        nftData.push({
+                            id: tokenId.toString(),
+                            owner: owner,
+                            generation: gameState.generation.toString(),
+                            timestamp: new Date(Number(gameState.timestamp) * 1000).toLocaleString(),
+                            boardState: gameState.boardState
+                        });
+                        consecutiveErrors = 0; // Reset on success
+                        nftListTableDiv.innerHTML = `正在扫描 Token ID: ${tokenId}... 已找到 ${nftData.length} 个NFTs.`;
+                    } catch (error) {
+                        if (error.code === 'CALL_EXCEPTION' || (error.info && error.info.error && error.info.error.message && error.info.error.message.includes('ERC721NonexistentToken'))) {
+                            consecutiveErrors++;
+                            if (consecutiveErrors >= MAX_CONSECUTIVE_ERRORS) {
+                                console.log(`Stopping scan after ${MAX_CONSECUTIVE_ERRORS} consecutive non-existent tokens at ID ${tokenId}.`);
+                                break;
+                            }
+                        } else {
+                            console.error(`Error fetching data for Token ID ${tokenId}:`, error);
+                        }
+                    }
+                }
+
+                if (nftData.length === 0) {
+                    nftListTableDiv.innerHTML = '没有找到已铸造的NFT。';
+                    document.getElementById('status').innerText = '扫描完成，没有找到NFT。';
+                    return;
+                }
+
+                let tableHTML = '<table border="1"><thead><tr><th>Token ID</th><th>所有者</th><th>代数</th><th>铸造/更新时间</th><th>棋盘状态 (JSON)</th></tr></thead><tbody>';
+                for (const nft of nftData) {
+                    tableHTML += `<tr><td>${nft.id}</td><td>${nft.owner}</td><td>${nft.generation}</td><td>${nft.timestamp}</td><td><pre>${escapeHtml(nft.boardState)}</pre></td></tr>`;
+                }
+                tableHTML += '</tbody></table>';
+                nftListTableDiv.innerHTML = tableHTML;
+                document.getElementById('status').innerText = `扫描完成，共找到 ${nftData.length} 个NFT。`;
+
+            } catch (error) {
+                console.error("列出NFT时出错:", error);
+                document.getElementById('status').innerText = '列出NFT时出错: ' + error.message;
+                nftListTableDiv.innerHTML = '加载NFT列表失败。';
+            }
+        }
+
+        // 自动演化功能
+        async function startRandomAutoEvolution() {
+            if (isAutoEvolving) return;
+            isAutoEvolving = true;
+            document.getElementById('startRandomAutoEvolveBtn').disabled = true;
+            document.getElementById('startCurrentAutoEvolveBtn').disabled = true;
+            document.getElementById('stopAutoEvolveBtn').disabled = false;
+            console.log('startRandomAutoEvolution: Called');
+            document.getElementById('status').innerText = '正在准备自动演化...';
+            document.getElementById('evolutionTimeDisplay').innerText = '计算中...';
+
+            randomize(); // 从随机状态开始
+            updateBoard();
+            generationCount = 0; // 重置代数
+            document.getElementById('generationDisplay').innerText = generationCount; // 更正ID
+            evolutionStartTime = performance.now();
+            lastBoardStateForStabilityCheck = JSON.stringify(boardState);
+            console.log('startRandomAutoEvolution: Initial board state for stability check:', lastBoardStateForStabilityCheck);
+
+            document.getElementById('status').innerText = '自动演化中... (第 ' + generationCount + ' 代)';
+            console.log('startRandomAutoEvolution: Calling evolutionStepLoop for the first time.');
+            evolutionStepLoop();
+        }
+
+        async function startCurrentStateAutoEvolution() {
+            console.log('startCurrentStateAutoEvolution: Called');
+            if (isAutoEvolving) return;
+            isAutoEvolving = true;
+            document.getElementById('startRandomAutoEvolveBtn').disabled = true;
+            document.getElementById('startCurrentAutoEvolveBtn').disabled = true;
+            document.getElementById('stopAutoEvolveBtn').disabled = false;
+            document.getElementById('status').innerText = '正在准备从当前状态自动演化...';
+            document.getElementById('evolutionTimeDisplay').innerText = '计算中...';
+
+            // 不调用 randomize()，直接使用当前 boardState
+            updateBoard(); // 确保显示的是当前状态
+            generationCount = 0; // 重置代数
+            document.getElementById('generationDisplay').innerText = generationCount; // 更正ID
+            evolutionStartTime = performance.now();
+            lastBoardStateForStabilityCheck = JSON.stringify(boardState);
+
+            document.getElementById('status').innerText = '自动演化中 (从当前状态)... (第 ' + generationCount + ' 代)';
+            evolutionStepLoop();
+        }
+
+        function evolutionStepLoop() {
+            console.log('evolutionStepLoop: Entered. isAutoEvolving:', isAutoEvolving, 'Generation:', generationCount);
+            if (!isAutoEvolving) {
+                console.log('evolutionStepLoop: Exiting because isAutoEvolving is false.');
+                return;
+            }
+
+            console.log('evolutionStepLoop: About to call step()');
+            step(); // 计算下一代
+            console.log('evolutionStepLoop: step() finished. About to call updateBoard()');
+            updateBoard(); // 更新显示
+            console.log('evolutionStepLoop: updateBoard() finished.');
+
+            const currentBoardState = JSON.stringify(boardState);
+            const isEmpty = boardState.every(row => row.every(cell => !cell));
+            const isStable = currentBoardState === lastBoardStateForStabilityCheck;
+            console.log('evolutionStepLoop: isEmpty:', isEmpty, 'isStable:', isStable, 'Current state:', currentBoardState);
+            
+            lastBoardStateForStabilityCheck = currentBoardState;
+
+            document.getElementById('status').innerText = '自动演化中... (第 ' + generationCount + ' 代)';
+
+            if (isEmpty || isStable) {
+                let reason = isEmpty ? '棋盘为空' : '达到稳定状态';
+                console.log('evolutionStepLoop: Game ended. Reason:', reason);
+                stopAutoEvolution(false, reason);
+            } else {
+                // 再次检查，确保在安排下一次调用前仍然处于自动演化状态
+                if (isAutoEvolving) {
+                    console.log('evolutionStepLoop: Scheduling next step.');
+                    autoEvolutionTimer = setTimeout(evolutionStepLoop, 100); // 100ms 延迟，可调整
+                } else {
+                    console.log('evolutionStepLoop: Not scheduling next step because isAutoEvolving is false.');
+                }
+            }
+        }
+
+        function stopAutoEvolution(manualStop = false, reason = '手动停止') {
+            const wasEvolvingWhenCalled = isAutoEvolving; // 捕获调用此函数时是否正在演化
+            
+            isAutoEvolving = false; // 关键：设置标志以停止循环
+            clearTimeout(autoEvolutionTimer); // 清除任何挂起的setTimeout
+
+            const endTime = performance.now();
+            let durationSecondsDisplay = "N/A";
+            let finalGenerationCount = generationCount;
+
+            if (evolutionStartTime > 0) { // 如果演化实际已开始
+                const durationMs = endTime - evolutionStartTime;
+                durationSecondsDisplay = (durationMs / 1000).toFixed(2) + " 秒";
+            } else { // 演化未开始或已被重置
+                finalGenerationCount = 0; // 如果未开始，则代数为0
+            }
+
+            document.getElementById('evolutionTimeDisplay').innerText = durationSecondsDisplay;
+
+            if (manualStop) {
+                if (evolutionStartTime === 0) { // 在真正开始前点击了停止
+                    document.getElementById('status').innerText = '自动演化已停止 (未开始)。';
+                } else {
+                    document.getElementById('status').innerText = `自动演化已手动停止。共 ${finalGenerationCount} 代，用时 ${durationSecondsDisplay}。`;
+                }
+            } else { // 自然停止
+                // 即使是自然停止，也可能是在被告知手动停止的同一事件循环中发生的
+                // 主要依赖 reason 来区分
+                document.getElementById('status').innerText = `自动演化结束: ${reason}。共 ${finalGenerationCount} 代，用时 ${durationSecondsDisplay}。`;
+            }
+            
+            document.getElementById('startRandomAutoEvolveBtn').disabled = false;
+            document.getElementById('startCurrentAutoEvolveBtn').disabled = false;
+            document.getElementById('stopAutoEvolveBtn').disabled = true;
+            // evolutionStartTime 在 startAutoEvolution 中重置，确保每次开始都是新的计时
+        }
+
+        function escapeHtml(unsafe) {
+            if (unsafe === null || typeof unsafe === 'undefined') return '';
+            return unsafe
+                 .toString()
+                 .replace(/&/g, "&amp;")
+                 .replace(/</g, "&lt;")
+                 .replace(/>/g, "&gt;")
+                 .replace(/"/g, "&quot;")
+                 .replace(/'/g, "&#039;");
+        }
+
+        // 页面加载完成后初始化
+        window.onload = () => {
+            initBoard();
+        };
+    </script>
+</body>
+</html>
