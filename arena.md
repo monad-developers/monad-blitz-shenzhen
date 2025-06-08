@@ -1,5 +1,5 @@
 ### 项目名称
-<必须填写>
+MonadArena
 ### 团队信息
 - **Seven:** 邮箱: <wangmbo962@gmail.com>
 - **Van1sa:** 邮箱: <va1s00xxm@gmail.com>
