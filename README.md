@@ -1,40 +1,80 @@
-# Monad Blitz 深圳 提交流程
+# 🏗 Scaffold-ETH 2
 
-1. 查看 `monad-blitz-shenzhen` 仓库 ([此处链接](https://github.com/monad-developers/monad-blitz-shenzhen)) 并且fork.
+<h4 align="center">
+  <a href="https://docs.scaffoldeth.io">Documentation</a> |
+  <a href="https://scaffoldeth.io">Website</a>
+</h4>
 
-    ![image](https://github.com/user-attachments/assets/cbfb7954-18a4-4041-822a-3785adaded8e)
+🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on the Ethereum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
 
-    
-2. 名字设定为你的项目名，并提供一句简短描述，确保你正在分叉 main 分支，然后点击“Create fork”。
-    
-![image](https://github.com/user-attachments/assets/435f6c94-3ce3-4778-b71c-6073fe793c5c)
+⚙️ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, and Typescript.
 
-    
-3. 在你的fork项目中，你可以进行任意修改：添加项目代码、创建分支、更新README.md文件内容，所有部分均可自由调整变更。
+- ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
+- 🪝 **[Custom hooks](https://docs.scaffoldeth.io/hooks/)**: Collection of React hooks wrapper around [wagmi](https://wagmi.sh/) to simplify interactions with smart contracts with typescript autocompletion.
+- 🧱 [**Components**](https://docs.scaffoldeth.io/components/): Collection of common web3 components to quickly build your frontend.
+- 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
+- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
 
-4. 当你完成项目并准备提交时，请创建一个拉取请求。
-    
-![image](https://github.com/user-attachments/assets/e0319914-4610-4d30-af30-54db04003ec9)
+![Debug Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/b237af0c-5027-4849-a5c1-2e31495cccb1)
 
-    
-![image](https://github.com/user-attachments/assets/a514d935-5e43-4ba0-8da8-251aefb3a5ed)
+## Requirements
 
-    
+Before you begin, you need to install the following tools:
 
-5. **确保您向正确的仓库创建拉取请求 `monad-developers/monad-blitz-shenzhen`**
-    
-![image](https://github.com/user-attachments/assets/68702e75-de4d-40b9-9bd4-a2dfe5f2925b)
+- [Node (>= v20.18.3)](https://nodejs.org/en/download/)
+- Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
+- [Git](https://git-scm.com/downloads)
 
-    
-6. 确保你看到了 **“Able to merge” 字样**, 然后点击 `Create Pull Request` 创建请求
-    
-![image](https://github.com/user-attachments/assets/0b06f6ce-443e-48de-8e63-7a701a6a77ed)
+## Quickstart
 
-    
-7. 为您的合并请求提供项目名称和项目描述（尽可能详细地描述您的项目，**甚至可以添加视频演示链接**），然后点击`Create pull request`。
-    
-![image](https://github.com/user-attachments/assets/58f58822-7c1a-4ddf-975d-70c955ce549d)
+To get started with Scaffold-ETH 2, follow the steps below:
 
-    
-8. 最后通过检查创建合并请求的仓库以及合并请求的源分支和目标分支，来确认您是否正确创建了合并请求！
- ![image](https://github.com/user-attachments/assets/f507b069-82ae-4cbd-a864-f16ec4449d8d)
+1. Install dependencies if it was skipped in CLI:
+
+```
+cd my-dapp-example
+yarn install
+```
+
+2. Run a local network in the first terminal:
+
+```
+yarn chain
+```
+
+This command starts a local Ethereum network using Hardhat. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in `packages/hardhat/hardhat.config.ts`.
+
+3. On a second terminal, deploy the test contract:
+
+```
+yarn deploy
+```
+
+This command deploys a test smart contract to the local network. The contract is located in `packages/hardhat/contracts` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/hardhat/deploy` to deploy the contract to the network. You can also customize the deploy script.
+
+4. On a third terminal, start your NextJS app:
+
+```
+yarn start
+```
+
+Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the `Debug Contracts` page. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
+
+Run smart contract test with `yarn hardhat:test`
+
+- Edit your smart contracts in `packages/hardhat/contracts`
+- Edit your frontend homepage at `packages/nextjs/app/page.tsx`. For guidance on [routing](https://nextjs.org/docs/app/building-your-application/routing/defining-routes) and configuring [pages/layouts](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts) checkout the Next.js documentation.
+- Edit your deployment scripts in `packages/hardhat/deploy`
+
+
+## Documentation
+
+Visit our [docs](https://docs.scaffoldeth.io) to learn how to start building with Scaffold-ETH 2.
+
+To know more about its features, check out our [website](https://scaffoldeth.io).
+
+## Contributing to Scaffold-ETH 2
+
+We welcome contributions to Scaffold-ETH 2!
+
+Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
