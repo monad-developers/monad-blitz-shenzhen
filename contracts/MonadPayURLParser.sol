@@ -131,7 +131,7 @@ contract MonadPayURLParser {
      * @dev 解析金额字符串 (支持小数)
      * 注意：这是简化版本，生产环境需要更精确的数值解析
      */
-    function parseAmount(string memory amountStr) public pure returns (uint256) {
+    function parseAmount(string memory /* amountStr */) public pure returns (uint256) {
         // 简化实现 - 假设金额以wei为单位
         // 实际应用中需要支持小数点和不同精度
         return 1000000000000000000; // 示例：1 ETH/MONAD

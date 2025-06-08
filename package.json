@@ -1,41 +1,39 @@
 {
-  "name": "monad-payment-system",
+  "name": "monad-pay",
   "version": "1.0.0",
-  "description": "Monad区块链上的多功能支付系统合约",
-  "main": "index.js",
+  "description": "MonadPay - 去中心化支付系统",
+  "main": "start-server.js",
   "scripts": {
-    "compile": "hardhat compile",
-    "test": "hardhat test",
-    "test:single": "hardhat test test/SinglePayment.test.js",
-    "test:watch": "hardhat test --watch",
-    "deploy": "hardhat run deploy.js",
-    "deploy:testnet": "hardhat run deploy.js --network monad_testnet",
-    "deploy:mainnet": "hardhat run deploy.js --network monad_mainnet",
-    "deploy:monad": "hardhat run scripts/deploy-monad.js --network monad_testnet", 
-    "verify:testnet": "hardhat verify --network monad_testnet",
-    "verify:mainnet": "hardhat verify --network monad_mainnet",
-    "demo": "hardhat run scripts/deploy-and-demo.js",
-    "demo:testnet": "hardhat run scripts/deploy-and-demo.js --network monad_testnet",
-    "example": "hardhat run usage-examples.js",
-    "clean": "hardhat clean",
-    "coverage": "hardhat coverage"
+    "test": "npx hardhat test",
+    "start": "node start-server.js",
+    "dev": "node start-server.js",
+    "compile": "npx hardhat compile",
+    "deploy": "npx hardhat run deploy.js --network monad_testnet",
+    "build": "npx hardhat compile"
   },
-  "keywords": [
-    "solidity",
-    "ethereum",
-    "monad",
-    "payment",
-    "subscription",
-    "smart-contract",
-    "defi"
-  ],
-  "author": "Monad Payment System",
+  "keywords": ["blockchain", "payment", "monad", "ethereum", "web3"],
+  "author": "MonadPay Team",
   "license": "MIT",
   "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
     "@nomicfoundation/hardhat-toolbox": "^3.0.0",
-    "@openzeppelin/contracts": "^4.9.0",
-    "hardhat": "^2.17.0",
-    "ethers": "^6.1.0"
+    "@nomicfoundation/hardhat-verify": "^1.0.0",
+    "@typechain/ethers-v6": "^0.4.0",
+    "@typechain/hardhat": "^8.0.0",
+    "@types/chai": "^4.2.0",
+    "@types/mocha": ">=9.1.0",
+    "chai": "^4.2.0",
+    "hardhat": "^2.17.1",
+    "hardhat-gas-reporter": "^1.0.8",
+    "solidity-coverage": "^0.8.1",
+    "typechain": "^8.3.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.9.0",
+    "dotenv": "^16.3.1",
+    "ethers": "^6.7.0",
+    "web3-utils": "^4.0.7"
+  }
 } 

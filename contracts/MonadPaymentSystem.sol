@@ -227,7 +227,7 @@ contract MonadPaymentSystem is ReentrancyGuard, Ownable, Pausable {
         address recipient,
         address token,
         uint256 amount,
-        string memory label
+        string memory /* label */
     ) internal {
         uint256 feeAmount = (amount * platformFee) / 10000;
         uint256 netAmount = amount - feeAmount;
