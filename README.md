@@ -1,4 +1,6 @@
-## DEMO [(https://claude.ai/public/artifacts/78017922-1f0a-47ac-a89d-b490f3fa1658)]
+## pitch [https://claude.ai/public/artifacts/78017922-1f0a-47ac-a89d-b490f3fa1658]
+
+## DEMO [https://claude.ai/public/artifacts/1deb432b-f375-4c1b-a32d-e042d0811303]
 
 “让每一个 AI Agent 都拥有支付意志与道德自省能力，在人机共生系统中成为可信经济体。”
 ---
